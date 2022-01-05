@@ -1,0 +1,32 @@
+.cart {
+  width: auto;
+  padding: 5px;
+  display: block;
+  height: 3rem;
+  float: right;
+  margin-right: 1rem;
+  position: relative;
+}
+
+.cart i {
+  font-size: 1.3rem;
+}
+
+.quantity {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+  top: 0;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  line-height: 15px;
+  font-size: 10px;
+}
+
+.total {
+  margin-left: 3px;
+  font-size: 1.3rem;
+}
