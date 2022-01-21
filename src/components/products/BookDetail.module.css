@@ -1,0 +1,91 @@
+.container {
+  width: 114rem;
+  margin: 5rem auto;
+  display: flex;
+}
+
+.image {
+  width: 30rem;
+  height: 45rem;
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  margin-left: 5rem;
+  max-width: 60%;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.description {
+  font-size: 2.2rem;
+  max-height: 60rem;
+  overflow: hidden;
+  font-weight: 500;
+  margin-bottom: 5rem;
+  line-height: 1.5;
+}
+
+.price {
+  text-align: center;
+  color: rgb(189, 49, 49);
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.add-to-cart label {
+  font-size: 2rem;
+  margin-right: 3rem;
+  font-weight: 600;
+}
+
+.add-to-cart input {
+  height: 100%;
+  font-size: 1.7rem;
+  width: 5rem;
+  text-align: center;
+}
+
+.control {
+  height: 3rem;
+}
+
+.btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.btn-quantity {
+  position: relative;
+  top: 3px;
+  font-size: 2rem;
+  font-weight: 500;
+  width: 3rem;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  line-height: 3rem;
+}
+
+.actions {
+  margin-top: 3rem;
+}
+
+.btn-submit {
+  color: white;
+  width: 20rem;
+  height: 4rem;
+  padding: 1rem 2rem;
+  background-color: #840000;
+}

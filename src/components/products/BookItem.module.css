@@ -1,0 +1,43 @@
+.item {
+  border-radius: 0.5rem;
+  width: calc(20% - 5rem);
+  margin-left: 5rem;
+  margin-bottom: 5rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  height: 25rem;
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  padding: 1.5rem 1rem 3rem;
+}
+
+.title a {
+  color: black;
+  font-weight: 700;
+  font-size: 1.7rem;
+  margin-bottom: 3rem;
+  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical; /*hướng của dòng chữ theo chiều: dọc*/
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.price {
+  position: absolute;
+  color: rgb(189, 49, 49);
+  font-size: 2rem;
+  font-weight: 700;
+  bottom: 2rem;
+  right: 2rem;
+}

@@ -2,4 +2,39 @@
   font-size: 1.3rem;
   float: right;
   height: 100%;
+  transition: all linear 0.1s;
+  color: #840000;
+}
+
+.search input {
+  width: 20rem;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 5rem;
+  padding-left: 2rem;
+  margin-right: 1rem;
+  font-size: 1.5rem;
+  border-radius: 100rem;
+}
+
+.search:hover {
+  transition: all linear 0.1s;
+  cursor: pointer;
+  color: #d14031;
+}
+
+.search-btn {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-size: 1.5rem;
+  height: 5rem;
+  background-color: #242323;
+  color: white;
+  width: 5rem;
+  border-radius: 100rem;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }

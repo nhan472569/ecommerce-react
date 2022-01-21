@@ -1,0 +1,7 @@
+.container {
+  width: 114rem;
+  margin: 10rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  transform: translateX(-3rem);
+}
