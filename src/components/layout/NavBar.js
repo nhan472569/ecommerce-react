@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 
 import CartButton from '../cart/CartButton';
-import classes from './NavBar.module.css';
 import SearchButton from './SearchButton';
+import Auth from './Auth';
+import classes from './NavBar.module.css';
 
-const NavBar = () => {
+const NavBar = props => {
   return (
     <header className={classes.header}>
       <div className={classes.logo}>
@@ -62,6 +63,7 @@ const NavBar = () => {
           </li>
         </ul>
       </nav>
+      <Auth onLogin={props.onLogin} onSignup={props.onSignup} />
       <SearchButton />
       <CartButton />
     </header>
