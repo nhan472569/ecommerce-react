@@ -18,7 +18,7 @@ const SearchButton = () => {
     <form className={classes.search} onSubmit={onSearchHandler}>
       <input
         type="text"
-        placeholder="search"
+        placeholder="Tìm kiếm"
         name="search"
         ref={searchInputRef}
       ></input>

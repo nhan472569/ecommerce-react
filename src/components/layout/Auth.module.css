@@ -6,8 +6,9 @@
 }
 
 .login,
-.signup {
-  font-size: 1.4rem;
+.signup,
+.logout {
+  font-size: 1.2rem;
   width: 7rem;
   height: 5rem;
   background-color: transparent;
@@ -24,4 +25,11 @@
 .signup {
   background-color: #000;
   color: #fff;
+}
+
+.logout {
+  margin-left: 2rem;
+  background-color: #000;
+  color: #fff;
+  width: 8rem;
 }

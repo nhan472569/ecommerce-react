@@ -7,7 +7,12 @@ const Backdrop = props => {
 };
 
 const ModalOverlay = props => {
-  return <div className={classes.modal}>{props.children}</div>;
+  return (
+    <div className={classes.modal}>
+      <div className={classes.close}></div>
+      {props.children}
+    </div>
+  );
 };
 
 const overlayEl = document.getElementById('overlays');

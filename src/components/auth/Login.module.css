@@ -17,33 +17,8 @@
 .control {
   width: 100%;
 }
-.form input {
-  color: #000;
-  width: 100%;
-  margin-bottom: 2rem;
-  height: 3rem;
-  font-size: 1.6rem;
-  padding: 3px 0 3px 8px;
-  border: none;
-  border-bottom: 1px solid #000;
-}
-
-.form input:focus {
-  outline: none;
-}
 
 .actions {
   width: 100%;
   text-align: center;
-}
-
-.login {
-  margin-top: 2rem;
-  padding: 1rem 3rem;
-  font-size: 1.6rem;
-  display: inline-block;
-  border: none;
-  background-color: #840000;
-  color: #fff;
-  cursor: pointer;
 }

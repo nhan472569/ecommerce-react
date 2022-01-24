@@ -1,23 +1,38 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { authAction } from '../../store';
+
 import classes from './Auth.module.css';
 
 const Auth = props => {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(state => state.isLoggedIn);
+
   const loginHandler = () => {
     props.onLogin();
   };
   const signupHandler = () => {
     props.onSignup();
   };
-  return (
-    <div className={classes.auth}>
+  const logoutHandler = () => {
+    dispatch(authAction.logout());
+  };
+
+  const authContent = !isLoggedIn ? (
+    <>
       <button className={classes.login} onClick={loginHandler}>
-        Log in
+        Đăng nhập
       </button>
       <button className={classes.signup} onClick={signupHandler}>
-        Sign up
+        Đăng ký
       </button>
-    </div>
+    </>
+  ) : (
+    <button className={classes.logout} onClick={logoutHandler}>
+      Đăng xuất
+    </button>
   );
+  return <div className={classes.auth}>{authContent}</div>;
 };
 
 export default Auth;
