@@ -8,6 +8,7 @@ import BookDetail from './components/products/BookDetail';
 import BooksList from './components/products/BooksList';
 import Cart from './components/cart/Cart';
 import LoadingSpinner from './components/UI/LoadingSpinner';
+import NotFound from './components/layout/NotFound';
 
 function App() {
   const [loadedBooks, setLoadedBooks] = useState([]);
@@ -60,6 +61,7 @@ function App() {
           }
         />
         <Route path="cart" element={<Cart />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </React.Fragment>
   );
