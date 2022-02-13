@@ -1,6 +1,6 @@
 .container {
   width: 114rem;
-  margin: 15rem auto;
+  margin: 15rem auto 0;
   display: flex;
 }
 
@@ -87,5 +87,5 @@
   width: 20rem;
   height: 4rem;
   padding: 1rem 2rem;
-  background-color: #840000;
+  background-color: #1c1d1f;
 }

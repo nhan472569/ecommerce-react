@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+
+import CommentBox from '../comments/CommentBox';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import classes from './BookDetail.module.css';
 
@@ -50,7 +52,7 @@ const BookDetail = props => {
         <img src={loadedBookDetail.image} alt={loadedBookDetail.name}></img>
       </div>
       <div className={classes.content}>
-        <h2 className={classes.title}>{loadedBookDetail.name}</h2>
+        <h1 className={classes.title}>{loadedBookDetail.name}</h1>
         <p className={classes.price}>{`${loadedBookDetail.price.toLocaleString(
           'vi-VN'
         )}₫`}</p>
@@ -86,10 +88,13 @@ const BookDetail = props => {
   );
 
   return (
-    <section className={classes.container}>
-      {isLoading && <LoadingSpinner />}
-      {!isLoading && detailContent}
-    </section>
+    <>
+      <section className={classes.container}>
+        {isLoading && <LoadingSpinner />}
+        {!isLoading && detailContent}
+      </section>
+      {!isLoading && <CommentBox productId={productId} />}
+    </>
   );
 };
 

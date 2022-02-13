@@ -18,6 +18,10 @@
   border-radius: 100rem;
 }
 
+.search input:focus {
+  outline: none;
+}
+
 .search:hover {
   transition: all linear 0.1s;
   cursor: pointer;
@@ -30,7 +34,7 @@
   outline: none;
   font-size: 1.5rem;
   height: 5rem;
-  background-color: #242323;
+  background-color: #1c1d1f;
   color: white;
   width: 5rem;
   border-radius: 100rem;

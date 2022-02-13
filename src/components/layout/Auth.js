@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { authAction } from '../../store';
+import { authAction } from '../../store/auth-context';
 
 import classes from './Auth.module.css';
 
 const Auth = props => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(state => state.isLoggedIn);
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
   const loginHandler = () => {
     props.onLogin();

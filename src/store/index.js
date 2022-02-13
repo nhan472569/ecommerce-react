@@ -1,24 +1,10 @@
-import { createSlice, configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 
-const authSlice = createSlice({
-  name: 'auth',
-  initialState: {
-    isLoggedIn: false,
-    user: {},
-  },
-  reducers: {
-    login(state, user) {
-      state.isLoggedIn = true;
-      state.user = user;
-    },
-    logout(state) {
-      state.isLoggedIn = false;
-      state.user = {};
-    },
-  },
+import AuthReducer from './auth-context';
+import CartReducer from './cart-context';
+
+const store = configureStore({
+  reducer: { auth: AuthReducer, cart: CartReducer },
 });
 
-const store = configureStore({ reducer: authSlice.reducer });
-
-export const authAction = authSlice.actions;
 export default store;
