@@ -28,6 +28,11 @@ code {
     monospace;
 }
 
+.container {
+  width: 80%;
+  margin: 15rem auto;
+}
+
 .clearfix::after {
   content: '';
   clear: both;

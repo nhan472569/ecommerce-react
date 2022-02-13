@@ -10,13 +10,25 @@ const CommentForm = props => {
 
   const submitCommentHandler = async e => {
     e.preventDefault();
-    let comment = commentInputRef.current.value;
     try {
+      const commentRaw = commentInputRef.current.value;
+      const comment = commentRaw.trim();
+      if (!user._id) {
+        throw new Error('Vui lòng đăng nhập trước khi bình luận!');
+      }
+
+      if (comment.trim() === '') {
+        throw new Error('Bình luận không thể để trống!');
+      }
+
       const response = await fetch(
         `http://do-an-nganh-nodejs.herokuapp.com/api/products/comment/${productId}`,
         {
           method: 'POST',
-          body: JSON.stringify({ content: comment, userID: user.payload._id }),
+          body: JSON.stringify({
+            content: comment,
+            userID: user.payload._id,
+          }),
           headers: { 'Content-Type': 'application/json' },
         }
       );
@@ -27,7 +39,7 @@ const CommentForm = props => {
       commentInputRef.current.value = '';
       onAddComment();
     } catch (error) {
-      console.log(error.message);
+      alert(error.message);
     }
   };
 

@@ -14,13 +14,14 @@
   transform: translateY(-50%);
 }
 
-.cart:hover {
+.cart:hover i {
   color: #d14031;
   transition: all linear 0.1s;
   cursor: pointer;
 }
 .cart i {
   font-size: 2.5rem;
+  color: #1c1d1f;
 }
 
 .quantity {
@@ -40,4 +41,5 @@
 .total {
   margin-left: 3px;
   font-size: 2rem;
+  color: #1c1d1f;
 }

@@ -1,0 +1,46 @@
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 2rem;
+  color: #1c1d1f;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.head th {
+  padding: 0.5rem;
+  font-size: 2rem;
+  padding-bottom: 2rem;
+}
+
+.summary {
+  width: 100%;
+  text-align: right;
+}
+
+.total {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.total span:last-child {
+  color: #840000;
+  font-size: 3rem;
+}
+
+.checkout {
+  width: 10rem;
+  height: 5rem;
+  padding: 0.5rem 1rem;
+  background-color: #1c1d1f;
+  color: #fff;
+}

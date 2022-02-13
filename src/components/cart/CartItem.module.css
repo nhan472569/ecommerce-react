@@ -1,0 +1,38 @@
+.item td {
+  padding: 0.5rem;
+}
+
+.namebox {
+  max-width: 40vw;
+}
+
+.namebox a {
+  width: 100%;
+  display: flex;
+}
+
+.image {
+  width: 15%;
+  height: 100%;
+  margin-right: 1rem;
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+}
+
+.name {
+  width: calc(85% - 1rem);
+  color: #1c1d1f;
+  text-align: left;
+}
+
+.delete {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: none;
+  font-size: 1.5rem;
+  color: #d14031;
+}

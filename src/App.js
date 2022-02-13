@@ -6,6 +6,7 @@ import Signup from './components/auth/Signup';
 import NavBar from './components/layout/NavBar';
 import BookDetail from './components/products/BookDetail';
 import BooksList from './components/products/BooksList';
+import Cart from './components/cart/Cart';
 import LoadingSpinner from './components/UI/LoadingSpinner';
 
 function App() {
@@ -57,7 +58,8 @@ function App() {
               <BooksList books={loadedBooks} />
             </Fragment>
           }
-        ></Route>
+        />
+        <Route path="cart" element={<Cart />} />
       </Routes>
     </React.Fragment>
   );
