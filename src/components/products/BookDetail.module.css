@@ -88,5 +88,11 @@
   width: 20rem;
   height: 4rem;
   padding: 1rem 2rem;
-  background-color: #1c1d1f;
+  background-color: #840000;
+  transition: all linear 0.1s;
+  border-radius: 100rem;
+}
+
+.btn-submit:hover {
+  background-color: #d14031;
 }

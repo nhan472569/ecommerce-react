@@ -6,20 +6,20 @@
 }
 
 .login,
-.signup,
-.logout {
+.signup {
   font-size: 1.2rem;
   width: 7rem;
   height: 5rem;
   background-color: transparent;
   border: none;
   cursor: pointer;
+  transition: all linear 0.1s;
+  border-radius: 100rem;
 }
 
 .login {
   margin-right: 1rem;
   margin-left: 2rem;
-  border: 1px solid rgb(0, 0, 0);
 }
 
 .signup {
@@ -27,9 +27,10 @@
   color: #fff;
 }
 
-.logout {
-  margin-left: 2rem;
-  background-color: #1c1d1f;
-  color: #fff;
-  width: 8rem;
+.login:hover {
+  background-color: #eee;
+}
+
+.signup:hover {
+  background-color: rgb(28, 29, 31, 0.9);
 }

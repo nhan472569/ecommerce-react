@@ -2,6 +2,10 @@
   padding: 0.5rem;
 }
 
+.item:hover {
+  background-color: #f5f5f5;
+}
+
 .namebox {
   max-width: 40vw;
 }
@@ -42,6 +46,10 @@
   text-align: center;
   padding: 0.5rem 0;
   border: none;
+  border-radius: 0;
+}
+
+.quantity:focus {
   outline: none;
 }
 
@@ -51,8 +59,9 @@
   height: 2.9rem;
   line-height: 2.9rem;
   text-align: center;
-  background-color: #d14031;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
   display: inline-block;
   cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
