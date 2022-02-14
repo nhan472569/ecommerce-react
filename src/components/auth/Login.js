@@ -88,9 +88,9 @@ const Login = props => {
       const data = await response.json();
       if (!data.status) {
         setIsLoading(false);
-        throw new Error('Sai thông tin đăng nhập!');
+        throw new Error(data.message);
       }
-      console.log(data);
+
       dispatch(authAction.login(data.user));
       setIsLoading(false);
       props.onClose();

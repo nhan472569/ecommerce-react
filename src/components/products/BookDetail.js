@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { cartAction } from '../../store/cart-context';
 import CommentBox from '../comments/CommentBox';
@@ -20,7 +20,6 @@ const BookDetail = props => {
   const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
-  const cart = useSelector(state => state.cart);
 
   const params = useParams();
   const { productId } = params;
@@ -55,9 +54,7 @@ const BookDetail = props => {
 
   const addToCartHandler = e => {
     e.preventDefault();
-    console.log(loadedBookDetail);
     dispatch(cartAction.addItem({ ...loadedBookDetail, quantity }));
-    console.log(cart);
   };
 
   const detailContent = (

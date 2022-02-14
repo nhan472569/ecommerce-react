@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { authAction } from '../../store/auth-context';
+import ProfileButton from '../profile/ProfileButton';
 
 import classes from './Auth.module.css';
 
@@ -28,9 +29,7 @@ const Auth = props => {
       </button>
     </>
   ) : (
-    <button className={classes.logout} onClick={logoutHandler}>
-      Đăng xuất
-    </button>
+    <ProfileButton onLogout={logoutHandler} />
   );
   return <div className={classes.auth}>{authContent}</div>;
 };

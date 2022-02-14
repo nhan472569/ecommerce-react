@@ -8,7 +8,11 @@ const CommentsList = props => {
         <CommentItem
           key={comment._id}
           avatar={comment.user.avatar}
-          username={comment.user.email}
+          username={
+            comment.user.firstName && comment.user.lastName
+              ? comment.user.firstName + ' ' + comment.user.lastName
+              : comment.user.email
+          }
           content={comment.content}
           date={comment.commentDate}
         />

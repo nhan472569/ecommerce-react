@@ -84,23 +84,35 @@ const Signup = props => {
       return;
     }
     setIsLoading(true);
-    const response = await fetch(
-      'https://do-an-nganh-nodejs.herokuapp.com/api/auth/register',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: enteredEmail,
-          password: enteredPassword,
-          retypePassword: enteredPassword2,
-        }),
+    try {
+      const response = await fetch(
+        'https://do-an-nganh-nodejs.herokuapp.com/api/auth/register',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: enteredEmail,
+            password: enteredPassword,
+            retypePassword: enteredPassword2,
+          }),
+        }
+      );
+      const data = await response.json();
+
+      if (!response.ok) {
+        setIsLoading(false);
+        throw new Error('Something went wrong!');
       }
-    );
-    const data = await response.json();
-    setIsLoading(false);
-    alert(data.message);
+
+      if (!data.status) {
+        setIsLoading(false);
+        throw new Error(data.message);
+      }
+    } catch (error) {
+      alert(error.message);
+    }
     props.onClose();
   };
 

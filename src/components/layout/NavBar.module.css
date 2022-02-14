@@ -55,7 +55,9 @@
 }
 
 .nav__item:hover .subnav__items {
-  display: block;
+  opacity: 1;
+  pointer-events: all;
+  top: 7.5rem;
 }
 .nav a {
   transition: all linear 0.1s;
@@ -70,16 +72,17 @@
 /* Sub nav */
 .subnav__items {
   background-color: white;
-  display: none;
+  opacity: 0;
+  pointer-events: none;
   position: absolute;
-  top: 7.5rem;
+  top: 8.5rem;
   left: 0;
   /* height: auto; */
   min-width: 200px;
   padding: 20px 20px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
   z-index: 1;
-  transition: all linear 0.5s;
+  transition: all linear 0.1s;
 }
 
 .subnav__item {

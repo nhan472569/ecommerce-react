@@ -9,24 +9,49 @@ const CartItem = props => {
 
   const dispatch = useDispatch();
   const deleteItem = () => {
-    dispatch(cartAction.deleteItem({ _id: productId }));
+    if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
+      dispatch(cartAction.deleteItem({ _id: productId }));
+    } else {
+      return;
+    }
+  };
+
+  const decreaseQuantity = () => {
+    if (quantity === 1) {
+      if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
+        dispatch(cartAction.decreaseQuantity({ _id: productId }));
+      } else {
+        return;
+      }
+    }
+    dispatch(cartAction.decreaseQuantity({ _id: productId }));
+  };
+
+  const increaseQuantity = () => {
+    dispatch(cartAction.increaseQuantity({ _id: productId }));
   };
 
   return (
     <tr className={classes.item}>
       <td className={classes.namebox}>
-        <Link to={`/products/${props.productId}`}>
+        <Link to={`/products/${productId}`}>
           <div className={classes.image}>
-            <img src={props.imageUrl} alt={props.name} />
+            <img src={imageUrl} alt={name} />
           </div>
-          <div className={classes.name}>{props.name}</div>
+          <div className={classes.name}>{name}</div>
         </Link>
       </td>
-      <td>{props.price.toLocaleString('vi-VN')} ₫</td>
-      <td>{props.quantity}</td>
+      <td>{price.toLocaleString('vi-VN')} ₫</td>
       <td>
-        {Number(`${props.price * props.quantity}`).toLocaleString('vi-VN')} ₫
+        <span className={classes.decrease} onClick={decreaseQuantity}>
+          -
+        </span>
+        <input type="text" value={quantity} className={classes.quantity} />
+        <span className={classes.increase} onClick={increaseQuantity}>
+          +
+        </span>
       </td>
+      <td>{Number(`${price * quantity}`).toLocaleString('vi-VN')} ₫</td>
       <td>
         <button className={classes.delete} onClick={deleteItem}>
           Xóa

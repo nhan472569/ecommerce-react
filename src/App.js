@@ -1,6 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router';
 import { Navigate } from 'react-router-dom';
+
+import { authAction } from './store/auth-context';
+import { useDispatch } from 'react-redux';
+
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
 import NavBar from './components/layout/NavBar';
@@ -17,6 +21,8 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const getBooksData = async () => {
       const response = await fetch(
@@ -28,7 +34,26 @@ function App() {
       setIsLoading(false);
     };
     getBooksData();
-  }, []);
+
+    const getUserData = async () => {
+      setIsLoading(true);
+      const response = await fetch(
+        `https://do-an-nganh-nodejs.herokuapp.com/api/user/info?userID=${localStorage.getItem(
+          'userID'
+        )}`
+      );
+      const data = await response.json();
+
+      dispatch(authAction.login(data));
+      setIsLoading(false);
+    };
+    if (
+      localStorage.getItem('userID') &&
+      localStorage.getItem('userID') !== undefined
+    ) {
+      getUserData();
+    }
+  }, [dispatch]);
 
   const onLoginHandler = () => {
     setIsLogin(true);

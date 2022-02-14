@@ -36,3 +36,23 @@
   font-size: 1.5rem;
   color: #d14031;
 }
+
+.quantity {
+  width: 3rem;
+  text-align: center;
+  padding: 0.5rem 0;
+  border: none;
+  outline: none;
+}
+
+.decrease,
+.increase {
+  width: 3rem;
+  height: 2.9rem;
+  line-height: 2.9rem;
+  text-align: center;
+  background-color: #d14031;
+  color: #fff;
+  display: inline-block;
+  cursor: pointer;
+}

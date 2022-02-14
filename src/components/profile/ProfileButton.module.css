@@ -1,0 +1,84 @@
+.thumb {
+  position: relative;
+  margin-left: 2rem;
+  height: 8rem;
+}
+
+.thumb:hover .feature {
+  opacity: 1;
+  pointer-events: all;
+  top: 8rem;
+}
+
+.avatar {
+  position: inherit;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+
+.feature {
+  list-style-type: none;
+  text-align: left;
+  width: 15rem;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: all linear 0.1s;
+  left: -7.5rem;
+  top: 9rem;
+  font-size: 2rem;
+  color: #000;
+  background-color: #fff;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 1rem;
+}
+
+.feature li {
+  margin-bottom: 2rem;
+}
+
+.feature li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: #000;
+}
+
+.feature li:last-child {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.feature li:last-child::before {
+  content: '';
+  display: block;
+  width: 15rem;
+  height: 2px;
+  background-color: #1d1d1d;
+  position: absolute;
+  top: -1rem;
+  left: -1rem;
+}
+
+.logout {
+  width: 100%;
+  height: 3rem;
+  background-color: #1c1d1f;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}

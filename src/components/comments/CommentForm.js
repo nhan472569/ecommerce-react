@@ -27,7 +27,7 @@ const CommentForm = props => {
           method: 'POST',
           body: JSON.stringify({
             content: comment,
-            userID: user.payload._id,
+            userID: user._id,
           }),
           headers: { 'Content-Type': 'application/json' },
         }

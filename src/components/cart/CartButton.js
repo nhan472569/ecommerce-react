@@ -12,9 +12,9 @@ const CartButton = () => {
         <i class="fas fa-shopping-cart"></i>
 
         <span className={classes.quantity}>{quantity}</span>
-        <span className={classes.total}>
+        {/* <span className={classes.total}>
           {cart.total.toLocaleString('vi-VN')}₫
-        </span>
+        </span> */}
       </Link>
     </div>
   );
