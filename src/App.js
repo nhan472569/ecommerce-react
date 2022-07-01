@@ -26,7 +26,7 @@ function App() {
   useEffect(() => {
     const getBooksData = async () => {
       const response = await fetch(
-        'https://do-an-nganh-nodejs.herokuapp.com/api/products'
+        'https://bookstore-new-app.herokuapp.com/api/products'
       );
       const data = await response.json();
 
@@ -38,7 +38,7 @@ function App() {
     const getUserData = async () => {
       setIsLoading(true);
       const response = await fetch(
-        `https://do-an-nganh-nodejs.herokuapp.com/api/user/info?userID=${localStorage.getItem(
+        `https://bookstore-new-app.herokuapp.com/api/user/info?userID=${localStorage.getItem(
           'userID'
         )}`
       );
@@ -47,10 +47,7 @@ function App() {
       dispatch(authAction.login(data));
       setIsLoading(false);
     };
-    if (
-      localStorage.getItem('userID') &&
-      localStorage.getItem('userID') !== undefined
-    ) {
+    if (localStorage.getItem('userID')) {
       getUserData();
     }
   }, [dispatch]);

@@ -86,7 +86,7 @@ const Signup = props => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        'https://do-an-nganh-nodejs.herokuapp.com/api/auth/register',
+        'https://bookstore-new-app.herokuapp.com/api/auth/register',
         {
           method: 'POST',
           headers: {

@@ -22,7 +22,7 @@ const CommentForm = props => {
       }
 
       const response = await fetch(
-        `http://do-an-nganh-nodejs.herokuapp.com/api/products/comment/${productId}`,
+        `https://bookstore-new-app.herokuapp.com/api/products/comment/${productId}`,
         {
           method: 'POST',
           body: JSON.stringify({

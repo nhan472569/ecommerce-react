@@ -27,7 +27,7 @@ const BookDetail = props => {
   useEffect(() => {
     const getBookDetail = async () => {
       const response = await fetch(
-        `https://do-an-nganh-nodejs.herokuapp.com/api/products/detail/${productId}`
+        `https://bookstore-new-app.herokuapp.com/api/products/detail/${productId}`
       );
       const data = await response.json();
       setLoadedBookDetail(data);

@@ -11,7 +11,7 @@ const CommentBox = props => {
   useEffect(() => {
     const getComments = async () => {
       const response = await fetch(
-        `http://do-an-nganh-nodejs.herokuapp.com/api/products/comment/${productId}`
+        `https://bookstore-new-app.herokuapp.com/api/products/comment/${productId}`
       );
       const comments = await response.json();
       setComments(comments);
@@ -21,7 +21,7 @@ const CommentBox = props => {
 
   const onAddCommentHandler = async () => {
     const response = await fetch(
-      `http://do-an-nganh-nodejs.herokuapp.com/api/products/comment/${productId}`
+      `https://bookstore-new-app.herokuapp.com/api/products/comment/${productId}`
     );
     const comments = await response.json();
     setComments(comments);
