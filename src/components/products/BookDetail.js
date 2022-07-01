@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { cartAction } from '../../store/cart-context';
 import CommentBox from '../comments/CommentBox';
 import LoadingSpinner from '../UI/LoadingSpinner';
+import environment from '../../environment';
 import classes from './BookDetail.module.css';
 
 const BookDetail = props => {
@@ -27,7 +28,7 @@ const BookDetail = props => {
   useEffect(() => {
     const getBookDetail = async () => {
       const response = await fetch(
-        `https://bookstore-new-app.herokuapp.com/api/products/detail/${productId}`
+        `${environment.DOMAIN}/api/products/detail/${productId}`
       );
       const data = await response.json();
       setLoadedBookDetail(data);

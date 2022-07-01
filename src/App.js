@@ -12,6 +12,7 @@ import BookDetail from './components/products/BookDetail';
 import BooksList from './components/products/BooksList';
 import Cart from './components/cart/Cart';
 import LoadingSpinner from './components/UI/LoadingSpinner';
+import environment from './environment';
 import NotFound from './components/layout/NotFound';
 
 function App() {
@@ -25,9 +26,7 @@ function App() {
 
   useEffect(() => {
     const getBooksData = async () => {
-      const response = await fetch(
-        'https://bookstore-new-app.herokuapp.com/api/products'
-      );
+      const response = await fetch(`${environment.DOMAIN}/api/products`);
       const data = await response.json();
 
       setLoadedBooks(data);
@@ -38,7 +37,7 @@ function App() {
     const getUserData = async () => {
       setIsLoading(true);
       const response = await fetch(
-        `https://bookstore-new-app.herokuapp.com/api/user/info?userID=${localStorage.getItem(
+        `${environment.DOMAIN}/api/user/info?userID=${localStorage.getItem(
           'userID'
         )}`
       );

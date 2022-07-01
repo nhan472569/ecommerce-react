@@ -4,6 +4,7 @@ import Button from '../UI/Button';
 import Modal from '../UI/Modal';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import classes from './Login.module.css';
+import environment from '../../environment';
 
 import { useDispatch } from 'react-redux';
 import { authAction } from '../../store/auth-context';
@@ -67,19 +68,16 @@ const Login = props => {
     }
     setIsLoading(true);
     try {
-      const response = await fetch(
-        'https://bookstore-new-app.herokuapp.com/api/auth/login',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: enteredEmail,
-            password: enteredPassword,
-          }),
-        }
-      );
+      const response = await fetch(`${environment.DOMAIN}/api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: enteredEmail,
+          password: enteredPassword,
+        }),
+      });
       if (!response.ok) {
         setIsLoading(false);
         throw new Error('Something went wrong!');

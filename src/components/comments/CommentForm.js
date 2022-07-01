@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
+import environment from '../../environment';
 import classes from './CommentForm.module.css';
 
 const CommentForm = props => {
@@ -22,7 +23,7 @@ const CommentForm = props => {
       }
 
       const response = await fetch(
-        `https://bookstore-new-app.herokuapp.com/api/products/comment/${productId}`,
+        `${environment.DOMAIN}/api/products/comment/${productId}`,
         {
           method: 'POST',
           body: JSON.stringify({

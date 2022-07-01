@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 import classes from './CommentBox.module.css';
 import CommentForm from './CommentForm';
+import environment from '../../environment';
 import CommentsList from './CommentsList';
 
 const CommentBox = props => {
@@ -11,7 +12,7 @@ const CommentBox = props => {
   useEffect(() => {
     const getComments = async () => {
       const response = await fetch(
-        `https://bookstore-new-app.herokuapp.com/api/products/comment/${productId}`
+        `${environment.DOMAIN}/api/products/comment/${productId}`
       );
       const comments = await response.json();
       setComments(comments);
@@ -21,7 +22,7 @@ const CommentBox = props => {
 
   const onAddCommentHandler = async () => {
     const response = await fetch(
-      `https://bookstore-new-app.herokuapp.com/api/products/comment/${productId}`
+      `${environment.DOMAIN}/api/products/comment/${productId}`
     );
     const comments = await response.json();
     setComments(comments);
