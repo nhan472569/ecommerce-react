@@ -21,40 +21,44 @@
 }
 
 .title {
-  font-size: 3rem;
-  font-weight: 700;
+  font-size: 3.5rem;
+  font-weight: 500;
   margin-bottom: 1rem;
-  text-align: center;
 }
 
 .description {
-  font-size: 2.2rem;
+  font-size: 1.9rem;
   max-height: 60rem;
   overflow: hidden;
   font-weight: 500;
   margin-bottom: 5rem;
   line-height: 1.5;
+  color: #555;
 }
 
 .price {
-  text-align: center;
-  color: rgb(189, 49, 49);
+  color: #000;
   font-size: 2.5rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
 }
 
-.add-to-cart label {
-  font-size: 2rem;
-  margin-right: 3rem;
-  font-weight: 600;
-}
 
 .add-to-cart input {
   height: 100%;
   font-size: 1.7rem;
   width: 5rem;
   text-align: center;
+  border: none;
+  color: #555;
+  font-weight: 300;
+  font-family: "Cormorant Garamond",sans-serif;
+  outline: none;
+  z-index: 3;
+}
+
+.add-to-cart input::selection {
+  background: #fff;
 }
 
 .control {
@@ -66,17 +70,21 @@
   outline: none;
   cursor: pointer;
   background-color: #fff;
+  font-size: 1.7rem;
+  font-weight: 400;
+  transition: color .2s ease-out;
 }
 
-.btn-quantity {
-  position: relative;
-  top: 3px;
-  font-size: 2rem;
-  font-weight: 500;
-  width: 3rem;
-  height: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  line-height: 3rem;
+.btn:hover {
+  color:#d14031;
+}
+
+.btn-quantity-left::before {
+  content: '<';
+}
+
+.btn-quantity-right::before {
+  content: '>';
 }
 
 .actions {
@@ -86,13 +94,34 @@
 .btn-submit {
   color: white;
   width: 20rem;
-  height: 4rem;
+  height: 5rem;
   padding: 1rem 2rem;
-  background-color: #840000;
+  background-color: #d14031;
   transition: all linear 0.1s;
-  border-radius: 100rem;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 .btn-submit:hover {
-  background-color: #d14031;
+  background-color: #ad362a;
+  color: #fff;
+}
+
+.quantity {
+  border: 1px solid #e1e1e1;
+  display: inline-block;
+  height: 5rem;
+  font-family: 'Josefin Sans', sans-serif;
+  color: #999;
+  padding: 0 2rem 0 0;
+  margin-right: 2rem;
+}
+
+.quantity::before {
+  content: 'Số lượng';
+  font-size: 1.7rem;
+  font-weight: 300;
+  display: inline-block;
+  width: 11rem;
+  padding: 0 2rem;
+  height: 100%;
 }

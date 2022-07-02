@@ -1,15 +1,12 @@
 .item {
-  border-radius: 0.5rem;
-  width: calc(20% - 5rem);
-  margin-left: 5rem;
-  margin-bottom: 5rem;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  width: calc(20% - 4rem);
+  margin: 3rem 2rem;
   position: relative;
 }
 
 .image {
   width: 100%;
-  height: 25rem;
+  height: 32rem;
 }
 
 .image img {
@@ -18,14 +15,14 @@
 }
 
 .content {
-  padding: 1.5rem 1rem 3rem;
+  padding: 2rem 0;
 }
 
 .title a {
   color: black;
-  font-weight: 700;
-  font-size: 1.7rem;
-  margin-bottom: 3rem;
+  font-weight: 500;
+  font-size: 2.1rem;
+  margin-bottom: 1rem;
   display: block;
   display: -webkit-box;
   -webkit-box-orient: vertical; /*hướng của dòng chữ theo chiều: dọc*/
@@ -34,10 +31,7 @@
 }
 
 .price {
-  position: absolute;
-  color: rgb(189, 49, 49);
+  color: #343434;
   font-size: 2rem;
-  font-weight: 700;
-  bottom: 2rem;
-  right: 2rem;
+  font-weight: 500;
 }

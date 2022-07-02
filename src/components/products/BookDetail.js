@@ -64,36 +64,29 @@ const BookDetail = props => {
         <img src={loadedBookDetail.image} alt={loadedBookDetail.name}></img>
       </div>
       <div className={classes.content}>
-        <h1 className={classes.title}>{loadedBookDetail.name}</h1>
+        <h2 className={classes.title}>{loadedBookDetail.name}</h2>
         <p className={classes.price}>{`${loadedBookDetail.price.toLocaleString(
           'vi-VN'
         )}₫`}</p>
         <p className={classes.description}>{loadedBookDetail.description}</p>
         <form className={classes['add-to-cart']} onSubmit={addToCartHandler}>
-          <div className={classes.control}>
-            <label htmlFor="quantity">Nhập số lượng:</label>
-            <button
-              className={`${classes.btn} ${classes['btn-quantity']}`}
+          <div className={classes.quantity}>
+            <span
+              className={`${classes.btn} ${classes['btn-quantity-left']}`}
               type="button"
               onClick={decreaseHandler}
               disabled={isInvalid}
-            >
-              -
-            </button>
+            ></span>
             <input type="text" name="quantity" id="quantity" value={quantity} />
-            <button
-              className={`${classes.btn} ${classes['btn-quantity']}`}
+            <span
+              className={`${classes.btn} ${classes['btn-quantity-right']}`}
               type="button"
               onClick={increaseHandler}
-            >
-              +
-            </button>
+            ></span>
           </div>
-          <div className={classes.actions}>
-            <button className={`${classes.btn} ${classes['btn-submit']}`}>
-              Thêm vào giỏ hàng
-            </button>
-          </div>
+          <button className={`${classes.btn} ${classes['btn-submit']}`}>
+            Thêm vào giỏ hàng
+          </button>
         </form>
       </div>
     </>

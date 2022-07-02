@@ -4,8 +4,18 @@
   box-sizing: border-box;
 }
 
+::selection {
+  background: #d14031;
+  color: #fff;
+}
+
 a {
   text-decoration: none;
+  transition: color .2s ease-out ;
+}
+
+h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
+  color: #d14031;
 }
 
 html {
