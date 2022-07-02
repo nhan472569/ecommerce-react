@@ -26,6 +26,7 @@ const BooksList = props => {
             image={book.image}
             name={book.name}
             price={book.price}
+            object={book}
           />
         );
       })}

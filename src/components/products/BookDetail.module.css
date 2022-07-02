@@ -99,6 +99,7 @@
   background-color: #d14031;
   transition: all linear 0.1s;
   font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
 }
 
 .btn-submit:hover {
