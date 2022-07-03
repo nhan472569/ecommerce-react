@@ -7,12 +7,12 @@
 
 .image {
   width: 30rem;
-  height: 45rem;
 }
 
 .image img {
   width: 100%;
-  height: 100%;
+  position: sticky;
+  top: 8rem;
 }
 
 .content {
