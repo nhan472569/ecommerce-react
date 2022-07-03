@@ -97,7 +97,7 @@
   height: 5rem;
   padding: 1rem 2rem;
   background-color: #d14031;
-  transition: all linear 0.1s;
+  transition: all .2s ease-out;
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 400;
 }

@@ -14,10 +14,12 @@ import Cart from './components/cart/Cart';
 import LoadingSpinner from './components/UI/LoadingSpinner';
 import environment from './environment';
 import NotFound from './components/layout/NotFound';
+import ScrollToTop from './components/UI/ScrollToTop';
 
 function App() {
   const [loadedBooks, setLoadedBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isShowScrollToTop, setIsShowScrollToTop] = useState(false);
 
   const [isLogin, setIsLogin] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
@@ -64,8 +66,20 @@ function App() {
     isSignup && setIsSignup(false);
   };
 
+  window.addEventListener('scroll', e => {
+    const viewHeight = window.screen.height;
+    if (!isShowScrollToTop && window.scrollY >= viewHeight / 2) {
+      setIsShowScrollToTop(true);
+    }
+
+    if (isShowScrollToTop && window.scrollY < viewHeight / 2) {
+      setIsShowScrollToTop(false);
+    }
+  });
+
   return (
     <React.Fragment>
+      <ScrollToTop active={isShowScrollToTop} />
       <NavBar onLogin={onLoginHandler} onSignup={onSignupHandler} />
       {isLogin && <Login onClose={onCloseHandler} />}
       {isSignup && <Signup onClose={onCloseHandler} />}

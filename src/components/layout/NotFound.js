@@ -1,4 +1,4 @@
-import classes from './NotFound.module.css';
+// import classes from './NotFound.module.css';
 
 const NotFound = () => {
   return (

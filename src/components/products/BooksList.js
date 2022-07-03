@@ -18,18 +18,28 @@ const BooksList = props => {
   }
   return (
     <main className={classes.container}>
-      {filteredBooks.map(book => {
-        return (
-          <BookItem
-            key={book._id}
-            id={book._id}
-            image={book.image}
-            name={book.name}
-            price={book.price}
-            object={book}
-          />
-        );
-      })}
+      <ul className={classes.category}>
+        <li className={classes['category-item']}>Tất cả</li>
+        <li className={classes['category-item']}>Bán chạy</li>
+        <li className={classes['category-item']}>Giả tưởng</li>
+        <li className={classes['category-item']}>Lịch sử</li>
+        <li className={classes['category-item']}>Nghệ thuật</li>
+        <li className={classes['category-item']}>Tình cảm</li>
+      </ul>
+      <div className={classes.section}>
+        {filteredBooks.map(book => {
+          return (
+            <BookItem
+              key={book._id}
+              id={book._id}
+              image={book.image}
+              name={book.name}
+              price={book.price}
+              object={book}
+            />
+          );
+        })}
+      </div>
     </main>
   );
 };
