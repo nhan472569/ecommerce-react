@@ -7,6 +7,7 @@ import CommentBox from '../comments/CommentBox';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import environment from '../../environment';
 import classes from './BookDetail.module.css';
+import axios from 'axios';
 
 const BookDetail = props => {
   const [quantity, setQuantity] = useState(1);
@@ -27,10 +28,10 @@ const BookDetail = props => {
 
   useEffect(() => {
     const getBookDetail = async () => {
-      const response = await fetch(
+      const response = await axios.get(
         `${environment.DOMAIN}/api/products/detail/${productId}`
       );
-      const data = await response.json();
+      const data = await response.data;
       setLoadedBookDetail(data);
       setIsLoading(false);
     };

@@ -18,7 +18,7 @@ const BooksList = props => {
   }
   return (
     <main className={classes.container}>
-      <ul className={classes.category}>
+      <ul className={classes.category} id="category">
         <li className={classes['category-item']}>Tất cả</li>
         <li className={classes['category-item']}>Bán chạy</li>
         <li className={classes['category-item']}>Giả tưởng</li>
