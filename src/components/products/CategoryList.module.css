@@ -1,0 +1,24 @@
+.category {
+    display: flex;
+    list-style-type: none;
+    width: 100%;
+    justify-content: center;
+    margin-top: 12rem;
+  }
+  
+.category .category-item {
+    min-width: 4rem;
+    height: 5rem;
+    font-size: 2rem;
+    padding: 0 3rem;
+    line-height: 5rem;
+    margin: 1rem;
+    border: 1px solid #f3f3f3;
+    cursor: pointer;
+    transition: all .2s ease-out;
+  }
+  
+.category .category-item:hover {
+    color: #fff;
+    background-color: #000;
+  }

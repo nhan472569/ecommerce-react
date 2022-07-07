@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { cartAction } from '../../store/cart-context';
@@ -18,6 +19,8 @@ const BookDetail = props => {
     name: '',
     price: 0,
     description: '',
+    category: [],
+    author: [],
   });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -32,6 +35,7 @@ const BookDetail = props => {
         `${environment.DOMAIN}/api/products/detail/${productId}`
       );
       const data = await response.data;
+      console.log('data nè', data);
       setLoadedBookDetail(data);
       setIsLoading(false);
     };
@@ -65,6 +69,9 @@ const BookDetail = props => {
         <img src={loadedBookDetail.image} alt={loadedBookDetail.name}></img>
       </div>
       <div className={classes.content}>
+        <div className={classes.author}>
+          <Link to={'/products'}>{loadedBookDetail.author.join(', ')}</Link>
+        </div>
         <h2 className={classes.title}>{loadedBookDetail.name}</h2>
         <p className={classes.price}>{`${loadedBookDetail.price.toLocaleString(
           'vi-VN'

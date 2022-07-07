@@ -12,7 +12,8 @@ const useHttp = aplyData => {
       setError(null);
       try {
         const response = await axios[`${requestConfig.method || 'get'}`](
-          `${environment.DOMAIN}/api/${requestConfig.url}`
+          `${environment.DOMAIN}/api/${requestConfig.url}`,
+          requestConfig?.body
         );
         if (response.statusText === 'OK') {
           const data = response.data;
@@ -27,6 +28,13 @@ const useHttp = aplyData => {
     },
     [aplyData]
   );
+
+  console.log({
+    isLoading: isLoading,
+    error: error,
+    sendRequest: sendRequest,
+  });
+
   return {
     isLoading: isLoading,
     error: error,

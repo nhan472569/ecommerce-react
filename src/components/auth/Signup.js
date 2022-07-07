@@ -6,9 +6,11 @@ import LoadingSpinner from '../UI/LoadingSpinner';
 import environment from '../../environment';
 
 import classes from './Signup.module.css';
+import useHttp from '../../hooks/use-http';
 
 const Signup = props => {
   const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState(null);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [password2Error, setPassword2Error] = useState(false);
@@ -16,6 +18,12 @@ const Signup = props => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const password2InputRef = useRef();
+
+  const {
+    isLoading: isSigningup,
+    error,
+    sendRequest: sendSignupRequest,
+  } = useHttp(setData);
 
   const emailBlurHandler = () => {
     const enteredEmail = emailInputRef.current.value;
@@ -84,34 +92,20 @@ const Signup = props => {
     if (!emailIsValid || !passwordIsValid || !password2IsValid) {
       return;
     }
-    setIsLoading(true);
-    try {
-      const response = await fetch(`${environment.DOMAIN}/api/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: enteredEmail,
-          password: enteredPassword,
-          retypePassword: enteredPassword2,
-        }),
-      });
-      const data = await response.json();
 
-      if (!response.ok) {
-        setIsLoading(false);
-        throw new Error('Something went wrong!');
-      }
+    sendSignupRequest({
+      url: 'auth/register',
+      method: 'post',
+      body: {
+        email: enteredEmail,
+        password: enteredPassword,
+        retypePassword: enteredPassword2,
+      },
+    });
 
-      if (!data.status) {
-        setIsLoading(false);
-        throw new Error(data.message);
-      }
-    } catch (error) {
-      alert(error.message);
+    if (!error) {
+      props.onClose();
     }
-    props.onClose();
   };
 
   return (

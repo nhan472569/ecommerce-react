@@ -10,7 +10,7 @@ const ScrollToTop = props => {
       className={`${classes.btn} ${isActive && classes.active}`}
       id="scroll-to-top"
     >
-      <FontAwesomeIcon icon={solid('user-secret')} />
+      <FontAwesomeIcon icon={solid('angle-up')} />
     </div>
   );
 };

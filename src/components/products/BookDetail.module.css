@@ -20,6 +20,23 @@
   max-width: 60%;
 }
 
+.author {
+  margin-bottom: 1rem;
+}
+
+.author a{
+  font-size: 1.2rem;
+  font-family: 'Josefin Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .35rem;
+  color: #999;
+  transition: all .2s ease-out;
+}
+
+.author a:hover {
+  color: #d14031;
+}
+
 .title {
   font-size: 3.5rem;
   font-weight: 500;

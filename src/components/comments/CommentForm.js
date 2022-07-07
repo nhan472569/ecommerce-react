@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
-import environment from '../../environment';
+import useHttp from '../../hooks/use-http';
 import classes from './CommentForm.module.css';
 
 const CommentForm = props => {
@@ -8,6 +8,8 @@ const CommentForm = props => {
   const user = useSelector(state => state.auth.user);
 
   const { productId, onAddComment } = props;
+
+  const { isLoading, error, sendRequest: postComment } = useHttp();
 
   const submitCommentHandler = async e => {
     e.preventDefault();
@@ -22,23 +24,35 @@ const CommentForm = props => {
         throw new Error('Bình luận không thể để trống!');
       }
 
-      const response = await fetch(
-        `${environment.DOMAIN}/api/products/comment/${productId}`,
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            content: comment,
-            userID: user._id,
-          }),
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+      // const response = await fetch(
+      //   `${environment.DOMAIN}/api/products/comment/${productId}`,
+      //   {
+      //     method: 'POST',
+      //     body: JSON.stringify({
+      //       content: comment,
+      //       userID: user._id,
+      //     }),
+      //     headers: { 'Content-Type': 'application/json' },
+      //   }
+      // );
 
-      if (!response.ok) {
-        throw new Error('Something went wrong!');
+      // if (!response.ok) {
+      //   throw new Error('Something went wrong!');
+      // }
+
+      postComment({
+        url: `products/comment/${productId}`,
+        method: 'post',
+        body: {
+          content: comment,
+          userID: user._id,
+        },
+      });
+
+      if (!isLoading && !error) {
+        commentInputRef.current.value = '';
+        onAddComment();
       }
-      commentInputRef.current.value = '';
-      onAddComment();
     } catch (error) {
       alert(error.message);
     }

@@ -17,6 +17,7 @@ import Signup from './components/auth/Signup';
 import NavBar from './components/layout/NavBar';
 import LoadingSpinner from './components/UI/LoadingSpinner';
 import ScrollToTop from './components/UI/ScrollToTop';
+import CategoryList from './components/products/CategoryList';
 
 const BookDetail = React.lazy(() => import('./components/products/BookDetail'));
 const BooksList = React.lazy(() => import('./components/products/BooksList'));
@@ -34,6 +35,12 @@ function App() {
 
   const dispatch = useDispatch();
 
+  const handleUserInfo = useCallback(
+    data => {
+      dispatch(authAction.login(data));
+    },
+    [dispatch]
+  );
   // use http
   const {
     isLoading: isLoadingBooks,
@@ -41,18 +48,16 @@ function App() {
     sendRequest: getBooks,
   } = useHttp(setLoadedBooks);
 
-  const handleUserInfo = useCallback(
-    data => {
-      dispatch(authAction.login(data));
-    },
-    [dispatch]
-  );
-
   const {
     isLoading: isLoadingUserInfo,
     error: userError,
     sendRequest: getUserInfo,
   } = useHttp(handleUserInfo);
+  const {
+    isLoading: isLoadingBooksByCategory,
+    error: errorBooksByCategory,
+    sendRequest: getBooksByCategory,
+  } = useHttp(setLoadedBooks);
 
   useEffect(() => {
     getBooks({ url: 'products' });
@@ -96,6 +101,14 @@ function App() {
     }
   });
 
+  const getProductsByCategory = category => {
+    if (category === 'all') {
+      getBooks({ url: 'products' });
+    } else {
+      getBooksByCategory({ url: `products/category/?category=${category}` });
+    }
+  };
+
   return (
     <React.Fragment>
       <ScrollToTop active={isShowScrollToTop} />
@@ -110,8 +123,19 @@ function App() {
             path="products"
             element={
               <Fragment>
-                {isLoading && <LoadingSpinner />}
-                <BooksList books={loadedBooks} />
+                <CategoryList
+                  getProductsByCategory={getProductsByCategory}
+                ></CategoryList>
+                {isLoadingBooks ||
+                isLoadingUserInfo ||
+                isLoadingBooksByCategory ? (
+                  <LoadingSpinner />
+                ) : (
+                  <BooksList
+                    books={loadedBooks}
+                    getProductsByCategory={getProductsByCategory}
+                  />
+                )}
               </Fragment>
             }
           />

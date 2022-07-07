@@ -16,16 +16,9 @@ const BooksList = props => {
   } else {
     filteredBooks = props.books;
   }
+
   return (
     <main className={classes.container}>
-      <ul className={classes.category} id="category">
-        <li className={classes['category-item']}>Tất cả</li>
-        <li className={classes['category-item']}>Bán chạy</li>
-        <li className={classes['category-item']}>Giả tưởng</li>
-        <li className={classes['category-item']}>Lịch sử</li>
-        <li className={classes['category-item']}>Nghệ thuật</li>
-        <li className={classes['category-item']}>Tình cảm</li>
-      </ul>
       <div className={classes.section}>
         {filteredBooks.map(book => {
           return (
@@ -35,6 +28,8 @@ const BooksList = props => {
               image={book.image}
               name={book.name}
               price={book.price}
+              category={book.category}
+              author={book.author}
               object={book}
             />
           );

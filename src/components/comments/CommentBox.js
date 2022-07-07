@@ -2,37 +2,29 @@ import { useState, useEffect } from 'react';
 
 import classes from './CommentBox.module.css';
 import CommentForm from './CommentForm';
-import environment from '../../environment';
 import CommentsList from './CommentsList';
+import useHttp from '../../hooks/use-http';
+import LoadingSpinner from '../UI/LoadingSpinner';
 
 const CommentBox = props => {
   const [comments, setComments] = useState([]);
 
   const { productId } = props;
+
+  const { isLoading, error, sendRequest: getComments } = useHttp(setComments);
   useEffect(() => {
-    const getComments = async () => {
-      const response = await fetch(
-        `${environment.DOMAIN}/api/products/comment/${productId}`
-      );
-      const comments = await response.json();
-      setComments(comments);
-    };
-    getComments();
-  }, [productId]);
+    getComments({ url: `products/comment/${productId}` });
+  }, [getComments, productId]);
 
   const onAddCommentHandler = async () => {
-    const response = await fetch(
-      `${environment.DOMAIN}/api/products/comment/${productId}`
-    );
-    const comments = await response.json();
-    setComments(comments);
+    getComments({ url: `products/comment/${productId}` });
   };
 
   return (
     <div className={classes.box}>
       <h2 className={classes.title}>Bình luận</h2>
       <CommentForm onAddComment={onAddCommentHandler} productId={productId} />
-      <CommentsList comments={comments} />
+      {isLoading ? <LoadingSpinner /> : <CommentsList comments={comments} />}
     </div>
   );
 };

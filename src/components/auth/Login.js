@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import Input from '../UI/Input';
 import Button from '../UI/Button';
 import Modal from '../UI/Modal';
@@ -8,6 +8,7 @@ import environment from '../../environment';
 
 import { useDispatch } from 'react-redux';
 import { authAction } from '../../store/auth-context';
+import useHttp from '../../hooks/use-http';
 
 const Login = props => {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +18,19 @@ const Login = props => {
   const passwordInputRef = useRef();
 
   const dispatch = useDispatch();
+
+  const updateLoginState = useCallback(
+    data => {
+      dispatch(authAction.login(data.user));
+    },
+    [dispatch]
+  );
+
+  const {
+    isLoading: isLoggingIn,
+    error,
+    sendRequest: sendlogInRequest,
+  } = useHttp(updateLoginState);
 
   const emailBlurHandler = () => {
     const enteredEmail = emailInputRef.current.value;
@@ -66,34 +80,43 @@ const Login = props => {
     if (!emailIsValid || !passwordIsValid) {
       return;
     }
-    setIsLoading(true);
-    try {
-      const response = await fetch(`${environment.DOMAIN}/api/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: enteredEmail,
-          password: enteredPassword,
-        }),
-      });
-      if (!response.ok) {
-        setIsLoading(false);
-        throw new Error('Something went wrong!');
-      }
+    // setIsLoading(true);
+    // try {
+    //   const response = await fetch(`${environment.DOMAIN}/api/auth/login`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       email: enteredEmail,
+    //       password: enteredPassword,
+    //     }),
+    //   });
+    //   if (!response.ok) {
+    //     setIsLoading(false);
+    //     throw new Error('Something went wrong!');
+    //   }
 
-      const data = await response.json();
-      if (!data.status) {
-        setIsLoading(false);
-        throw new Error(data.message);
-      }
+    //   const data = await response.json();
+    //   if (!data.status) {
+    //     setIsLoading(false);
+    //     throw new Error(data.message);
+    //   }
 
-      dispatch(authAction.login(data.user));
-      setIsLoading(false);
+    //   dispatch(authAction.login(data.user));
+    //   setIsLoading(false);
+    //   props.onClose();
+    // } catch (error) {
+    //   alert(error.message);
+    // }
+
+    sendlogInRequest({
+      url: 'auth/login',
+      method: 'post',
+      body: { email: enteredEmail, password: enteredPassword },
+    });
+    if (!error) {
       props.onClose();
-    } catch (error) {
-      alert(error.message);
     }
   };
   return (

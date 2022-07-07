@@ -28,6 +28,9 @@ const BookItem = props => {
         </Link>
       </div>
       <div className={classes.content}>
+        <div className={classes.author}>
+          <Link to={'/products'}>{props.author.join(', ')}</Link>
+        </div>
         <h2 className={classes.title}>
           <Link to={`/products/${props.id}`}>{props.name}</Link>
         </h2>
