@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './CategoryList.module.css';
 
-const CategoryList = React.memo(props => {
+const CategoryList = props => {
   return (
     <ul className={classes.category} id="category">
       <li
@@ -54,6 +54,6 @@ const CategoryList = React.memo(props => {
       </li>
     </ul>
   );
-});
+};
 
 export default CategoryList;

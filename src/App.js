@@ -10,7 +10,8 @@ import { Navigate } from 'react-router-dom';
 import useHttp from './hooks/use-http';
 
 import { authAction } from './store/auth-context';
-import { useDispatch } from 'react-redux';
+import { productAction } from './store/product-context';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
@@ -27,9 +28,11 @@ const NotFound = React.lazy(() => import('./components/layout/NotFound'));
 function App() {
   const [loadedBooks, setLoadedBooks] = useState([]);
   const [isShowScrollToTop, setIsShowScrollToTop] = useState(false);
+  const [category, setCategory] = useState(null);
 
   const [isLogin, setIsLogin] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+  const products = useSelector(state => state.product);
 
   const dispatch = useDispatch();
 
@@ -40,6 +43,18 @@ function App() {
     [dispatch]
   );
   // use http
+  const loadBookHandler = useCallback(
+    data => {
+      setLoadedBooks(data);
+      dispatch(
+        productAction.fillProduct({
+          category: products.currentCategory,
+          items: data,
+        })
+      );
+    },
+    [dispatch, products.currentCategory]
+  );
   const {
     isLoading: isLoadingBooks,
     error: booksError,
@@ -55,7 +70,7 @@ function App() {
     isLoading: isLoadingBooksByCategory,
     error: errorBooksByCategory,
     sendRequest: getBooksByCategory,
-  } = useHttp(setLoadedBooks);
+  } = useHttp(loadBookHandler);
 
   useEffect(() => {
     getBooks({ url: 'products' });
@@ -80,10 +95,10 @@ function App() {
   };
 
   const scrollToTopBtn = document.querySelector('#scroll-to-top');
-  const category = document.querySelector('#category');
+  const categoryEl = document.querySelector('#category');
 
   scrollToTopBtn?.addEventListener('click', e => {
-    category.scrollIntoView({
+    categoryEl.scrollIntoView({
       behavior: 'smooth',
     });
   });
@@ -100,10 +115,16 @@ function App() {
   });
 
   const getProductsByCategory = category => {
-    if (category === 'all') {
-      getBooks({ url: 'products' });
+    if (products.items?.[category]) {
+      setLoadedBooks(products.items?.[category]);
     } else {
-      getBooksByCategory({ url: `products/category/?category=${category}` });
+      if (category === 'all') {
+        dispatch(productAction.setCategory('all'));
+        getBooksByCategory({ url: 'products' });
+      } else {
+        dispatch(productAction.setCategory(category));
+        getBooksByCategory({ url: `products/category/?category=${category}` });
+      }
     }
   };
 

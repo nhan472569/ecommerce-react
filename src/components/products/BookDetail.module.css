@@ -75,10 +75,6 @@
   z-index: 3;
 }
 
-.add-to-cart input::selection {
-  background: #fff;
-}
-
 .control {
   height: 3rem;
 }
@@ -133,6 +129,7 @@
   color: #999;
   padding: 0 2rem 0 0;
   margin-right: 2rem;
+  user-select: none;
 }
 
 .quantity::before {
