@@ -11,7 +11,7 @@ const CommentBox = props => {
 
   const { productId } = props;
 
-  const { isLoading, error, sendRequest: getComments } = useHttp(setComments);
+  const { isLoading, sendRequest: getComments } = useHttp(setComments);
   useEffect(() => {
     getComments({ url: `products/comment/${productId}` });
   }, [getComments, productId]);

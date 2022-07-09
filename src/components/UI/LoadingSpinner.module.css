@@ -1,9 +1,15 @@
+.spinner-container {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+}
+
 .spinner {
   display: inline-block;
   z-index: 10;
   width: 80px;
   height: 80px;
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

@@ -15,10 +15,10 @@ const CategoryList = React.memo(props => {
       <li
         className={classes['category-item']}
         onClick={() => {
-          props.getProductsByCategory('');
+          props.getProductsByCategory('story');
         }}
       >
-        Bán chạy
+        Văn học
       </li>
       <li
         className={classes['category-item']}
@@ -31,7 +31,7 @@ const CategoryList = React.memo(props => {
       <li
         className={classes['category-item']}
         onClick={() => {
-          props.getProductsByCategory('discovery');
+          props.getProductsByCategory('discover');
         }}
       >
         Phiêu lưu
@@ -47,7 +47,7 @@ const CategoryList = React.memo(props => {
       <li
         className={classes['category-item']}
         onClick={() => {
-          props.getProductsByCategory('comedy');
+          props.getProductsByCategory('humor');
         }}
       >
         Hài hước

@@ -3,14 +3,11 @@ import Modal from '../UI/Modal';
 import Button from '../UI/Button';
 import Input from '../UI/Input';
 import LoadingSpinner from '../UI/LoadingSpinner';
-import environment from '../../environment';
 
 import classes from './Signup.module.css';
 import useHttp from '../../hooks/use-http';
 
 const Signup = props => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState(null);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [password2Error, setPassword2Error] = useState(false);
@@ -23,7 +20,7 @@ const Signup = props => {
     isLoading: isSigningup,
     error,
     sendRequest: sendSignupRequest,
-  } = useHttp(setData);
+  } = useHttp();
 
   const emailBlurHandler = () => {
     const enteredEmail = emailInputRef.current.value;
@@ -110,7 +107,7 @@ const Signup = props => {
 
   return (
     <Modal onClose={props.onClose}>
-      {isLoading && <LoadingSpinner />}
+      {isSigningup && <LoadingSpinner />}
       <h2 className={classes.title}>Đăng ký</h2>
       <form className={classes.form} onSubmit={signupHandler}>
         <div className={classes.control}>

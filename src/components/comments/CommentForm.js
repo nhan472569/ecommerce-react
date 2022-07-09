@@ -9,9 +9,9 @@ const CommentForm = props => {
 
   const { productId, onAddComment } = props;
 
-  const { isLoading, error, sendRequest: postComment } = useHttp();
+  const { isLoading, error, sendRequest: postComment } = useHttp(onAddComment);
 
-  const submitCommentHandler = async e => {
+  const submitCommentHandler = e => {
     e.preventDefault();
     try {
       const commentRaw = commentInputRef.current.value;
@@ -24,22 +24,6 @@ const CommentForm = props => {
         throw new Error('Bình luận không thể để trống!');
       }
 
-      // const response = await fetch(
-      //   `${environment.DOMAIN}/api/products/comment/${productId}`,
-      //   {
-      //     method: 'POST',
-      //     body: JSON.stringify({
-      //       content: comment,
-      //       userID: user._id,
-      //     }),
-      //     headers: { 'Content-Type': 'application/json' },
-      //   }
-      // );
-
-      // if (!response.ok) {
-      //   throw new Error('Something went wrong!');
-      // }
-
       postComment({
         url: `products/comment/${productId}`,
         method: 'post',
@@ -51,7 +35,6 @@ const CommentForm = props => {
 
       if (!isLoading && !error) {
         commentInputRef.current.value = '';
-        onAddComment();
       }
     } catch (error) {
       alert(error.message);

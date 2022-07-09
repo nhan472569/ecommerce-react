@@ -26,8 +26,6 @@ const NotFound = React.lazy(() => import('./components/layout/NotFound'));
 
 function App() {
   const [loadedBooks, setLoadedBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [isShowScrollToTop, setIsShowScrollToTop] = useState(false);
 
   const [isLogin, setIsLogin] = useState(false);
