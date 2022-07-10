@@ -29,7 +29,13 @@ const BookItem = props => {
       </div>
       <div className={classes.content}>
         <div className={classes.author}>
-          <Link to={'/products'}>{props.author.join(', ')}</Link>
+          {props.author.map(a => {
+            return (
+              <Link to={`/author/${a._id}`} key={a._id}>
+                {a.name}
+              </Link>
+            );
+          })}
         </div>
         <h2 className={classes.title}>
           <Link to={`/products/${props.id}`}>{props.name}</Link>

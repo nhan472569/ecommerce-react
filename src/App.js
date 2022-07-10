@@ -19,6 +19,7 @@ import NavBar from './components/layout/NavBar';
 import LoadingSpinner from './components/UI/LoadingSpinner';
 import ScrollToTop from './components/UI/ScrollToTop';
 import CategoryList from './components/products/CategoryList';
+import Author from './components/author/Author';
 
 const BookDetail = React.lazy(() => import('./components/products/BookDetail'));
 const BooksList = React.lazy(() => import('./components/products/BooksList'));
@@ -28,7 +29,6 @@ const NotFound = React.lazy(() => import('./components/layout/NotFound'));
 function App() {
   const [loadedBooks, setLoadedBooks] = useState([]);
   const [isShowScrollToTop, setIsShowScrollToTop] = useState(false);
-  const [category, setCategory] = useState(null);
 
   const [isLogin, setIsLogin] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
@@ -48,12 +48,11 @@ function App() {
       setLoadedBooks(data);
       dispatch(
         productAction.fillProduct({
-          category: products.currentCategory,
           items: data,
         })
       );
     },
-    [dispatch, products.currentCategory]
+    [dispatch]
   );
   const {
     isLoading: isLoadingBooks,
@@ -159,6 +158,7 @@ function App() {
             }
           />
           <Route path="cart" element={<Cart />} />
+          <Route path="author/:authorId" element={<Author />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

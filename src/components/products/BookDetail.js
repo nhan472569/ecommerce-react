@@ -6,9 +6,8 @@ import { useDispatch } from 'react-redux';
 import { cartAction } from '../../store/cart-context';
 import CommentBox from '../comments/CommentBox';
 import LoadingSpinner from '../UI/LoadingSpinner';
-import environment from '../../environment';
 import classes from './BookDetail.module.css';
-import axios from 'axios';
+import useHttp from '../../hooks/use-http';
 
 const BookDetail = props => {
   const [quantity, setQuantity] = useState(1);
@@ -22,25 +21,18 @@ const BookDetail = props => {
     category: [],
     author: [],
   });
-  const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
 
   const params = useParams();
   const { productId } = params;
 
+  const { isLoading, sendRequest: getBookDetail } =
+    useHttp(setLoadedBookDetail);
+
   useEffect(() => {
-    const getBookDetail = async () => {
-      const response = await axios.get(
-        `${environment.DOMAIN}/api/products/detail/${productId}`
-      );
-      const data = await response.data;
-      console.log('data nè', data);
-      setLoadedBookDetail(data);
-      setIsLoading(false);
-    };
-    getBookDetail();
-  }, [productId]);
+    getBookDetail({ url: `products/detail/${productId}` });
+  }, [getBookDetail, productId]);
 
   const decreaseHandler = () => {
     if (quantity === 1) {
@@ -70,7 +62,13 @@ const BookDetail = props => {
       </div>
       <div className={classes.content}>
         <div className={classes.author}>
-          <Link to={'/products'}>{loadedBookDetail.author.join(', ')}</Link>
+          {loadedBookDetail.author.map(a => {
+            return (
+              <Link to={`/author/${a._id}`} key={a._id}>
+                {a.name}
+              </Link>
+            );
+          })}
         </div>
         <h2 className={classes.title}>{loadedBookDetail.name}</h2>
         <p className={classes.price}>{`${loadedBookDetail.price.toLocaleString(
