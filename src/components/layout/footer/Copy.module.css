@@ -1,0 +1,14 @@
+.copy {
+  padding: 1.5rem 0;
+  text-align: center;
+  background-color: #000;
+  color: #fff;
+}
+
+.copy p {
+  font-size: 1rem;
+  font-family: 'Josefin Sans', sans-serif;
+  letter-spacing: 0.35rem;
+  text-transform: uppercase;
+  line-height: 2rem;
+}

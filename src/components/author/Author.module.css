@@ -13,9 +13,8 @@
 .image img {
   width: 30rem;
   height: 30rem;
-  position: sticky;
-  top: 8rem;
   border-radius: 100rem;
+  object-fit: cover;
 }
 
 .content {

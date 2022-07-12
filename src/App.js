@@ -20,6 +20,8 @@ import LoadingSpinner from './components/UI/LoadingSpinner';
 import ScrollToTop from './components/UI/ScrollToTop';
 import CategoryList from './components/products/CategoryList';
 import Author from './components/author/Author';
+import Slider from './components/layout/slider/Slider';
+import Footer from './components/layout/footer/Footer';
 
 const BookDetail = React.lazy(() => import('./components/products/BookDetail'));
 const BooksList = React.lazy(() => import('./components/products/BooksList'));
@@ -141,6 +143,7 @@ function App() {
             path="products"
             element={
               <Fragment>
+                <Slider />
                 <CategoryList
                   getProductsByCategory={getProductsByCategory}
                 ></CategoryList>
@@ -162,6 +165,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
+      <Footer />
     </React.Fragment>
   );
 }

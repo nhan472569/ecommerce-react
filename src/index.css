@@ -11,10 +11,15 @@
 
 a {
   text-decoration: none;
-  transition: color .2s ease-out ;
+  transition: color 0.2s ease-out;
 }
 
-h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
+h1 a:hover,
+h2 a:hover,
+h3 a:hover,
+h4 a:hover,
+h5 a:hover,
+h6 a:hover {
   color: #d14031;
 }
 
@@ -49,6 +54,12 @@ code {
   display: table;
 }
 
-.d-flex {
+.d-flex,
+.row {
   display: flex;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fff !important;
 }
