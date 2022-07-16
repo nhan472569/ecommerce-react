@@ -95,15 +95,6 @@ function App() {
     isSignup && setIsSignup(false);
   };
 
-  const scrollToTopBtn = document.querySelector('#scroll-to-top');
-  const categoryEl = document.querySelector('#category');
-
-  scrollToTopBtn?.addEventListener('click', e => {
-    categoryEl.scrollIntoView({
-      behavior: 'smooth',
-    });
-  });
-
   window.addEventListener('scroll', e => {
     const viewHeight = window.screen.height;
     if (!isShowScrollToTop && window.scrollY >= viewHeight / 2) {
