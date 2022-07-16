@@ -17,6 +17,10 @@ const Author = () => {
   const { isLoading, sendRequest: getAuthorInfor } = useHttp(setAuthorInfor);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
+
+  useEffect(() => {
     getAuthorInfor({ url: `author/${authorId}` });
   }, [getAuthorInfor, authorId]);
 
