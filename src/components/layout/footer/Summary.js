@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import classes from './Summary.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { brands } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { brands, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const Summary = () => {
   return (
@@ -43,24 +43,32 @@ const Summary = () => {
             </div>
             <div className={classes.socials}>
               <span>
-                <Link to={'/p'}>
+                <a href>
                   <FontAwesomeIcon icon={brands('twitter')} />
-                </Link>
+                </a>
               </span>
               <span>
-                <Link to={'/p'}>
+                <a
+                  href="https://www.instagram.com/thanh.nhan.472569/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <FontAwesomeIcon icon={brands('instagram')} />
-                </Link>
+                </a>
               </span>
               <span>
-                <Link to={'/p'}>
+                <a
+                  href="https://www.facebook.com/thanh.nhan.472569"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <FontAwesomeIcon icon={brands('facebook-f')} />
-                </Link>
+                </a>
               </span>
               <span>
-                <Link to={'/p'}>
+                <a href>
                   <FontAwesomeIcon icon={brands('dribbble')} />
-                </Link>
+                </a>
               </span>
             </div>
           </div>
@@ -69,49 +77,30 @@ const Summary = () => {
           <div className={classes['title-holder']}>
             <h5 className={classes.title}>Tin tức & cập nhật</h5>
           </div>
-          <div className={classes['menu-container']}>
-            <ul className={classes.menu}>
-              <li className={classes['menu-item']}>
-                <Link to={'/products'}>Bán chạy</Link>
-              </li>
-              <li className={classes['menu-item']}>
-                <Link to={'/products'}>Phỏng vấn</Link>
-              </li>
-              <li className={classes['menu-item']}>
-                <Link to={'/products'}>Câu chuyện của tác giả</Link>
-              </li>
-              <li className={classes['menu-item']}>
-                <Link to={'/products'}>Hội sách</Link>
-              </li>
-              <li className={classes['menu-item']}>
-                <Link to={'/products'}>Câu hỏi thường gặp</Link>
-              </li>
-            </ul>
+          <div className={classes['content-container']}>
+            <div className={classes.content}>
+              We'd love it if you subscribed to our newsletter! You'll love it
+              too.
+            </div>
+            <form className={classes['subcription-form']}>
+              <input
+                name="email"
+                type="email"
+                className={classes.email}
+                placeholder="Email..."
+                required
+              />
+              <button>
+                <FontAwesomeIcon icon={solid('paper-plane')} />
+              </button>
+            </form>
           </div>
         </div>
         <div className={classes['col-3']}>
           <div className={classes['title-holder']}>
             <h5 className={classes.title}>Mạng xã hội</h5>
           </div>
-          <div className={classes['menu-container']}>
-            <ul className={classes.menu}>
-              <li className={classes['menu-item']}>
-                <Link to={'/products'}>Bán chạy</Link>
-              </li>
-              <li className={classes['menu-item']}>
-                <Link to={'/products'}>Phỏng vấn</Link>
-              </li>
-              <li className={classes['menu-item']}>
-                <Link to={'/products'}>Câu chuyện của tác giả</Link>
-              </li>
-              <li className={classes['menu-item']}>
-                <Link to={'/products'}>Hội sách</Link>
-              </li>
-              <li className={classes['menu-item']}>
-                <Link to={'/products'}>Câu hỏi thường gặp</Link>
-              </li>
-            </ul>
-          </div>
+          <div className={classes['content-container']}></div>
         </div>
       </div>
     </div>

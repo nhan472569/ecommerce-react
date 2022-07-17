@@ -63,3 +63,7 @@ code {
 .swiper-button-prev {
   color: #fff !important;
 }
+
+input {
+  font-family: 'Cormorant Garamond', sans-serif;
+}

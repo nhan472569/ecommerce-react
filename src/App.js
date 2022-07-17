@@ -128,10 +128,10 @@ function App() {
       {isSignup && <Signup onClose={onCloseHandler} />}
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>
-          <Route path="/" element={<Navigate to="/products" />} />
+          <Route path="/" element={<Navigate to="/landingpage" />} />
           <Route path="products/:productId" element={<BookDetail />} />
           <Route
-            path="products"
+            path="landingpage"
             element={
               <Fragment>
                 <Slider />

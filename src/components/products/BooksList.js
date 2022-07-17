@@ -1,9 +1,15 @@
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import BookItem from './BookItem';
 import classes from './BooksList.module.css';
 
 const BooksList = props => {
   const { search } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
+  }, []);
+
   const query = new URLSearchParams(search);
   const searchValue = query.get('search');
 

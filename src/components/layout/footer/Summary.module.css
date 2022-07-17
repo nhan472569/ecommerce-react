@@ -52,7 +52,7 @@
 }
 
 .content {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .socials span {
@@ -69,8 +69,47 @@
 
 .socials a {
   color: #c4c4c4;
+  cursor: pointer;
 }
 
 .socials a:hover {
   color: #fff;
+}
+
+/* news */
+.subcription-form {
+  position: relative;
+}
+.subcription-form .email,
+.subcription-form button {
+  background-color: transparent;
+  outline: none;
+  color: #999;
+  font-size: 1.7rem;
+}
+
+.subcription-form .email {
+  border: 1px solid #999;
+  width: 100%;
+  padding: 1rem 2rem;
+}
+
+.subcription-form .email:focus::placeholder {
+  color: #fff;
+}
+.subcription-form button {
+  border: none;
+  position: absolute;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  height: 100%;
+  padding: 0 1.5rem;
+}
+
+.subcription-form button:hover {
+  color: #c4c4c4;
 }

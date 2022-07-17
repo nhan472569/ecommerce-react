@@ -9,7 +9,7 @@ const NavBar = props => {
   return (
     <header className={classes.header}>
       <div className={classes.logo}>
-        <Link to="/">BookShop</Link>
+        <Link to="/landingpage">BookShop</Link>
       </div>
       <nav className={classes.nav}>
         <ul className={classes['nav__items']}>
