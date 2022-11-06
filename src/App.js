@@ -74,7 +74,7 @@ function App() {
   } = useHttp(loadBookHandler);
 
   useEffect(() => {
-    getBooks({ url: 'products' });
+    getBooks({ url: 'books' });
     if (localStorage.getItem('userID')) {
       getUserInfo({
         url: `user/info?userID=${localStorage.getItem('userID')}`,
@@ -112,10 +112,10 @@ function App() {
     } else {
       if (category === 'all') {
         dispatch(productAction.setCategory('all'));
-        getBooksByCategory({ url: 'products' });
+        getBooksByCategory({ url: 'books' });
       } else {
         dispatch(productAction.setCategory(category));
-        getBooksByCategory({ url: `products/category/?category=${category}` });
+        getBooksByCategory({ url: `books?category=${category}` });
       }
     }
   };

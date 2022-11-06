@@ -12,11 +12,12 @@ const useHttp = aplyData => {
       setError(null);
       try {
         const response = await axios[`${requestConfig.method || 'get'}`](
-          `${environment.DOMAIN}/api/${requestConfig.url}`,
+          `${environment.DOMAIN}/api/${environment.VERSION}/${requestConfig.url}`,
           requestConfig?.body
         );
         if (response.statusText === 'OK') {
-          const data = response.data;
+          const data = response.data.data.data;
+          console.log(data);
           aplyData(data);
         } else {
           throw new Error('Fail to send request.');

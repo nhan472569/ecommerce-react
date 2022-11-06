@@ -35,7 +35,7 @@ const BookDetail = props => {
   }, []);
 
   useEffect(() => {
-    getBookDetail({ url: `products/detail/${productId}` });
+    getBookDetail({ url: `books/${productId}` });
   }, [getBookDetail, productId]);
 
   const decreaseHandler = () => {
