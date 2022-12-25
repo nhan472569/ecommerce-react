@@ -19,13 +19,13 @@ const BookDetail = props => {
     price: 0,
     description: '',
     category: [],
-    author: [],
+    authors: [],
   });
 
   const dispatch = useDispatch();
 
   const params = useParams();
-  const { productId } = params;
+  const { slug } = params;
 
   const { isLoading, sendRequest: getBookDetail } =
     useHttp(setLoadedBookDetail);
@@ -35,8 +35,11 @@ const BookDetail = props => {
   }, []);
 
   useEffect(() => {
-    getBookDetail({ url: `books/${productId}` });
-  }, [getBookDetail, productId]);
+    getBookDetail({ url: `slug/books/${slug}` });
+    return () => {
+      setLoadedBookDetail({});
+    };
+  }, [getBookDetail, slug]);
 
   const decreaseHandler = () => {
     if (quantity === 1) {
@@ -62,11 +65,16 @@ const BookDetail = props => {
   const detailContent = (
     <>
       <div className={classes.image}>
-        <img src={loadedBookDetail.image} alt={loadedBookDetail.name}></img>
+        <img
+          src={
+            process.env.PUBLIC_URL + '/images/' + loadedBookDetail.imageCover
+          }
+          alt={loadedBookDetail.name}
+        ></img>
       </div>
       <div className={classes.content}>
         <div className={classes.author}>
-          {loadedBookDetail.author.map(a => {
+          {loadedBookDetail.authors.map(a => {
             return (
               <Link to={`/author/${a._id}`} key={a._id}>
                 {a.name}
@@ -108,7 +116,7 @@ const BookDetail = props => {
         {isLoading && <LoadingSpinner />}
         {!isLoading && detailContent}
       </section>
-      {!isLoading && <CommentBox productId={productId} />}
+      {!isLoading && <CommentBox productId={slug} />}
     </>
   );
 };

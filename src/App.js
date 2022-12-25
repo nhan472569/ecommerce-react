@@ -129,7 +129,7 @@ function App() {
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>
           <Route path="/" element={<Navigate to="/landingpage" />} />
-          <Route path="products/:productId" element={<BookDetail />} />
+          <Route path="books/:slug" element={<BookDetail />} />
           <Route
             path="landingpage"
             element={

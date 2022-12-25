@@ -31,12 +31,13 @@ const BooksList = props => {
             <BookItem
               key={book._id}
               id={book._id}
-              image={book.image}
+              imageCover={book.imageCover}
               name={book.name}
               price={book.price}
               category={book.category}
-              author={book.author}
+              authors={book.authors}
               object={book}
+              slug={book.slug}
             />
           );
         })}

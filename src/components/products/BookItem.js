@@ -18,8 +18,11 @@ const BookItem = props => {
   return (
     <div className={classes.item}>
       <div className={classes.image}>
-        <Link to={`/products/${props.id}`}>
-          <img src={props.image} alt={props.name}></img>
+        <Link to={`/books/${props.slug}`}>
+          <img
+            src={process.env.PUBLIC_URL + '/images/' + props.imageCover}
+            alt={props.name}
+          ></img>
           <div className={classes.overlay}>
             <span className={classes['overlay-action']} onClick={addToCart}>
               Thêm vào giỏ
@@ -29,7 +32,7 @@ const BookItem = props => {
       </div>
       <div className={classes.content}>
         <div className={classes.author}>
-          {props.author.map(a => {
+          {props.authors.map(a => {
             return (
               <Link to={`/author/${a._id}`} key={a._id}>
                 {a.name}
@@ -38,7 +41,7 @@ const BookItem = props => {
           })}
         </div>
         <h2 className={classes.title}>
-          <Link to={`/products/${props.id}`}>{props.name}</Link>
+          <Link to={`/books/${props.slug}`}>{props.name}</Link>
         </h2>
         <p className={classes.price}>{`${props.price.toLocaleString(
           'vi-VN'
