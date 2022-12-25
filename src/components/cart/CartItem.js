@@ -5,7 +5,7 @@ import classes from './CartItem.module.css';
 import { Link } from 'react-router-dom';
 
 const CartItem = props => {
-  const { productId, name, price, quantity, imageUrl } = props;
+  const { productId, name, price, quantity, imageCover } = props;
 
   const dispatch = useDispatch();
   const deleteItem = () => {
@@ -36,7 +36,10 @@ const CartItem = props => {
       <td className={classes.namebox}>
         <Link to={`/products/${productId}`}>
           <div className={classes.image}>
-            <img src={imageUrl} alt={name} />
+            <img
+              src={process.env.PUBLIC_URL + '/images/' + imageCover}
+              alt={name}
+            />
           </div>
           <div className={classes.name}>{name}</div>
         </Link>

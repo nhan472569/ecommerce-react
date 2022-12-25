@@ -30,7 +30,7 @@ const Cart = props => {
               name={item.name}
               price={item.price}
               quantity={item.quantity}
-              imageUrl={item.image}
+              imageCover={item.imageCover}
             />
           ))}
         </tbody>

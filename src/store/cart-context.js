@@ -8,7 +8,7 @@ const cartSlice = createSlice({
   },
   reducers: {
     addItem(state, action) {
-      const { _id, name, price, quantity, image } = action.payload;
+      const { _id, name, price, quantity, imageCover } = action.payload;
       const item = state.items.find(item => item._id === _id);
       if (item) {
         item.quantity += quantity;
@@ -17,7 +17,7 @@ const cartSlice = createSlice({
           _id,
           name,
           price,
-          image,
+          imageCover,
           quantity,
         });
       }
