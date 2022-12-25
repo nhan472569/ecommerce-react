@@ -11,7 +11,8 @@ const SearchButton = () => {
 
     const enteredValue = searchInputRef.current.value;
 
-    navigate('/products/?search=' + enteredValue);
+    navigate('/search/?name=' + enteredValue);
+    searchInputRef.current.value = '';
   };
 
   return (

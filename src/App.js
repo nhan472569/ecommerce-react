@@ -25,6 +25,9 @@ import Footer from './components/layout/footer/Footer';
 
 const BookDetail = React.lazy(() => import('./components/products/BookDetail'));
 const BooksList = React.lazy(() => import('./components/products/BooksList'));
+const SearchPage = React.lazy(() =>
+  import('./components/products/search/SearchPage')
+);
 const Cart = React.lazy(() => import('./components/cart/Cart'));
 const NotFound = React.lazy(() => import('./components/layout/NotFound'));
 
@@ -130,8 +133,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/landingpage" />} />
           <Route path="books/:slug" element={<BookDetail />} />
+          <Route path="search" element={<SearchPage />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="author/:authorId" element={<Author />} />
           <Route
-            path="landingpage"
+            path="home"
             element={
               <Fragment>
                 <Slider />
@@ -151,8 +157,6 @@ function App() {
               </Fragment>
             }
           />
-          <Route path="cart" element={<Cart />} />
-          <Route path="author/:authorId" element={<Author />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
