@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { authAction } from '../../store/auth-context';
 import ProfileButton from '../profile/ProfileButton';
 
@@ -7,13 +8,14 @@ import classes from './Auth.module.css';
 
 const Auth = props => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
   const loginHandler = () => {
-    props.onLogin();
+    navigate('/login');
   };
   const signupHandler = () => {
-    props.onSignup();
+    navigate('/signup');
   };
   const logoutHandler = () => {
     dispatch(authAction.logout());

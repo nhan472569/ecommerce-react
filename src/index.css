@@ -4,11 +4,6 @@
   box-sizing: border-box;
 }
 
-::selection {
-  background: #d14031;
-  color: #fff;
-}
-
 a {
   text-decoration: none;
   transition: color 0.2s ease-out;

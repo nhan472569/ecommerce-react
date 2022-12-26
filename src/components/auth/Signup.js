@@ -1,164 +1,107 @@
-import { useRef, useState } from 'react';
-import Modal from '../UI/Modal';
-import Button from '../UI/Button';
-import Input from '../UI/Input';
-import LoadingSpinner from '../UI/LoadingSpinner';
-
 import classes from './Signup.module.css';
-import useHttp from '../../hooks/use-http';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 
-const Signup = props => {
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [password2Error, setPassword2Error] = useState(false);
+const SignupSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().required('Required'),
+});
 
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const password2InputRef = useRef();
-
-  const {
-    isLoading: isSigningup,
-    error,
-    sendRequest: sendSignupRequest,
-  } = useHttp();
-
-  const emailBlurHandler = () => {
-    const enteredEmail = emailInputRef.current.value;
-    const emailIsValid =
-      enteredEmail.trim().includes('@') && enteredEmail.trim() !== '';
-
-    if (!emailIsValid) {
-      setEmailError(true);
-    }
-  };
-  const emailChangeHandler = () => {
-    setEmailError(false);
-  };
-
-  const passwordBlurHandler = () => {
-    const enteredPassword = passwordInputRef.current.value;
-    const passwordIsValid = enteredPassword.trim() !== '';
-
-    if (!passwordIsValid) {
-      setPasswordError(true);
-    }
-  };
-  const passwordChangeHandler = () => {
-    setPasswordError(false);
-  };
-
-  const password2BlurHandler = () => {
-    const enteredPassword = passwordInputRef.current.value;
-    const enteredPassword2 = password2InputRef.current.value;
-    const password2IsValid =
-      enteredPassword2.trim() !== '' && enteredPassword === enteredPassword2;
-
-    if (!password2IsValid) {
-      setPassword2Error(true);
-    }
-  };
-  const password2ChangeHandler = () => {
-    setPassword2Error(false);
-  };
-
-  const signupHandler = async e => {
-    e.preventDefault();
-
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
-    const enteredPassword2 = password2InputRef.current.value;
-
-    const emailIsValid =
-      enteredEmail.trim().includes('@') && enteredEmail.trim() !== '';
-    const passwordIsValid = enteredPassword.trim() !== '';
-    const password2IsValid =
-      enteredPassword2.trim() !== '' && enteredPassword === enteredPassword2;
-
-    if (!emailIsValid) {
-      setEmailError(true);
-    }
-
-    if (!passwordIsValid) {
-      setPasswordError(true);
-    }
-
-    if (!password2IsValid) {
-      setPassword2Error(true);
-    }
-
-    if (!emailIsValid || !passwordIsValid || !password2IsValid) {
-      return;
-    }
-
-    sendSignupRequest({
-      url: 'auth/register',
-      method: 'post',
-      body: {
-        email: enteredEmail,
-        password: enteredPassword,
-        retypePassword: enteredPassword2,
-      },
-    });
-
-    if (!error) {
-      props.onClose();
-    }
-  };
-
+const Signup = () => {
   return (
-    <Modal onClose={props.onClose}>
-      {isSigningup && <LoadingSpinner />}
-      <h2 className={classes.title}>Đăng ký</h2>
-      <form className={classes.form} onSubmit={signupHandler}>
-        <div className={classes.control}>
-          <Input
-            hasError={emailError}
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Địa chỉ email"
-            ref={emailInputRef}
-            onBlur={emailBlurHandler}
-            onChange={emailChangeHandler}
-          />
-          {emailError && <p className={classes.error}>Email không hợp lệ.</p>}
-        </div>
-        <div className={classes.control}>
-          <Input
-            hasError={passwordError}
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Mật khẩu"
-            ref={passwordInputRef}
-            onBlur={passwordBlurHandler}
-            onChange={passwordChangeHandler}
-          />
-          {passwordError && (
-            <p className={classes.error}>Mật khẩu không hợp lệ.</p>
+    <div className={`${classes.container} container`}>
+      <div className={classes['thumbnail']}>
+        <img
+          src={process.env.PUBLIC_URL + '/images/signup.jpeg'}
+          alt="login-thumbnail"
+        ></img>
+      </div>
+      <div className={classes['signup-card']}>
+        <h2 className={classes.title}>Đăng ký tài khoản BookShop</h2>
+        <Formik
+          initialValues={{
+            email: '',
+            password: '',
+          }}
+          validationSchema={SignupSchema}
+          onSubmit={values => {
+            // same shape as initial values
+            console.log(values);
+          }}
+        >
+          {({ errors, touched }) => (
+            <Form>
+              <div className={classes['form-field']}>
+                <Field
+                  name="username"
+                  type="username"
+                  placeholder=" "
+                  className={classes['form-input']}
+                />
+                <label htmlFor="username" className={classes['form-label']}>
+                  Username
+                </label>
+                {/* {errors.email && touched.email ? (
+                <div className={classes.error}>{errors.email}</div>
+              ) : null} */}
+              </div>
+              <div className={classes['form-field']}>
+                <Field
+                  name="email"
+                  type="email"
+                  placeholder=" "
+                  className={classes['form-input']}
+                />
+                <label htmlFor="email" className={classes['form-label']}>
+                  Email
+                </label>
+                {/* {errors.email && touched.email ? (
+                <div className={classes.error}>{errors.email}</div>
+              ) : null} */}
+              </div>
+              <div className={classes['form-field']}>
+                <Field
+                  name="password"
+                  type="password"
+                  placeholder=" "
+                  className={classes['form-input']}
+                />
+                <label htmlFor="email" className={classes['form-label']}>
+                  Password
+                </label>
+                {/* {errors.password && touched.password ? (
+                <div className={classes.error}>{errors.password}</div>
+              ) : null} */}
+              </div>
+              <div className={classes['form-field']}>
+                <Field
+                  name="passwordConfirm"
+                  type="passwordConfirm"
+                  placeholder=" "
+                  className={classes['form-input']}
+                />
+                <label
+                  htmlFor="passwordConfirm"
+                  className={classes['form-label']}
+                >
+                  Password Confirm
+                </label>
+                {/* {errors.password && touched.password ? (
+                <div className={classes.error}>{errors.password}</div>
+              ) : null} */}
+              </div>
+              <button
+                type="submit"
+                className={classes.submit}
+                disabled={errors.email || errors.password}
+              >
+                Đăng ký
+              </button>
+            </Form>
           )}
-        </div>
-        <div className={classes.control}>
-          <Input
-            hasError={password2Error}
-            type="password"
-            name="password2"
-            id="password2"
-            placeholder="Nhập lại mật khẩu"
-            ref={password2InputRef}
-            onBlur={password2BlurHandler}
-            onChange={password2ChangeHandler}
-          />
-          {password2Error && (
-            <p className={classes.error}>Mật khẩu nhập lại không chính xác.</p>
-          )}
-        </div>
-        <div className={classes.actions}>
-          <Button className={classes.login}>Đăng ký</Button>
-        </div>
-      </form>
-    </Modal>
+        </Formik>
+      </div>
+    </div>
   );
 };
-
 export default Signup;

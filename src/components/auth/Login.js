@@ -1,132 +1,83 @@
-import { useCallback, useRef, useState } from 'react';
-import Input from '../UI/Input';
-import Button from '../UI/Button';
-import Modal from '../UI/Modal';
-import LoadingSpinner from '../UI/LoadingSpinner';
 import classes from './Login.module.css';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
-import { authAction } from '../../store/auth-context';
-import useHttp from '../../hooks/use-http';
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().required('Required'),
+});
 
-const Login = props => {
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-
-  const dispatch = useDispatch();
-
-  const updateLoginState = useCallback(
-    data => {
-      dispatch(authAction.login(data.user));
-    },
-    [dispatch]
-  );
-
-  const {
-    isLoading: isLoggingIn,
-    error,
-    sendRequest: sendlogInRequest,
-  } = useHttp(updateLoginState);
-
-  const emailBlurHandler = () => {
-    const enteredEmail = emailInputRef.current.value;
-    const emailIsValid =
-      enteredEmail.trim().includes('@') && enteredEmail.trim() !== '';
-
-    if (!emailIsValid) {
-      setEmailError(true);
-    }
-  };
-
-  const emailChangeHandler = () => {
-    setEmailError(false);
-  };
-
-  const passwordBlurHandler = () => {
-    const enteredPassword = passwordInputRef.current.value;
-    const passwordIsValid = enteredPassword.trim() !== '';
-
-    if (!passwordIsValid) {
-      setPasswordError(true);
-    }
-  };
-
-  const passwordChangeHandler = () => {
-    setPasswordError(false);
-  };
-
-  const loginHandler = async e => {
-    e.preventDefault();
-
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
-
-    const emailIsValid =
-      enteredEmail.trim().includes('@') && enteredEmail.trim() !== '';
-    const passwordIsValid = enteredPassword.trim() !== '';
-
-    if (!emailIsValid) {
-      setEmailError(true);
-    }
-
-    if (!passwordIsValid) {
-      setPasswordError(true);
-    }
-
-    if (!emailIsValid || !passwordIsValid) {
-      return;
-    }
-
-    sendlogInRequest({
-      url: 'auth/login',
-      method: 'post',
-      body: { email: enteredEmail, password: enteredPassword },
-    });
-    if (!error) {
-      props.onClose();
-    }
-  };
+const Login = () => {
   return (
-    <Modal onClose={props.onClose}>
-      {isLoggingIn && <LoadingSpinner />}
-      <h2 className={classes.title}>Đăng nhập</h2>
-      <form className={classes.form} onSubmit={loginHandler}>
-        <div className={classes.control}>
-          <Input
-            hasError={emailError}
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Địa chỉ email"
-            ref={emailInputRef}
-            onBlur={emailBlurHandler}
-            onChange={emailChangeHandler}
-          />
-          {emailError && <p className={classes.error}>Email không hợp lệ.</p>}
-        </div>
-        <div className={classes.control}>
-          <Input
-            hasError={passwordError}
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Mật khẩu"
-            ref={passwordInputRef}
-            onBlur={passwordBlurHandler}
-            onChange={passwordChangeHandler}
-          />
-          {passwordError && (
-            <p className={classes.error}>Mật khẩu không hợp lệ.</p>
+    <div className={`${classes.container} container`}>
+      <div className={classes['login-card']}>
+        <h2 className={classes.title}>Đăng nhập vào BookShop</h2>
+        <Formik
+          initialValues={{
+            email: '',
+            password: '',
+          }}
+          validationSchema={LoginSchema}
+          onSubmit={values => {
+            // same shape as initial values
+            console.log(values);
+          }}
+        >
+          {({ errors, touched }) => (
+            <Form>
+              <div className={classes['form-field']}>
+                <Field
+                  name="email"
+                  type="email"
+                  placeholder=" "
+                  className={classes['form-input']}
+                />
+                <label htmlFor="email" className={classes['form-label']}>
+                  Email
+                </label>
+                {/* {errors.email && touched.email ? (
+                <div className={classes.error}>{errors.email}</div>
+              ) : null} */}
+              </div>
+              <div className={classes['form-field']}>
+                <Field
+                  name="password"
+                  type="password"
+                  placeholder=" "
+                  className={classes['form-input']}
+                />
+                <label htmlFor="email" className={classes['form-label']}>
+                  Password
+                </label>
+                {/* {errors.password && touched.password ? (
+                <div className={classes.error}>{errors.password}</div>
+              ) : null} */}
+              </div>
+              <Link to="forgotten" className={classes.forgotten}>
+                Quên mật khẩu?
+              </Link>
+              <button
+                type="submit"
+                className={classes.submit}
+                disabled={errors.email || errors.password}
+              >
+                Đăng nhập
+              </button>
+            </Form>
           )}
-        </div>
-        <div className={classes.actions}>
-          <Button className={classes.login}>Đăng nhập</Button>
-        </div>
-      </form>
-    </Modal>
+        </Formik>
+        <p className={classes.ps}>
+          Chưa có tài khoản? <Link to="/signup">Đăng ký</Link>
+        </p>
+      </div>
+      <div className={classes['thumbnail']}>
+        <img
+          src={process.env.PUBLIC_URL + '/images/login.jpeg'}
+          alt="login-thumbnail"
+        ></img>
+      </div>
+    </div>
   );
 };
-
 export default Login;

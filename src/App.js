@@ -131,9 +131,11 @@ function App() {
       {isSignup && <Signup onClose={onCloseHandler} />}
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>
-          <Route path="/" element={<Navigate to="/landingpage" />} />
+          <Route path="/" element={<Navigate to="/home" />} />
           <Route path="books/:slug" element={<BookDetail />} />
           <Route path="search" element={<SearchPage />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
           <Route path="cart" element={<Cart />} />
           <Route path="author/:authorId" element={<Author />} />
           <Route
