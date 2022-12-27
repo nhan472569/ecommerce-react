@@ -1,65 +1,51 @@
 .item {
-  width: calc(20% - 4rem);
-  margin: 3rem 2rem;
+  width: calc(25% - 2rem);
+  margin: 3rem 1rem;
   position: relative;
-}
-
-.overlay {
-  background-color: rgb(209, 64, 49, 0.95);
-  width: 100%;
-  height: 100%;
-  color: #fff;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.2s ease-out;
-}
-
-.overlay-action {
-  font-size: 1.8rem;
-  font-weight: 300;
-  transition: all 0.2s ease-out;
-  display: block;
-  height: 2rem;
-  position: relative;
-}
-
-.overlay-action::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  height: 1px;
-  background-color: #fff;
-  left: 0;
-}
-
-.overlay-action:hover::after {
-  animation: bottom-border 0.5s ease-out;
-  animation-fill-mode: both;
-}
-
-.item:hover .overlay {
-  opacity: 1;
 }
 
 .image {
   width: 100%;
-  height: 32rem;
+  height: 30rem;
   position: relative;
   transition: all 0.2s ease-out;
+  border-radius: 1rem;
 }
 
 .image img {
   width: 100%;
   height: 100%;
+  border-radius: 1rem;
+}
+
+.add-to-wishlist {
+  width: 2.5rem;
+  height: 2.5rem;
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  background-color: #fff;
+  border-radius: 100rem;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.add-to-wishlist i {
+  color: #222831;
+  line-height: 2.5rem;
+  transition: 0.25s ease;
+}
+
+.add-to-wishlist:hover {
+  background-color: #222831;
+}
+.add-to-wishlist:hover i {
+  color: #fff;
 }
 
 .content {
-  padding: 2rem 0;
+  padding: 1rem 0;
 }
 
 .author {
@@ -79,9 +65,9 @@
 }
 
 .title a {
-  color: black;
+  color: #222831;
+  font-size: 1.5rem;
   font-weight: 500;
-  font-size: 2.1rem;
   margin-bottom: 1rem;
   display: block;
   display: -webkit-box;
@@ -90,12 +76,32 @@
   overflow: hidden;
 }
 
+.title a:hover {
+  color: #393e46;
+}
+
 .price {
-  color: #343434;
-  font-size: 2rem;
+  color: #222831;
+  font-size: 1.3rem;
   font-weight: 500;
 }
 
+.add-to-cart {
+  height: 3rem;
+  font-size: 1.4rem;
+  background-color: #fff;
+  border: 1px solid #222831;
+  border-radius: 100rem;
+  padding: 0 2rem;
+  margin-top: 1.2rem;
+  transition: 0.25s ease;
+  cursor: pointer;
+}
+
+.add-to-cart:hover {
+  color: #fff;
+  background-color: #222831;
+}
 @keyframes bottom-border {
   from {
     width: 0%;

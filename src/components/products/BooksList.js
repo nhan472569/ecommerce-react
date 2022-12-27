@@ -11,19 +11,7 @@ const BooksList = ({ books }) => {
     <main className={classes.container}>
       <div className={classes.section}>
         {books.map(book => {
-          return (
-            <BookItem
-              key={book._id}
-              id={book._id}
-              imageCover={book.imageCover}
-              name={book.name}
-              price={book.price}
-              category={book.category}
-              authors={book.authors}
-              object={book}
-              slug={book.slug}
-            />
-          );
+          return <BookItem key={book._id} book={book} />;
         })}
       </div>
     </main>

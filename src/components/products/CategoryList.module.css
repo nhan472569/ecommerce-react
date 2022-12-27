@@ -9,7 +9,7 @@
 .category .category-item {
   min-width: 4rem;
   height: 5rem;
-  font-size: 2rem;
+  font-size: 1.6rem;
   padding: 0 3rem;
   line-height: 5rem;
   margin: 1rem;
@@ -17,8 +17,8 @@
   cursor: pointer;
   transition: all 0.2s ease-out;
 }
-
+.active,
 .category .category-item:hover {
   color: #fff;
-  background-color: #000;
+  background-color: #7971ea;
 }

@@ -63,8 +63,8 @@ const NavBar = props => {
           </li>
         </ul>
       </nav>
-      <Auth onLogin={props.onLogin} onSignup={props.onSignup} />
       <CartButton />
+      <Auth onLogin={props.onLogin} onSignup={props.onSignup} />
       <SearchButton />
     </header>
   );

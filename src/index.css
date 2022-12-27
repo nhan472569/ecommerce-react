@@ -9,15 +9,6 @@ a {
   transition: color 0.2s ease-out;
 }
 
-h1 a:hover,
-h2 a:hover,
-h3 a:hover,
-h4 a:hover,
-h5 a:hover,
-h6 a:hover {
-  color: #d14031;
-}
-
 html {
   font-size: 62.5%;
 }
@@ -57,4 +48,8 @@ code {
 .swiper-button-next,
 .swiper-button-prev {
   color: #fff !important;
+}
+
+.fa-star {
+  color: #ddd;
 }

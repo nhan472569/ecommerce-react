@@ -3,36 +3,41 @@ import classes from './BookItem.module.css';
 
 import { useDispatch } from 'react-redux';
 import { cartAction } from '../../store/cart-context';
+import RatingStars from '../UI/RatingStars';
 
-const BookItem = props => {
-  const bookItem = props.object;
+const BookItem = ({ book }) => {
+  const {
+    name,
+    ratingsAverage,
+    ratingsQuantity,
+    price,
+    imageCover,
+    authors,
+    slug,
+  } = book;
 
   const dispatch = useDispatch();
 
   const addToCart = e => {
     e.preventDefault();
-    console.log(bookItem);
-    dispatch(cartAction.addItem({ ...bookItem, quantity: 1 }));
-    console.log({ ...bookItem, quantity: 1 });
+    dispatch(cartAction.addItem({ ...book, quantity: 1 }));
   };
   return (
     <div className={classes.item}>
       <div className={classes.image}>
-        <Link to={`/books/${props.slug}`}>
+        <Link to={`/books/${slug}`}>
           <img
-            src={process.env.PUBLIC_URL + '/images/' + props.imageCover}
-            alt={props.name}
+            src={process.env.PUBLIC_URL + '/images/' + imageCover}
+            alt={name}
           ></img>
-          <div className={classes.overlay}>
-            <span className={classes['overlay-action']} onClick={addToCart}>
-              Thêm vào giỏ
-            </span>
-          </div>
         </Link>
+        <div className={classes['add-to-wishlist']}>
+          <i class="fa-regular fa-heart"></i>
+        </div>
       </div>
       <div className={classes.content}>
         <div className={classes.author}>
-          {props.authors.map(a => {
+          {authors.map(a => {
             return (
               <Link to={`/author/${a._id}`} key={a._id}>
                 {a.name}
@@ -41,11 +46,16 @@ const BookItem = props => {
           })}
         </div>
         <h2 className={classes.title}>
-          <Link to={`/books/${props.slug}`}>{props.name}</Link>
+          <Link to={`/books/${slug}`}>{name}</Link>
         </h2>
-        <p className={classes.price}>{`${props.price.toLocaleString(
-          'vi-VN'
-        )}₫`}</p>
+        <p className={classes.price}>{`${price.toLocaleString('vi-VN')}₫`}</p>
+        <RatingStars
+          ratingAverage={ratingsAverage}
+          ratingCount={ratingsQuantity}
+        />
+        <button className={classes['add-to-cart']} onClick={addToCart}>
+          Thêm vào giỏ
+        </button>
       </div>
     </div>
   );

@@ -143,9 +143,9 @@ function App() {
             element={
               <Fragment>
                 <Slider />
-                <CategoryList
+                {/* <CategoryList
                   getProductsByCategory={getProductsByCategory}
-                ></CategoryList>
+                ></CategoryList> */}
                 {isLoadingBooks ||
                 isLoadingUserInfo ||
                 isLoadingBooksByCategory ? (
