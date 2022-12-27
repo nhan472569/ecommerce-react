@@ -17,7 +17,7 @@ const Signup = () => {
         ></img>
       </div>
       <div className={classes['signup-card']}>
-        <h2 className={classes.title}>Đăng ký tài khoản BookShop</h2>
+        <h2 className={classes.title}>Đăng ký</h2>
         <Formik
           initialValues={{
             email: '',

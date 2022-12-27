@@ -16,11 +16,11 @@
 }
 
 .logo > a {
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   line-height: 8rem;
   font-weight: bold;
   text-decoration: none;
-  color: black;
+  color: #393e46;
 }
 
 .logo,
@@ -63,7 +63,7 @@
   transition: all linear 0.1s;
   color: #840000;
   text-decoration: none;
-  font-size: 2rem;
+  font-size: 1.5rem;
   display: block;
   height: 100%;
   width: 100%;
@@ -86,7 +86,7 @@
 }
 
 .subnav__item {
-  height: 3rem;
+  height: 2rem;
   width: 100%;
   text-align: left;
   margin-bottom: 1rem;
@@ -95,8 +95,8 @@
 }
 
 .subnav__item a {
-  line-height: 3rem;
-  font-size: 1.7rem;
+  line-height: 2rem;
+  font-size: 1.3rem;
   display: block;
   /* height: 3rem; */
 }

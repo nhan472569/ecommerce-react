@@ -12,7 +12,7 @@ const Login = () => {
   return (
     <div className={`${classes.container} container`}>
       <div className={classes['login-card']}>
-        <h2 className={classes.title}>Đăng nhập vào BookShop</h2>
+        <h2 className={classes.title}>Đăng nhập</h2>
         <Formik
           initialValues={{
             email: '',
@@ -68,7 +68,7 @@ const Login = () => {
           )}
         </Formik>
         <p className={classes.ps}>
-          Chưa có tài khoản? <Link to="/signup">Đăng ký</Link>
+          Chưa có tài khoản? <Link to="/signup">Đăng ký ngay</Link>.
         </p>
       </div>
       <div className={classes['thumbnail']}>

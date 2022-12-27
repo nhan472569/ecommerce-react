@@ -15,27 +15,27 @@
 }
 
 .cart:hover i {
-  color: #d14031;
+  color: #222831;
   transition: all linear 0.1s;
   cursor: pointer;
 }
 .cart i {
-  font-size: 2.5rem;
-  color: #1c1d1f;
+  font-size: 2rem;
+  color: #393e46;
 }
 
 .quantity {
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 50%;
-  background-color: red;
-  color: white;
+  background-color: #eee;
+  color: #222831;
   top: 2rem;
   left: 0;
   position: absolute;
   text-align: center;
-  line-height: 2rem;
-  font-size: 1.3rem;
+  line-height: 1.5rem;
+  font-size: 1rem;
 }
 
 .total {

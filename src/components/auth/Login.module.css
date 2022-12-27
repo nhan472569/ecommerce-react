@@ -1,13 +1,14 @@
 .title {
   color: #1c1d1f;
   font-size: 3rem;
-  font-weight: 700;
+  font-weight: 500;
   margin-bottom: 3rem;
+  text-align: center;
 }
 .container {
   display: flex;
   justify-content: space-between;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  box-shadow: rgba(246, 96, 96, 0.1) 0px 4px 12px;
   border-radius: 1rem;
 }
 
@@ -36,7 +37,7 @@
 
 .form-input {
   width: 100%;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   border-radius: 8px;
   padding: 0.5rem 1rem;
   border: 1px solid #eee;
@@ -46,7 +47,7 @@
 }
 
 .form-input:focus-visible {
-  outline-color: #6a5af9;
+  outline-color: #7971ea;
 }
 
 .form-input:not(:placeholder-shown) + .form-label,
@@ -54,6 +55,7 @@
   top: 0;
   background-color: #fff;
   padding: 0 1rem;
+  color: #7971ea;
 }
 
 .form-field {
@@ -64,7 +66,7 @@
 }
 
 .form-label {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -80,7 +82,7 @@
   border: none;
   color: #fff;
   font-weight: 600;
-  background-color: #6a5af9;
+  background-color: #7971ea;
   font-size: 1.5rem;
   margin-top: 1.2rem;
   text-align: center;
@@ -95,7 +97,7 @@
 }
 
 .submit:disabled {
-  background-color: #6a5af9a3;
+  background-color: #7971eaae;
   cursor: not-allowed;
 }
 .forgotten {
@@ -103,16 +105,16 @@
   margin-top: 1.2rem;
   float: right;
   font-size: 1.2rem;
-  color: #6a5af9;
+  color: #7971ea;
 }
 .ps {
   display: block;
   margin-top: 1.2rem;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 .ps a {
-  color: #6a5af9;
+  color: #7971ea;
 }
 
 .error {

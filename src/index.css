@@ -24,10 +24,10 @@ html {
 
 body {
   margin: 0;
-  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif; */
-  font-family: 'Cormorant Garamond', serif;
+    sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
   /* font-family: 'Montserrat', sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -57,8 +57,4 @@ code {
 .swiper-button-next,
 .swiper-button-prev {
   color: #fff !important;
-}
-
-input {
-  font-family: 'Cormorant Garamond', sans-serif;
 }

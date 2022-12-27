@@ -23,9 +23,9 @@ const SearchButton = () => {
         name="search"
         ref={searchInputRef}
       ></input>
-      <button className={classes['search-btn']}>
+      <div className={classes['search-icon']}>
         <i className="fas fa-search"></i>
-      </button>
+      </div>
     </form>
   );
 };

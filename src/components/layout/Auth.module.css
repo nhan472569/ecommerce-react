@@ -8,13 +8,15 @@
 .login,
 .signup {
   font-size: 1.2rem;
-  width: 7rem;
-  height: 5rem;
+  width: 10rem;
+  height: 4rem;
+  text-transform: capitalize;
   background-color: transparent;
   border: none;
   cursor: pointer;
   transition: all linear 0.1s;
   border-radius: 100rem;
+  font-family: inherit;
 }
 
 .login {
@@ -24,10 +26,10 @@
 }
 
 .signup {
-  background-color: #1c1d1f;
+  background-color: #7971ea;
   color: #fff;
 }
 
 .signup:hover {
-  background-color: rgb(28, 29, 31, 0.9);
+  background-color: #6056e4;
 }

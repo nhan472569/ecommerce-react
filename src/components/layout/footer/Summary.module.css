@@ -14,8 +14,8 @@
 }
 
 .title {
-  font-size: 2.5rem;
-  font-weight: 500;
+  font-size: 1.8rem;
+  font-weight: 400;
   text-transform: capitalize;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .menu-item a {
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   color: #c4c4c4;
   margin-bottom: 1rem;
   transition: all 0.2s ease-out;
@@ -48,7 +48,7 @@
 
 .content-container {
   color: #c4c4c4;
-  font-size: 1.7rem;
+  font-size: 1.4rem;
 }
 
 .content {
@@ -85,17 +85,14 @@
   background-color: transparent;
   outline: none;
   color: #999;
-  font-size: 1.7rem;
+  font-size: 1.4rem;
 }
 
 .subcription-form .email {
   border: 1px solid #999;
   width: 100%;
-  padding: 1rem 2rem;
-}
-
-.subcription-form .email:focus::placeholder {
-  color: #fff;
+  padding: 0.8rem 1.6rem;
+  color: #ddd;
 }
 .subcription-form button {
   border: none;
