@@ -5,7 +5,7 @@ import classes from './CartItem.module.css';
 import { Link } from 'react-router-dom';
 
 const CartItem = props => {
-  const { productId, name, price, quantity, imageCover } = props;
+  const { productId, name, price, quantity, imageCover, slug } = props;
 
   const dispatch = useDispatch();
   const deleteItem = () => {
@@ -32,35 +32,27 @@ const CartItem = props => {
   };
 
   return (
-    <tr className={classes.item}>
-      <td className={classes.namebox}>
-        <Link to={`/products/${productId}`}>
-          <div className={classes.image}>
+    <div className={classes.item}>
+      <hr></hr>
+      <div className={classes.detail}>
+        <div className={classes['product-img']}>
+          <Link to={`/books/${slug}`}>
             <img
               src={process.env.PUBLIC_URL + '/images/' + imageCover}
               alt={name}
-            />
-          </div>
-          <div className={classes.name}>{name}</div>
-        </Link>
-      </td>
-      <td>{price.toLocaleString('vi-VN')} ₫</td>
-      <td>
-        <span className={classes.decrease} onClick={decreaseQuantity}>
-          -
-        </span>
-        <input type="text" value={quantity} className={classes.quantity} />
-        <span className={classes.increase} onClick={increaseQuantity}>
-          +
-        </span>
-      </td>
-      <td>{Number(`${price * quantity}`).toLocaleString('vi-VN')} ₫</td>
-      <td>
-        <button className={classes.delete} onClick={deleteItem}>
-          Xóa
-        </button>
-      </td>
-    </tr>
+            ></img>
+          </Link>
+        </div>
+        <div className={classes.info}>
+          <Link to={`/books/${slug}`}>
+            <h3 className={classes.name}>{name}</h3>
+          </Link>
+          <p className={classes.price}>
+            {Number(`${price * quantity}`).toLocaleString('vi-VN')} ₫
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
 

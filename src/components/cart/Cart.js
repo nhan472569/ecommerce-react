@@ -11,8 +11,21 @@ const Cart = props => {
   const quantity = cart.items.reduce((acc, item) => acc + item.quantity, 0);
   return (
     <div className="container">
-      <h1 className={classes.title}>Giỏ hàng</h1>
-      <table className={classes.table}>
+      <div className={classes.cart}>
+        <h1 className={classes.title}>Giỏ hàng</h1>
+        {cart.items.map(item => (
+          <CartItem
+            key={item._id}
+            productId={item._id}
+            name={item.name}
+            price={item.price}
+            quantity={item.quantity}
+            imageCover={item.imageCover}
+            slug={item.slug}
+          />
+        ))}
+      </div>
+      {/* <table className={classes.table}>
         <thead>
           <tr className={classes.head}>
             <th>Tên sản phẩm</th>
@@ -40,8 +53,8 @@ const Cart = props => {
           <span>Tổng thanh toán ({quantity} sản phẩm): </span>
           <span>{total.toLocaleString('vi-VN')} ₫</span>
         </div>
-        <button className={classes.checkout}>Thanh toán</button>
-      </div>
+        <button className={classes.checkout}>Thanh toán</button> */}
+      {/* </div> */}
     </div>
   );
 };

@@ -14,21 +14,21 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-  transition: all linear 0.1s;
+  transition: all linear 0.25s;
   border-radius: 100rem;
   font-family: inherit;
 }
 
 .login {
-  margin-right: 1rem;
+  margin-right: 0.5rem;
   border-radius: none;
 }
 
 .signup {
-  background-color: #7971ea;
-  color: #fff;
+  border: 1px solid #222831;
 }
 
 .signup:hover {
-  background-color: #6056e4;
+  background-color: #222831;
+  color: #fff;
 }

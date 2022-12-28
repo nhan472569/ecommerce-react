@@ -96,6 +96,7 @@
   margin-top: 1.2rem;
   transition: 0.25s ease;
   cursor: pointer;
+  text-transform: capitalize;
 }
 
 .add-to-cart:hover {
