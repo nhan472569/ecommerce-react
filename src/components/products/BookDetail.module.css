@@ -7,18 +7,22 @@
 }
 
 .image {
-  width: 30rem;
+  width: 50%;
+  height: 60rem;
+  border-radius: 1.5rem;
 }
 
 .image img {
   width: 100%;
+  height: 100%;
   position: sticky;
   top: 8rem;
+  border-radius: 1.5rem;
 }
 
 .content {
-  margin-left: 5rem;
-  max-width: 60%;
+  margin-left: 7rem;
+  width: 50%;
 }
 
 .author {
@@ -38,26 +42,35 @@
 }
 
 .title {
-  font-size: 3.5rem;
-  font-weight: 500;
+  font-size: 3rem;
+  font-weight: 600;
   margin-bottom: 1rem;
 }
 
 .description {
-  font-size: 1.9rem;
+  font-size: 1.4rem;
   max-height: 60rem;
   overflow: hidden;
-  font-weight: 500;
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
   line-height: 1.5;
   color: #555;
 }
 
+.paragraph:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
 .price {
   color: #000;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 500;
   margin-bottom: 2rem;
+  margin-top: 1rem;
+}
+
+.content hr {
+  margin-bottom: 3rem;
+  border: 1px solid #eee;
 }
 
 .add-to-cart input {
@@ -92,48 +105,80 @@
 }
 
 .btn-quantity-left::before {
-  content: '<';
+  content: '-';
+  color: #000;
+  font-size: 2.2rem;
+  font-weight: 300;
+  background-color: #f4f3f3;
+  position: absolute;
+  left: 2.5rem;
+  top: 0.5rem;
 }
 
 .btn-quantity-right::before {
-  content: '>';
+  content: '+';
+  color: #000;
+  font-size: 2.2rem;
+  font-weight: 300;
+  background-color: #f4f3f3;
+  position: absolute;
+  right: 2.5rem;
+  top: 0.5rem;
 }
 
 .actions {
   margin-top: 3rem;
 }
 
-.btn-submit {
-  color: white;
+.btn-buy,
+.btn-add {
   width: 20rem;
-  height: 5rem;
+  height: 4rem;
   padding: 1rem 2rem;
-  background-color: #d14031;
-  transition: all 0.2s ease-out;
-  font-weight: 400;
+  transition: all 0.25s ease-out;
+  font-weight: 500;
+  border-radius: 100rem;
+  text-transform: capitalize;
+  font-size: 1.4rem;
+}
+.btn-buy {
+  color: #fff;
+  background-color: #222831;
+  margin-right: 1.5rem;
+}
+.btn-add {
+  color: #222831;
+  background-color: #fff;
+  border: 1px solid #222831;
 }
 
-.btn-submit:hover {
-  background-color: #ad362a;
+.btn-buy:hover {
+  background-color: #393e46;
+  color: #fff;
+}
+
+.btn-add:hover {
+  background-color: #222831;
   color: #fff;
 }
 
 .quantity {
   border: 1px solid #e1e1e1;
-  display: inline-block;
-  height: 5rem;
+  height: 4rem;
+  width: 14rem;
   color: #999;
-  padding: 0 2rem 0 0;
+  padding: 0 2rem;
   margin-right: 2rem;
   user-select: none;
+  border-radius: 100rem;
+  background-color: #f4f3f3;
+  position: relative;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-.quantity::before {
-  content: 'Số lượng';
-  font-size: 1.7rem;
-  font-weight: 300;
-  display: inline-block;
-  width: 11rem;
-  padding: 0 2rem;
-  height: 100%;
+.quantity input {
+  background-color: inherit;
+  font-size: 1.3rem;
+  font-weight: 600;
 }

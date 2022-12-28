@@ -9,7 +9,7 @@ const CartButton = () => {
   return (
     <div className={classes.cart}>
       <Link to="/cart">
-        <i class="fas fa-shopping-cart"></i>
+        <i className="fas fa-shopping-cart"></i>
 
         <span className={classes.quantity}>{quantity}</span>
         {/* <span className={classes.total}>

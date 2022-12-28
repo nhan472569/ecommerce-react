@@ -8,6 +8,7 @@ import CommentBox from '../comments/CommentBox';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import classes from './BookDetail.module.css';
 import useHttp from '../../hooks/use-http';
+import RatingStars from '../UI/RatingStars';
 
 const BookDetail = props => {
   const [quantity, setQuantity] = useState(1);
@@ -62,6 +63,10 @@ const BookDetail = props => {
     dispatch(cartAction.addItem({ ...loadedBookDetail, quantity }));
   };
 
+  const splitParagragh = description => {
+    return description.split('/n');
+  };
+
   const detailContent = (
     <>
       <div className={classes.image}>
@@ -83,10 +88,21 @@ const BookDetail = props => {
           })}
         </div>
         <h2 className={classes.title}>{loadedBookDetail.name}</h2>
+        <RatingStars
+          ratingAverage={loadedBookDetail.ratingsAverage}
+          ratingCount={loadedBookDetail.ratingsQuantity}
+        />
         <p className={classes.price}>{`${loadedBookDetail.price.toLocaleString(
           'vi-VN'
         )}₫`}</p>
-        <p className={classes.description}>{loadedBookDetail.description}</p>
+        <p className={classes.description}>
+          {splitParagragh(loadedBookDetail.description).map((paragraph, i) => (
+            <p className={classes.paragraph} key={i}>
+              {paragraph}
+            </p>
+          ))}
+        </p>
+        <hr />
         <form className={classes['add-to-cart']} onSubmit={addToCartHandler}>
           <div className={classes.quantity}>
             <span
@@ -102,8 +118,14 @@ const BookDetail = props => {
               onClick={increaseHandler}
             ></span>
           </div>
-          <button className={`${classes.btn} ${classes['btn-submit']}`}>
-            Thêm vào giỏ hàng
+          <button
+            className={`${classes.btn} ${classes['btn-buy']}`}
+            type="button"
+          >
+            Mua ngay
+          </button>
+          <button className={`${classes.btn} ${classes['btn-add']}`}>
+            Thêm vào giỏ
           </button>
         </form>
       </div>

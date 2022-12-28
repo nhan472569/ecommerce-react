@@ -7,9 +7,11 @@ const RatingStars = props => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= Math.round(ratedStar)) {
-        stars.push(<span className={'fa fa-star ' + classes.checked}></span>);
+        stars.push(
+          <span key={i} className={'fa fa-star ' + classes.checked}></span>
+        );
       } else {
-        stars.push(<span className="fa fa-star"></span>);
+        stars.push(<span key={i} className="fa fa-star"></span>);
       }
     }
     return stars;
