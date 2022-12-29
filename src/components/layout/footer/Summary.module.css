@@ -94,6 +94,11 @@
   padding: 0.8rem 1.6rem;
   color: #ddd;
 }
+
+.subcription-form .email:focus-visible {
+  border: 1px solid #fff;
+}
+
 .subcription-form button {
   border: none;
   position: absolute;
