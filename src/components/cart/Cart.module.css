@@ -5,58 +5,126 @@
   text-transform: capitalize;
 }
 
+.text-gray {
+  font-size: 1.5rem;
+  color: #333;
+}
+.text-light-gray {
+  font-size: 1.3rem;
+  color: #999;
+}
+.text-black {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #000;
+}
 .cart {
-  width: 60%;
+  width: 58%;
   border-radius: 1rem;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   padding: 2rem 3rem;
 }
 
-.table {
+.bill {
+  width: 40%;
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  padding: 2rem 3rem;
+}
+
+.bill-title {
+  font-size: 2rem;
+  font-weight: 400;
+  color: #777;
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
+}
+
+.delivery-select {
+  display: inline-block;
+  background-color: #eee;
+  height: auto;
+  padding: calc(1rem + 2px) 2px;
+  border-radius: 0.7rem;
+  margin-bottom: 0.5rem;
+}
+
+.delivery-select span {
+  font-size: 1.3rem;
+  color: #000;
+  padding: 1rem;
+  cursor: pointer;
+}
+.delivery-select span:first-child {
+  background-color: #fff;
+  font-size: 1.3rem;
+  color: #000;
+  padding: 1rem;
+  border-radius: 0.7rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.bill hr {
+  margin: 1.5rem 0;
+  border: 1px dashed #eee;
+}
+
+.discount-form {
+  position: relative;
   width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  font-size: 2rem;
-  color: #1c1d1f;
-  text-align: center;
-  font-weight: 600;
-  margin-bottom: 2rem;
 }
 
-.head th {
-  padding: 0.5rem;
-  font-size: 2rem;
-  padding-bottom: 2rem;
-}
-
-.summary {
+.discount-form input {
   width: 100%;
-  text-align: right;
+  font-size: 1.3rem;
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 0.5rem;
 }
-
-.total {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-.total span:last-child {
-  color: #840000;
-  font-size: 3rem;
-}
-
-.checkout {
-  width: 10rem;
-  height: 5rem;
-  padding: 0.5rem 1rem;
-  background-color: #840000;
-  border: none;
+.discount-form input:focus-visible {
   outline: none;
-  color: #fff;
-  transition: all linear 0.1s;
+}
+.discount-form button {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  bottom: 1px;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #fff;
+  padding: 1rem;
+  color: #000;
+  cursor: pointer;
+  border: 1px solid #eee;
+}
+
+.checkout,
+.continue {
+  width: 100%;
+  font-size: 1.5rem;
+  padding: 1rem 0;
+  text-align: center;
+  margin: 1rem 0 0.5rem 0;
+  transition: 0.25s ease;
   cursor: pointer;
 }
 
+.checkout {
+  border: none;
+  color: #fff;
+  background-color: #222831;
+}
+
+.continue {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #222831;
+}
+
 .checkout:hover {
-  background-color: #d14031;
+  background-color: #393e46;
+}
+
+.continue:hover {
+  background-color: #eee;
 }

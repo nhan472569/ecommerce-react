@@ -53,3 +53,21 @@ code {
 .fa-star {
   color: #ddd;
 }
+
+.d-flex {
+  display: flex;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.row {
+  display: flex;
+}
+
+.mb-05 {
+  margin-bottom: 0.5rem;
+}
