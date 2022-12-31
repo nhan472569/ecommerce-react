@@ -1,8 +1,19 @@
+import { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import classes from './Cart.module.css';
 import CartItem from './CartItem';
 
-const Cart = props => {
+const Cart = () => {
+  const [delivery, setDelivery] = useState({ free: true, express: false });
+  const [discountRate, setDiscountRate] = useState(0);
+  const couponRef = useRef();
+  const deliveryCost = {
+    free: 0,
+    express: 29000,
+  };
+  const coupon = {
+    NHANDEPTRAI: 0.1,
+  };
   const cart = useSelector(state => state.cart);
   const options = {
     weekday: 'long',
@@ -12,11 +23,31 @@ const Cart = props => {
   };
 
   const date = new Date(Date.now());
-  const total = cart.items.reduce(
+
+  const selectDeliveryType = type => {
+    const origin = { free: false, express: false };
+    setDelivery({ ...origin, [type]: true });
+  };
+
+  const applyCoupon = e => {
+    e.preventDefault();
+    const enteredCoupon = couponRef.current.value;
+    if (coupon[enteredCoupon]) {
+      setDiscountRate(coupon[enteredCoupon]);
+      couponRef.current.value = '';
+    }
+  };
+  const subtotal = cart.items.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
-  const quantity = cart.items.reduce((acc, item) => acc + item.quantity, 0);
+  const calcTax = subtotal * 0.02;
+  const calcDiscount = subtotal * discountRate;
+  const total =
+    subtotal +
+    deliveryCost[`${delivery.free ? 'free' : 'express'}`] +
+    calcTax -
+    calcDiscount;
   return (
     <div className="container flex-between">
       <div className={classes.cart}>
@@ -36,20 +67,31 @@ const Cart = props => {
       <div className={classes.bill}>
         <p className={classes['bill-title']}>Giao hàng</p>
         <span className={classes['delivery-select']}>
-          <span>Miễn phí</span>
-          <span>Giao nhanh: {(29000).toLocaleString('vi-VN')} ₫</span>
+          <span
+            className={delivery.free ? classes.active : undefined}
+            onClick={() => selectDeliveryType('free')}
+          >
+            Miễn phí
+          </span>
+          <span
+            className={delivery.express ? classes.active : undefined}
+            onClick={() => selectDeliveryType('express')}
+          >
+            Giao nhanh: {deliveryCost.express.toLocaleString('vi-VN')} ₫
+          </span>
         </span>
-        <p className={classes['text-gray']}>
+        <p className={classes['text-light-gray']}>
           Ngày giao hàng: {date.toLocaleString('vi-VN', options)}
         </p>
         <hr></hr>
-        <form className={classes['discount-form']}>
+        <form className={classes['discount-form']} onSubmit={applyCoupon}>
           <input
             typeof="text"
             placeholder="Mã khuyến mãi"
             name="discount"
             id="discount"
             required
+            ref={couponRef}
           ></input>
           <button type="submit">Áp dụng</button>
         </form>
@@ -57,20 +99,29 @@ const Cart = props => {
         <div className="row flex-between mb-05">
           <span className={classes['text-gray']}>Tạm tính</span>
           <span className={classes['text-gray']}>
-            {total.toLocaleString('vi-VN')} ₫
+            {subtotal.toLocaleString('vi-VN')} ₫
           </span>
         </div>
         <div className="row flex-between mb-05">
           <span className={classes['text-light-gray']}>Giảm giá</span>
-          <span className={classes['text-light-gray']}>-0 ₫</span>
+          <span className={classes['text-light-gray']}>
+            - {calcDiscount.toLocaleString('vi-VN')} ₫
+          </span>
         </div>
         <div className="row flex-between mb-05">
           <span className={classes['text-light-gray']}>Phí giao hàng</span>
-          <span className={classes['text-light-gray']}>0 ₫</span>
+          <span className={classes['text-light-gray']}>
+            {deliveryCost[
+              `${delivery.free ? 'free' : 'express'}`
+            ].toLocaleString('vi-VN')}{' '}
+            ₫
+          </span>
         </div>
         <div className="row flex-between mb-05">
           <span className={classes['text-light-gray']}>Thuế</span>
-          <span className={classes['text-light-gray']}>+0 ₫</span>
+          <span className={classes['text-light-gray']}>
+            {calcTax.toLocaleString('vi-VN')} ₫
+          </span>
         </div>
         <hr></hr>
         <div className="row flex-between mb-05">

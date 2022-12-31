@@ -9,6 +9,7 @@ import LoadingSpinner from '../UI/LoadingSpinner';
 import classes from './BookDetail.module.css';
 import useHttp from '../../hooks/use-http';
 import RatingStars from '../UI/RatingStars';
+import environment from '../../environment';
 
 const BookDetail = props => {
   const [quantity, setQuantity] = useState(1);
@@ -71,9 +72,7 @@ const BookDetail = props => {
     <>
       <div className={classes.image}>
         <img
-          src={
-            process.env.PUBLIC_URL + '/images/' + loadedBookDetail.imageCover
-          }
+          src={environment.DOMAIN + '/img/books/' + loadedBookDetail.imageCover}
           alt={loadedBookDetail.name}
         ></img>
       </div>

@@ -55,7 +55,7 @@
   padding: 1rem;
   cursor: pointer;
 }
-.delivery-select span:first-child {
+.delivery-select span.active {
   background-color: #fff;
   font-size: 1.3rem;
   color: #000;

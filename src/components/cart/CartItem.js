@@ -3,6 +3,7 @@ import { cartAction } from '../../store/cart-context';
 
 import classes from './CartItem.module.css';
 import { Link } from 'react-router-dom';
+import environment from '../../environment';
 
 const CartItem = props => {
   const { productId, name, price, quantity, imageCover, slug } = props;
@@ -35,7 +36,7 @@ const CartItem = props => {
         <div className={classes['product-img']}>
           <Link to={`/books/${slug}`}>
             <img
-              src={process.env.PUBLIC_URL + '/images/' + imageCover}
+              src={environment.DOMAIN + '/img/books/' + imageCover}
               alt={name}
             ></img>
           </Link>

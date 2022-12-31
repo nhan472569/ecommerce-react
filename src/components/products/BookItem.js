@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import classes from './BookItem.module.css';
+import environment from '../../environment';
 
 import { useDispatch } from 'react-redux';
 import { cartAction } from '../../store/cart-context';
@@ -27,7 +28,7 @@ const BookItem = ({ book }) => {
       <div className={classes.image}>
         <Link to={`/books/${slug}`}>
           <img
-            src={process.env.PUBLIC_URL + '/images/' + imageCover}
+            src={environment.DOMAIN + '/img/books/' + imageCover}
             alt={name}
           ></img>
         </Link>
