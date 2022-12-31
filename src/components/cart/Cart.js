@@ -4,12 +4,19 @@ import classes from './Cart.module.css';
 import CartItem from './CartItem';
 
 const Cart = () => {
-  const [delivery, setDelivery] = useState({ free: true, express: false });
+  const [deliveryType, setDeliveryType] = useState({
+    free: true,
+    express: false,
+  });
   const [discountRate, setDiscountRate] = useState(0);
   const couponRef = useRef();
   const deliveryCost = {
     free: 0,
     express: 29000,
+  };
+  const deliveryDay = {
+    free: 3,
+    express: 1,
   };
   const coupon = {
     NHANDEPTRAI: 0.1,
@@ -21,12 +28,18 @@ const Cart = () => {
     month: 'long',
     day: 'numeric',
   };
-
-  const date = new Date(Date.now());
+  const calcDeliveryDate =
+    Date.now() +
+    deliveryDay[`${deliveryType.free ? 'free' : 'express'}`] *
+      24 *
+      60 *
+      60 *
+      1000;
+  const date = new Date(calcDeliveryDate);
 
   const selectDeliveryType = type => {
     const origin = { free: false, express: false };
-    setDelivery({ ...origin, [type]: true });
+    setDeliveryType({ ...origin, [type]: true });
   };
 
   const applyCoupon = e => {
@@ -45,7 +58,7 @@ const Cart = () => {
   const calcDiscount = subtotal * discountRate;
   const total =
     subtotal +
-    deliveryCost[`${delivery.free ? 'free' : 'express'}`] +
+    deliveryCost[`${deliveryType.free ? 'free' : 'express'}`] +
     calcTax -
     calcDiscount;
   return (
@@ -68,13 +81,13 @@ const Cart = () => {
         <p className={classes['bill-title']}>Giao hàng</p>
         <span className={classes['delivery-select']}>
           <span
-            className={delivery.free ? classes.active : undefined}
+            className={deliveryType.free ? classes.active : undefined}
             onClick={() => selectDeliveryType('free')}
           >
             Miễn phí
           </span>
           <span
-            className={delivery.express ? classes.active : undefined}
+            className={deliveryType.express ? classes.active : undefined}
             onClick={() => selectDeliveryType('express')}
           >
             Giao nhanh: {deliveryCost.express.toLocaleString('vi-VN')} ₫
@@ -112,7 +125,7 @@ const Cart = () => {
           <span className={classes['text-light-gray']}>Phí giao hàng</span>
           <span className={classes['text-light-gray']}>
             {deliveryCost[
-              `${delivery.free ? 'free' : 'express'}`
+              `${deliveryType.free ? 'free' : 'express'}`
             ].toLocaleString('vi-VN')}{' '}
             ₫
           </span>
