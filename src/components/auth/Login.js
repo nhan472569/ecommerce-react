@@ -2,6 +2,9 @@ import classes from './Login.module.css';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
+import useHttp from '../../hooks/use-http';
+import { useDispatch } from 'react-redux';
+import { authAction } from '../../store/auth-context';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -9,6 +12,14 @@ const LoginSchema = Yup.object().shape({
 });
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const {
+    // isLoading,
+    // error,
+    sendRequest: login,
+  } = useHttp(data => {
+    dispatch(authAction.login(data));
+  });
   return (
     <div className={`${classes.container} container`}>
       <div className={classes['login-card']}>
@@ -20,8 +31,12 @@ const Login = () => {
           }}
           validationSchema={LoginSchema}
           onSubmit={values => {
-            // same shape as initial values
-            console.log(values);
+            const { email, password } = values;
+            login({
+              url: 'users/login',
+              method: 'post',
+              body: { email, password },
+            });
           }}
         >
           {({ errors, touched }) => (

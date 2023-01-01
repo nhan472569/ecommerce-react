@@ -59,6 +59,7 @@ const CartSummary = props => {
     deliveryCost[`${deliveryType.free ? 'free' : 'express'}`] +
     calcTax -
     calcDiscount;
+
   return (
     <div className={classes.bill}>
       <p className={classes['bill-title']}>Giao hàng</p>

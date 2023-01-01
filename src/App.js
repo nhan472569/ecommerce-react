@@ -18,7 +18,6 @@ import Signup from './components/auth/Signup';
 import NavBar from './components/layout/NavBar';
 import LoadingSpinner from './components/UI/LoadingSpinner';
 import ScrollToTop from './components/UI/ScrollToTop';
-import CategoryList from './components/products/CategoryList';
 import Author from './components/author/Author';
 import Slider from './components/layout/slider/Slider';
 import Footer from './components/layout/footer/Footer';
@@ -61,18 +60,18 @@ function App() {
   );
   const {
     isLoading: isLoadingBooks,
-    error: booksError,
+    // error: booksError,
     sendRequest: getBooks,
   } = useHttp(setLoadedBooks);
 
   const {
     isLoading: isLoadingUserInfo,
-    error: userError,
+    // error: userError,
     sendRequest: getUserInfo,
   } = useHttp(handleUserInfo);
   const {
     isLoading: isLoadingBooksByCategory,
-    error: errorBooksByCategory,
+    // error: errorBooksByCategory,
     sendRequest: getBooksByCategory,
   } = useHttp(loadBookHandler);
 

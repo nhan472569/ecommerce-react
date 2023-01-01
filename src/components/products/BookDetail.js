@@ -11,7 +11,7 @@ import useHttp from '../../hooks/use-http';
 import RatingStars from '../UI/RatingStars';
 import environment from '../../environment';
 
-const BookDetail = props => {
+const BookDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [isInvalid, setIsInvalid] = useState(false);
   const [loadedBookDetail, setLoadedBookDetail] = useState({

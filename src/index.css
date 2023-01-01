@@ -68,6 +68,14 @@ code {
   display: flex;
 }
 
+.ml-02 {
+  margin-left: 0.2rem;
+}
+
+.ml-05 {
+  margin-left: 0.5rem;
+}
+
 .mb-05 {
   margin-bottom: 0.5rem;
 }

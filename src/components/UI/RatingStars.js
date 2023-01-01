@@ -20,7 +20,8 @@ const RatingStars = props => {
   return (
     <div className={classes.stars}>
       {renderStars(ratingAverage)}
-      <span className={classes['rating-count']}>({ratingCount})</span>
+      <span className="ml-05">{ratingAverage}</span>
+      <span className="ml-02">({ratingCount})</span>
     </div>
   );
 };

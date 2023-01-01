@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import axios from 'axios';
 import environment from '../environment';
 
-const useHttp = aplyData => {
+const useHttp = applyData => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -18,16 +18,16 @@ const useHttp = aplyData => {
         if (response.statusText === 'OK') {
           const data = response.data.data.data;
           console.log(data);
-          aplyData(data);
+          applyData(data);
         } else {
           throw new Error('Fail to send request.');
         }
       } catch (err) {
-        setError(err.message || 'Something went wrong!');
+        setError(err.response.data.message || 'Something went wrong!');
       }
       setIsLoading(false);
     },
-    [aplyData]
+    [applyData]
   );
 
   console.log({

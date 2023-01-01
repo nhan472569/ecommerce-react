@@ -30,9 +30,8 @@ const Auth = props => {
         Đăng ký
       </button>
     </>
-  ) : (
-    <ProfileButton onLogout={logoutHandler} />
-  );
+  ) : // <ProfileButton onLogout={logoutHandler} />
+  null;
   return <div className={classes.auth}>{authContent}</div>;
 };
 
