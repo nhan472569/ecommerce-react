@@ -14,50 +14,50 @@ const NavBar = props => {
       <nav className={classes.nav}>
         <ul className={classes['nav__items']}>
           <li className={classes['nav__item']}>
-            <Link to="/">
+            <Link to="/home">
               Trang chủ <i className="fas fa-angle-down"></i>
             </Link>
             <ul className={classes['subnav__items']}>
               <li className={classes['subnav__item']}>
-                <a href="/#">Trang chính</a>
+                <Link to="/home">Trang chính</Link>
               </li>
               <li className={classes['subnav__item']}>
-                <a href="/#">Tác giả bán chạy</a>
+                <Link to="/home">Tác giả bán chạy</Link>
               </li>
               <li className={classes['subnav__item']}>
-                <a href="/#">Sách nói</a>
+                <Link to="/home">Sách nói</Link>
               </li>
               <li className={classes['subnav__item']}>
-                <a href="/#">Sách trẻ em</a>
+                <Link to="/home">Sách trẻ em</Link>
               </li>
             </ul>
           </li>
           <li className={classes['nav__item']}>
-            <a href="/">
+            <Link to="/home">
               Sự kiện <i className="fas fa-angle-down"></i>
-            </a>
+            </Link>
             <ul className={classes['subnav__items']}>
               <li className={classes['subnav__item']}>
-                <a href="/#">Các ngày sự kiện</a>
+                <Link to="/home">Các ngày sự kiện</Link>
               </li>
               <li className={classes['subnav__item']}>
-                <a href="/#">Sự kiện sắp diễn ra</a>
+                <Link to="/home">Sự kiện sắp diễn ra</Link>
               </li>
             </ul>
           </li>
           <li className={classes['nav__item']}>
-            <a href="/">Blogs</a>
+            <Link to="/home">Blogs</Link>
           </li>
           <li className={classes['nav__item']}>
-            <a href="/">
+            <Link to="/home">
               Cửa hàng <i className="fas fa-angle-down"></i>
-            </a>
+            </Link>
             <ul className={classes['subnav__items']}>
               <li className={classes['subnav__item']}>
-                <a href="/#">Danh sách sản phẩm</a>
+                <Link to="/home">Danh sách sản phẩm</Link>
               </li>
               <li className={classes['subnav__item']}>
-                <a href="/#">Danh mục</a>
+                <Link to="/home">Danh mục</Link>
               </li>
             </ul>
           </li>

@@ -43,7 +43,11 @@ const Summary = () => {
             </div>
             <div className={classes.socials}>
               <span>
-                <a href>
+                <a
+                  href="https://twitter.com/?lang=vi"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <FontAwesomeIcon icon={brands('twitter')} />
                 </a>
               </span>
@@ -66,7 +70,11 @@ const Summary = () => {
                 </a>
               </span>
               <span>
-                <a href>
+                <a
+                  href="https://dribbble.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <FontAwesomeIcon icon={brands('dribbble')} />
                 </a>
               </span>

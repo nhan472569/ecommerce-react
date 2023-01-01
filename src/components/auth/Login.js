@@ -7,8 +7,10 @@ import { useDispatch } from 'react-redux';
 import { authAction } from '../../store/auth-context';
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Required'),
-  password: Yup.string().required('Required'),
+  email: Yup.string()
+    .email('Email không hợp lệ!')
+    .required('Vui lòng nhập email!'),
+  password: Yup.string().required('Vui lòng nhập mật khẩu!'),
 });
 
 const Login = () => {
@@ -51,10 +53,10 @@ const Login = () => {
                 <label htmlFor="email" className={classes['form-label']}>
                   Email
                 </label>
-                {/* {errors.email && touched.email ? (
-                <div className={classes.error}>{errors.email}</div>
-              ) : null} */}
               </div>
+              {errors.email && touched.email ? (
+                <div className={classes.error}>{errors.email}</div>
+              ) : null}
               <div className={classes['form-field']}>
                 <Field
                   name="password"
@@ -63,19 +65,23 @@ const Login = () => {
                   className={classes['form-input']}
                 />
                 <label htmlFor="email" className={classes['form-label']}>
-                  Password
+                  Mật khẩu
                 </label>
-                {/* {errors.password && touched.password ? (
-                <div className={classes.error}>{errors.password}</div>
-              ) : null} */}
               </div>
+              {errors.password && touched.password ? (
+                <div className={classes.error}>{errors.password}</div>
+              ) : null}
               <Link to="forgotten" className={classes.forgotten}>
                 Quên mật khẩu?
               </Link>
               <button
                 type="submit"
                 className={classes.submit}
-                disabled={errors.email || errors.password}
+                disabled={
+                  touched.email || touched.password
+                    ? errors.email || errors.password
+                    : true
+                }
               >
                 Đăng nhập
               </button>

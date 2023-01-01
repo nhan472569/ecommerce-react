@@ -1,13 +1,41 @@
 import classes from './Signup.module.css';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import useHttp from '../../hooks/use-http';
+import { authAction } from '../../store/auth-context';
+import { Link } from 'react-router-dom';
 
 const SignupSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Required'),
-  password: Yup.string().required('Required'),
+  username: Yup.string().required('Vui lòng nhập tên người dùng.'),
+  email: Yup.string()
+    .email('Email không hợp lệ!')
+    .required('Vui lòng nhập email!'),
+  password: Yup.string().required('Vui lòng nhập mật khẩu!'),
+  passwordConfirm: Yup.string().required('Vui lòng nhập lại mật khẩu!'),
 });
 
 const Signup = () => {
+  const dispatch = useDispatch();
+  const {
+    // isLoading,
+    // error,
+    sendRequest: signup,
+  } = useHttp(data => {
+    dispatch(authAction.login(data));
+  });
+
+  const isSubmitButtonDisabled = (touched, errors) => {
+    return touched.username ||
+      touched.email ||
+      touched.password ||
+      touched.passwordConfirm
+      ? errors.username ||
+          errors.email ||
+          errors.password ||
+          errors.passwordConfirm
+      : true;
+  };
   return (
     <div className={`${classes.container} container`}>
       <div className={classes['thumbnail']}>
@@ -20,13 +48,20 @@ const Signup = () => {
         <h2 className={classes.title}>Đăng ký</h2>
         <Formik
           initialValues={{
+            username: '',
             email: '',
             password: '',
+            passwordConfirm: '',
           }}
           validationSchema={SignupSchema}
           onSubmit={values => {
             // same shape as initial values
-            console.log(values);
+            const { username, email, password, passwordConfirm } = values;
+            signup({
+              url: 'users/signup',
+              method: 'post',
+              body: { username, email, password, passwordConfirm },
+            });
           }}
         >
           {({ errors, touched }) => (
@@ -39,12 +74,12 @@ const Signup = () => {
                   className={classes['form-input']}
                 />
                 <label htmlFor="username" className={classes['form-label']}>
-                  Username
+                  Tên người dùng
                 </label>
-                {/* {errors.email && touched.email ? (
-                <div className={classes.error}>{errors.email}</div>
-              ) : null} */}
               </div>
+              {errors.username && touched.username ? (
+                <div className={classes.error}>{errors.username}</div>
+              ) : null}
               <div className={classes['form-field']}>
                 <Field
                   name="email"
@@ -55,10 +90,10 @@ const Signup = () => {
                 <label htmlFor="email" className={classes['form-label']}>
                   Email
                 </label>
-                {/* {errors.email && touched.email ? (
-                <div className={classes.error}>{errors.email}</div>
-              ) : null} */}
               </div>
+              {errors.email && touched.email ? (
+                <div className={classes.error}>{errors.email}</div>
+              ) : null}
               <div className={classes['form-field']}>
                 <Field
                   name="password"
@@ -67,12 +102,12 @@ const Signup = () => {
                   className={classes['form-input']}
                 />
                 <label htmlFor="email" className={classes['form-label']}>
-                  Password
+                  Mật khẩu
                 </label>
-                {/* {errors.password && touched.password ? (
-                <div className={classes.error}>{errors.password}</div>
-              ) : null} */}
               </div>
+              {errors.password && touched.password ? (
+                <div className={classes.error}>{errors.password}</div>
+              ) : null}
               <div className={classes['form-field']}>
                 <Field
                   name="passwordConfirm"
@@ -84,22 +119,25 @@ const Signup = () => {
                   htmlFor="passwordConfirm"
                   className={classes['form-label']}
                 >
-                  Password Confirm
+                  Nhập lại mật khẩu
                 </label>
-                {/* {errors.password && touched.password ? (
-                <div className={classes.error}>{errors.password}</div>
-              ) : null} */}
               </div>
+              {errors.passwordConfirm && touched.passwordConfirm ? (
+                <div className={classes.error}>{errors.passwordConfirm}</div>
+              ) : null}
               <button
                 type="submit"
                 className={classes.submit}
-                disabled={errors.email || errors.password}
+                disabled={isSubmitButtonDisabled(touched, errors)}
               >
                 Đăng ký
               </button>
             </Form>
           )}
         </Formik>
+        <p className={classes.ps}>
+          Đã có tài khoản? <Link to="/login">Đăng nhập</Link>.
+        </p>
       </div>
     </div>
   );

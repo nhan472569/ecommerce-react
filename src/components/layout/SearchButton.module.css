@@ -22,7 +22,7 @@
 
 .search input:focus-visible {
   width: 40rem;
-  outline-color: #7971ea;
+  outline-color: #222831;
 }
 
 .search input::placeholder {

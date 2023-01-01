@@ -23,7 +23,9 @@ const useHttp = applyData => {
           throw new Error('Fail to send request.');
         }
       } catch (err) {
-        setError(err.response.data.message || 'Something went wrong!');
+        setError(
+          err.response?.data?.message || err.message || 'Something went wrong!'
+        );
       }
       setIsLoading(false);
     },
