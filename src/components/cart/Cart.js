@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import environment from '../../environment';
 import classes from './Cart.module.css';
 import CartItem from './CartItem';
 import CartSummary from './CartSummary';
@@ -10,6 +12,10 @@ const Cart = () => {
   const subtotal = cart.items.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
+  );
+  useEffect(
+    () => (document.title = `Giỏ hàng | ${environment.HEAD_TITLE} `),
+    []
   );
   const emptyCart = (
     <div className="container">

@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import useHttp from '../../hooks/use-http';
 import { authAction } from '../../store/auth-context';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import environment from '../../environment';
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string().required('Vui lòng nhập tên người dùng.'),
@@ -24,6 +26,8 @@ const Signup = () => {
   } = useHttp(data => {
     dispatch(authAction.login(data));
   });
+
+  useEffect(() => (document.title = `Đăng ký | ${environment.HEAD_TITLE}`), []);
 
   const isSubmitButtonDisabled = (touched, errors) => {
     return touched.username ||

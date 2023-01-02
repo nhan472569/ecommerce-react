@@ -31,7 +31,7 @@ code {
 
 .container {
   width: 80%;
-  margin: 15rem auto;
+  margin: 20rem auto 12rem;
 }
 
 .clearfix::after {
@@ -54,12 +54,12 @@ code {
   color: #ddd;
 }
 
-.d-flex {
-  display: flex;
-}
-
 .flex-end {
   justify-content: flex-end;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 .position-relative {

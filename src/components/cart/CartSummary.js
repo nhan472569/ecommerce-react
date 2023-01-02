@@ -52,7 +52,7 @@ const CartSummary = props => {
   const removeCoupon = () => {
     setAppliedCoupon('');
   };
-  const calcTax = subtotal * 0.02;
+  const calcTax = subtotal * 0.1;
   const calcDiscount = subtotal * (coupon[appliedCoupon] || 0);
   const total =
     subtotal +
@@ -62,7 +62,7 @@ const CartSummary = props => {
 
   return (
     <div className={classes.bill}>
-      <p className={classes['bill-title']}>Giao hàng</p>
+      <p className={classes['bill-title']}>Đơn hàng</p>
       <span className={classes['delivery-select']}>
         <span
           className={deliveryType.free ? classes.active : undefined}
@@ -121,7 +121,7 @@ const CartSummary = props => {
         </span>
       </div>
       <div className="row flex-between mb-05">
-        <span className={classes['text-light-gray']}>Thuế</span>
+        <span className={classes['text-light-gray']}>VAT(10%)</span>
         <span className={classes['text-light-gray']}>
           {calcTax.toLocaleString('vi-VN')} ₫
         </span>

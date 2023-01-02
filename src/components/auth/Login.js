@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import useHttp from '../../hooks/use-http';
 import { useDispatch } from 'react-redux';
 import { authAction } from '../../store/auth-context';
+import { useEffect } from 'react';
+import environment from '../../environment';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -22,6 +24,11 @@ const Login = () => {
   } = useHttp(data => {
     dispatch(authAction.login(data));
   });
+  useEffect(
+    () => (document.title = `Đăng nhập | ${environment.HEAD_TITLE}`),
+    []
+  );
+
   return (
     <div className={`${classes.container} container`}>
       <div className={classes['login-card']}>

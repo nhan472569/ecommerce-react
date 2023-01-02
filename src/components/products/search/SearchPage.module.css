@@ -1,3 +1,15 @@
 .header {
+  font-weight: 500;
   font-size: 3rem;
+}
+
+.fallback {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-result-img {
+  width: 40rem;
+  height: 40rem;
 }

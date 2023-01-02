@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
+import environment from '../../environment';
 import BookItem from './BookItem';
 import classes from './BooksList.module.css';
 
 const BooksList = ({ books }) => {
   useEffect(() => {
+    document.title = environment.HEAD_TITLE;
     window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
   }, []);
 

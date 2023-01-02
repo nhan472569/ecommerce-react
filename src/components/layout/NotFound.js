@@ -1,7 +1,11 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import environment from '../../environment';
 import classes from './NotFound.module.css';
 
 const NotFound = () => {
+  useEffect(() => (document.title = `404 | ${environment.HEAD_TITLE}`), []);
+
   return (
     <div className="container position-relative d-flex flex-end">
       <div className={classes.description}>
