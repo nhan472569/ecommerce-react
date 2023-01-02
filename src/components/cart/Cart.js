@@ -13,7 +13,7 @@ const Cart = () => {
   );
   const emptyCart = (
     <div className="container">
-      <h2 className={classes['title-empty']}>Giỏ hàng của bạn đang rỗng.</h2>
+      <h2 className={classes['title-empty']}>Giỏ hàng của bạn đang trống.</h2>
       <div className={classes['empty-img']}>
         <img
           src={process.env.PUBLIC_URL + '/images/empty-state-cart.jpg'}
