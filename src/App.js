@@ -21,7 +21,6 @@ import ScrollToTop from './components/UI/ScrollToTop';
 import Author from './components/author/Author';
 import Slider from './components/layout/slider/Slider';
 import Footer from './components/layout/footer/Footer';
-import environment from './environment';
 
 const BookDetail = React.lazy(() => import('./components/products/BookDetail'));
 const BooksList = React.lazy(() => import('./components/products/BooksList'));

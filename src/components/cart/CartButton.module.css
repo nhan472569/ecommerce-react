@@ -14,12 +14,12 @@
   transform: translateY(-50%);
 }
 
-.cart:hover i {
+.cart:hover .icon {
   color: #222831;
   transition: all linear 0.1s;
   cursor: pointer;
 }
-.cart i {
+.cart .icon {
   font-size: 2rem;
   color: #393e46;
 }

@@ -5,6 +5,8 @@ import environment from '../../environment';
 import { useDispatch } from 'react-redux';
 import { cartAction } from '../../store/cart-context';
 import RatingStars from '../UI/RatingStars';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const BookItem = ({ book }) => {
   const {
@@ -33,7 +35,10 @@ const BookItem = ({ book }) => {
           ></img>
         </Link>
         <div className={classes['add-to-wishlist']}>
-          <i class="fa-regular fa-heart"></i>
+          <FontAwesomeIcon
+            icon={regular('heart')}
+            className={classes.icon}
+          ></FontAwesomeIcon>
         </div>
       </div>
       <div className={classes.content}>

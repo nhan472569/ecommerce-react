@@ -1,3 +1,5 @@
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classes from './CartButton.module.css';
@@ -9,12 +11,11 @@ const CartButton = () => {
   return (
     <div className={classes.cart}>
       <Link to="/cart">
-        <i className="fas fa-shopping-cart"></i>
-
+        <FontAwesomeIcon
+          icon={solid('cart-shopping')}
+          className={classes.icon}
+        />
         <span className={classes.quantity}>{quantity}</span>
-        {/* <span className={classes.total}>
-          {cart.total.toLocaleString('vi-VN')}₫
-        </span> */}
       </Link>
     </div>
   );

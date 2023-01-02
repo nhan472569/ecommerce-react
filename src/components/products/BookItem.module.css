@@ -31,16 +31,18 @@
   transition: 0.25s ease;
 }
 
-.add-to-wishlist i {
+.add-to-wishlist .icon {
   color: #222831;
-  line-height: 2.5rem;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
   transition: 0.25s ease;
 }
 
 .add-to-wishlist:hover {
   background-color: #222831;
 }
-.add-to-wishlist:hover i {
+.add-to-wishlist:hover .icon {
   color: #fff;
 }
 

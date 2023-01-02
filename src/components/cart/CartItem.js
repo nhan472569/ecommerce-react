@@ -4,6 +4,8 @@ import { cartAction } from '../../store/cart-context';
 import classes from './CartItem.module.css';
 import { Link } from 'react-router-dom';
 import environment from '../../environment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const CartItem = props => {
   const { productId, name, price, quantity, imageCover, slug } = props;
@@ -76,12 +78,18 @@ const CartItem = props => {
             </form>
             <div className={classes.function}>
               <span>
-                <i class="fa-solid fa-heart"></i>
+                <FontAwesomeIcon
+                  icon={solid('heart')}
+                  className={classes.icon}
+                ></FontAwesomeIcon>
                 <span>Lưu</span>
               </span>
               |
               <span onClick={deleteItem}>
-                <i class="fa-solid fa-trash"></i>
+                <FontAwesomeIcon
+                  icon={solid('trash')}
+                  className={classes.icon}
+                ></FontAwesomeIcon>
                 <span>Xóa</span>
               </span>
             </div>

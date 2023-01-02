@@ -4,6 +4,8 @@ import CartButton from '../cart/CartButton';
 import SearchButton from './SearchButton';
 import Auth from './Auth';
 import classes from './NavBar.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const NavBar = props => {
   return (
@@ -15,7 +17,8 @@ const NavBar = props => {
         <ul className={classes['nav__items']}>
           <li className={classes['nav__item']}>
             <Link to="/home">
-              Trang chủ <i className="fas fa-angle-down"></i>
+              Trang chủ{' '}
+              <FontAwesomeIcon icon={solid('angle-down')}></FontAwesomeIcon>
             </Link>
             <ul className={classes['subnav__items']}>
               <li className={classes['subnav__item']}>
@@ -34,7 +37,8 @@ const NavBar = props => {
           </li>
           <li className={classes['nav__item']}>
             <Link to="/home">
-              Sự kiện <i className="fas fa-angle-down"></i>
+              Sự kiện{' '}
+              <FontAwesomeIcon icon={solid('angle-down')}></FontAwesomeIcon>
             </Link>
             <ul className={classes['subnav__items']}>
               <li className={classes['subnav__item']}>
@@ -50,7 +54,8 @@ const NavBar = props => {
           </li>
           <li className={classes['nav__item']}>
             <Link to="/home">
-              Cửa hàng <i className="fas fa-angle-down"></i>
+              Cửa hàng{' '}
+              <FontAwesomeIcon icon={solid('angle-down')}></FontAwesomeIcon>
             </Link>
             <ul className={classes['subnav__items']}>
               <li className={classes['subnav__item']}>

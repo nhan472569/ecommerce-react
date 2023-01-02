@@ -137,7 +137,7 @@
   color: #222831;
 }
 
-.function > span i {
+.function > span .icon {
   margin-right: 0.5rem;
 }
 

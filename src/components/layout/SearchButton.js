@@ -1,5 +1,7 @@
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import classes from './SearchButton.module.css';
 
 const SearchButton = () => {
@@ -24,7 +26,7 @@ const SearchButton = () => {
         ref={searchInputRef}
       ></input>
       <div className={classes['search-icon']}>
-        <i className="fas fa-search"></i>
+        <FontAwesomeIcon icon={solid('magnifying-glass')} />
       </div>
     </form>
   );

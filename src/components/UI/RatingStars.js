@@ -1,3 +1,5 @@
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classes from './RatingStars.module.css';
 
 const RatingStars = props => {
@@ -8,10 +10,16 @@ const RatingStars = props => {
     for (let i = 1; i <= 5; i++) {
       if (i <= Math.round(ratedStar)) {
         stars.push(
-          <span key={i} className={'fa fa-star ' + classes.checked}></span>
+          <FontAwesomeIcon
+            key={i}
+            icon={solid('star')}
+            className={classes.checked}
+          ></FontAwesomeIcon>
         );
       } else {
-        stars.push(<span key={i} className="fa fa-star"></span>);
+        stars.push(
+          <FontAwesomeIcon key={i} icon={solid('star')}></FontAwesomeIcon>
+        );
       }
     }
     return stars;
