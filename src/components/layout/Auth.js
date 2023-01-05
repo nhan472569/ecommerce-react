@@ -6,7 +6,7 @@ import ProfileButton from '../profile/ProfileButton';
 
 import classes from './Auth.module.css';
 
-const Auth = props => {
+const Auth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
@@ -30,8 +30,9 @@ const Auth = props => {
         Đăng ký
       </button>
     </>
-  ) : // <ProfileButton onLogout={logoutHandler} />
-  null;
+  ) : (
+    <ProfileButton onLogout={logoutHandler} />
+  );
   return <div className={classes.auth}>{authContent}</div>;
 };
 

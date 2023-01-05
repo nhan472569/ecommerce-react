@@ -12,9 +12,9 @@ const SignupSchema = Yup.object().shape({
   username: Yup.string().required('Vui lòng nhập tên người dùng.'),
   email: Yup.string()
     .email('Email không hợp lệ!')
-    .required('Vui lòng nhập email!'),
-  password: Yup.string().required('Vui lòng nhập mật khẩu!'),
-  passwordConfirm: Yup.string().required('Vui lòng nhập lại mật khẩu!'),
+    .required('Vui lòng nhập email.'),
+  password: Yup.string().required('Vui lòng nhập mật khẩu.'),
+  passwordConfirm: Yup.string().required('Vui lòng nhập lại mật khẩu.'),
 });
 
 const Signup = () => {

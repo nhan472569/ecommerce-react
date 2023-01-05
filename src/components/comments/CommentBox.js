@@ -13,11 +13,14 @@ const CommentBox = props => {
 
   const { isLoading, sendRequest: getComments } = useHttp(setComments);
   useEffect(() => {
-    getComments({ url: `books/${productId}/reviews/` });
+    if (productId) {
+      console.warn(productId);
+      getComments({ url: `books/${productId}/reviews` });
+    }
   }, [getComments, productId]);
 
   const onAddCommentHandler = async () => {
-    getComments({ url: `books/${productId}/reviews/` });
+    getComments({ url: `books/${productId}/reviews` });
   };
 
   return (

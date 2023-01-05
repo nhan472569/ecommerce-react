@@ -138,7 +138,7 @@ const BookDetail = () => {
         {isLoading && <LoadingSpinner />}
         {!isLoading && detailContent}
       </section>
-      {!isLoading && <CommentBox productId={slug} />}
+      {!isLoading && <CommentBox productId={loadedBookDetail._id} />}
     </>
   );
 };

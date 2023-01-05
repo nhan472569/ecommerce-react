@@ -10,9 +10,9 @@ import environment from '../../environment';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
-    .email('Email không hợp lệ!')
-    .required('Vui lòng nhập email!'),
-  password: Yup.string().required('Vui lòng nhập mật khẩu!'),
+    .email('Email không hợp lệ.')
+    .required('Vui lòng nhập email.'),
+  password: Yup.string().required('Vui lòng nhập mật khẩu.'),
 });
 
 const Login = () => {

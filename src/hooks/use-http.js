@@ -13,11 +13,11 @@ const useHttp = applyData => {
       try {
         const response = await axios[`${requestConfig.method || 'get'}`](
           `${environment.DOMAIN}/api/${environment.VERSION}/${requestConfig.url}`,
-          requestConfig?.body
+          requestConfig?.body,
+          { withCredentials: true }
         );
         if (response.statusText === 'OK') {
           const data = response.data.data.data;
-          console.log(data);
           applyData(data);
         } else {
           throw new Error('Fail to send request.');
