@@ -34,7 +34,7 @@ const BookDetail = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-    document.title = `${environment.HEAD_TITLE} | ${loadedBookDetail.name}`;
+    document.title = `${loadedBookDetail.name} | ${environment.HEAD_TITLE}`;
   }, [loadedBookDetail.name]);
 
   useEffect(() => {

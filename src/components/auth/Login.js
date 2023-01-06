@@ -1,7 +1,7 @@
 import classes from './Login.module.css';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useHttp from '../../hooks/use-http';
 import { useDispatch } from 'react-redux';
 import { authAction } from '../../store/auth-context';
@@ -17,12 +17,14 @@ const LoginSchema = Yup.object().shape({
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     // isLoading,
     // error,
     sendRequest: login,
   } = useHttp(data => {
     dispatch(authAction.login(data));
+    navigate('/home');
   });
   useEffect(
     () => (document.title = `Đăng nhập | ${environment.HEAD_TITLE}`),

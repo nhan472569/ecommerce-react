@@ -4,12 +4,12 @@ import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import useHttp from '../../hooks/use-http';
 import { authAction } from '../../store/auth-context';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import environment from '../../environment';
 
 const SignupSchema = Yup.object().shape({
-  username: Yup.string().required('Vui lòng nhập tên người dùng.'),
+  name: Yup.string().required('Vui lòng nhập tên người dùng.'),
   email: Yup.string()
     .email('Email không hợp lệ!')
     .required('Vui lòng nhập email.'),
@@ -19,25 +19,24 @@ const SignupSchema = Yup.object().shape({
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     // isLoading,
     // error,
     sendRequest: signup,
   } = useHttp(data => {
     dispatch(authAction.login(data));
+    navigate('/home');
   });
 
   useEffect(() => (document.title = `Đăng ký | ${environment.HEAD_TITLE}`), []);
 
   const isSubmitButtonDisabled = (touched, errors) => {
-    return touched.username ||
+    return touched.name ||
       touched.email ||
       touched.password ||
       touched.passwordConfirm
-      ? errors.username ||
-          errors.email ||
-          errors.password ||
-          errors.passwordConfirm
+      ? errors.name || errors.email || errors.password || errors.passwordConfirm
       : true;
   };
   return (
@@ -52,7 +51,7 @@ const Signup = () => {
         <h2 className={classes.title}>Đăng ký</h2>
         <Formik
           initialValues={{
-            username: '',
+            name: '',
             email: '',
             password: '',
             passwordConfirm: '',
@@ -60,11 +59,11 @@ const Signup = () => {
           validationSchema={SignupSchema}
           onSubmit={values => {
             // same shape as initial values
-            const { username, email, password, passwordConfirm } = values;
+            const { name, email, password, passwordConfirm } = values;
             signup({
               url: 'users/signup',
               method: 'post',
-              body: { username, email, password, passwordConfirm },
+              body: { name, email, password, passwordConfirm },
             });
           }}
         >
@@ -72,17 +71,17 @@ const Signup = () => {
             <Form>
               <div className={classes['form-field']}>
                 <Field
-                  name="username"
-                  type="username"
+                  name="name"
+                  type="text"
                   placeholder=" "
                   className={classes['form-input']}
                 />
-                <label htmlFor="username" className={classes['form-label']}>
+                <label htmlFor="name" className={classes['form-label']}>
                   Tên người dùng
                 </label>
               </div>
-              {errors.username && touched.username ? (
-                <div className={classes.error}>{errors.username}</div>
+              {errors.name && touched.name ? (
+                <div className={classes.error}>{errors.name}</div>
               ) : null}
               <div className={classes['form-field']}>
                 <Field
@@ -115,7 +114,7 @@ const Signup = () => {
               <div className={classes['form-field']}>
                 <Field
                   name="passwordConfirm"
-                  type="passwordConfirm"
+                  type="password"
                   placeholder=" "
                   className={classes['form-input']}
                 />
