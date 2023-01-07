@@ -49,10 +49,11 @@ function App() {
   // use http
   const loadBookHandler = useCallback(
     data => {
-      setLoadedBooks(data);
+      const bookList = data.data.data;
+      setLoadedBooks(bookList);
       dispatch(
         productAction.fillProduct({
-          items: data,
+          items: bookList,
         })
       );
     },
@@ -62,18 +63,18 @@ function App() {
     isLoading: isLoadingBooks,
     // error: booksError,
     sendRequest: getBooks,
-  } = useHttp(setLoadedBooks);
+  } = useHttp(loadBookHandler);
 
   const {
     isLoading: isLoadingUserInfo,
     // error: userError,
     sendRequest: getUserInfo,
   } = useHttp(handleUserInfo);
-  const {
-    isLoading: isLoadingBooksByCategory,
-    // error: errorBooksByCategory,
-    sendRequest: getBooksByCategory,
-  } = useHttp(loadBookHandler);
+  // const {
+  //   isLoading: isLoadingBooksByCategory,
+  //   // error: errorBooksByCategory,
+  //   sendRequest: getBooksByCategory,
+  // } = useHttp(loadBookHandler);
 
   useEffect(() => {
     getBooks({ url: 'books' });
@@ -108,19 +109,19 @@ function App() {
     }
   });
 
-  const getProductsByCategory = category => {
-    if (products.items?.[category]) {
-      setLoadedBooks(products.items?.[category]);
-    } else {
-      if (category === 'all') {
-        dispatch(productAction.setCategory('all'));
-        getBooksByCategory({ url: 'books' });
-      } else {
-        dispatch(productAction.setCategory(category));
-        getBooksByCategory({ url: `books?category=${category}` });
-      }
-    }
-  };
+  // const getProductsByCategory = category => {
+  //   if (products.items?.[category]) {
+  //     setLoadedBooks(products.items?.[category]);
+  //   } else {
+  //     if (category === 'all') {
+  //       dispatch(productAction.setCategory('all'));
+  //       getBooksByCategory({ url: 'books' });
+  //     } else {
+  //       dispatch(productAction.setCategory(category));
+  //       getBooksByCategory({ url: `books?category=${category}` });
+  //     }
+  //   }
+  // };
 
   return (
     <React.Fragment>
@@ -145,14 +146,12 @@ function App() {
                 {/* <CategoryList
                   getProductsByCategory={getProductsByCategory}
                 ></CategoryList> */}
-                {isLoadingBooks ||
-                isLoadingUserInfo ||
-                isLoadingBooksByCategory ? (
+                {isLoadingBooks || isLoadingUserInfo ? (
                   <LoadingSpinner />
                 ) : (
                   <BooksList
                     books={loadedBooks}
-                    getProductsByCategory={getProductsByCategory}
+                    // getProductsByCategory={getProductsByCategory}
                   />
                 )}
               </Fragment>

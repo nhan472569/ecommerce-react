@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -29,8 +29,11 @@ const BookDetail = () => {
   const params = useParams();
   const { slug } = params;
 
-  const { isLoading, sendRequest: getBookDetail } =
-    useHttp(setLoadedBookDetail);
+  const handleBookDetail = useCallback(data => {
+    setLoadedBookDetail(data.data.data);
+  }, []);
+
+  const { isLoading, sendRequest: getBookDetail } = useHttp(handleBookDetail);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });

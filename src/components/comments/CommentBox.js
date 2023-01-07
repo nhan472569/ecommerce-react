@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import classes from './CommentBox.module.css';
 import CommentForm from './CommentForm';
@@ -11,7 +11,10 @@ const CommentBox = props => {
 
   const { productId } = props;
 
-  const { isLoading, sendRequest: getComments } = useHttp(setComments);
+  const handleComments = useCallback(data => {
+    setComments(data.data.data);
+  }, []);
+  const { isLoading, sendRequest: getComments } = useHttp(handleComments);
   useEffect(() => {
     if (productId) {
       console.warn(productId);

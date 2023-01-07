@@ -17,7 +17,8 @@ const useHttp = applyData => {
           { withCredentials: true }
         );
         if (response.statusText === 'OK') {
-          const data = response.data.data.data;
+          const data = response.data;
+          console.log(data);
           applyData(data);
         } else {
           throw new Error('Fail to send request.');

@@ -87,3 +87,8 @@ code {
 .mb-05 {
   margin-bottom: 0.5rem;
 }
+
+.seperator {
+  margin: 1rem 0;
+  border: 1px solid #eee;
+}

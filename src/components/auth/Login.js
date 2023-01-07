@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import useHttp from '../../hooks/use-http';
 import { useDispatch } from 'react-redux';
 import { authAction } from '../../store/auth-context';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import environment from '../../environment';
 
 const LoginSchema = Yup.object().shape({
@@ -22,14 +22,18 @@ const Login = () => {
     // isLoading,
     // error,
     sendRequest: login,
-  } = useHttp(data => {
-    dispatch(authAction.login(data));
-    navigate('/home');
-  });
-  useEffect(
-    () => (document.title = `Đăng nhập | ${environment.HEAD_TITLE}`),
-    []
+  } = useHttp(
+    useCallback(
+      data => {
+        dispatch(authAction.login(data.data.data));
+        navigate('/home');
+      },
+      [dispatch, navigate]
+    )
   );
+  useEffect(() => {
+    document.title = `Đăng nhập | ${environment.HEAD_TITLE}`;
+  }, []);
 
   return (
     <div className={`${classes.container} container`}>

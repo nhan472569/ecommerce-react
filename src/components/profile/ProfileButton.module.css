@@ -33,22 +33,32 @@
 .feature {
   list-style-type: none;
   text-align: left;
-  width: 15rem;
+  width: 20rem;
   opacity: 0;
   pointer-events: none;
   position: absolute;
   transition: all linear 0.1s;
   left: -7.5rem;
   top: 9rem;
-  font-size: 2rem;
+  font-size: 1.3rem;
   color: #000;
   background-color: #fff;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  padding: 1rem;
+  padding: 1.5rem;
 }
 
-.feature li {
-  margin-bottom: 2rem;
+.feature li:not(:first-child):not(:last-child) {
+  color: #840000;
+  padding: 1rem 0;
+}
+
+.feature li:not(:first-child):not(:last-child) a {
+  color: #840000;
+  transition: 0.25s ease;
+}
+
+.feature li:not(:first-child):not(:last-child) a:hover {
+  color: #d14031;
 }
 
 .feature li a {
@@ -58,33 +68,21 @@
   color: #000;
 }
 
-.feature li:last-child {
-  position: relative;
-  margin-bottom: 0;
-}
-
-.feature li:last-child::before {
-  content: '';
-  display: block;
-  width: 15rem;
-  height: 1px;
-  background-color: #ccc;
-  position: absolute;
-  top: -1rem;
-  left: -1rem;
+.name {
+  font-weight: 500;
 }
 
 .logout {
   width: 100%;
-  height: 3rem;
-  background-color: #1c1d1f;
+  height: 3.5rem;
+  background-color: #222831;
   color: #fff;
   font-size: 1.5rem;
   cursor: pointer;
   border: none;
-  border-radius: 100rem;
+  transition: 0.25s ease;
 }
 
 .logout:hover {
-  background-color: rgba(28, 29, 31, 0.9);
+  background-color: #393e46;
 }
