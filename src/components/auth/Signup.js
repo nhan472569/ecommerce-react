@@ -5,10 +5,11 @@ import { useDispatch } from 'react-redux';
 import useHttp from '../../hooks/use-http';
 import { authAction } from '../../store/auth-context';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import environment from '../../environment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import LoadingSpinner from '../UI/LoadingSpinner';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string().required('Vui lòng nhập tên người dùng.'),
@@ -27,18 +28,22 @@ const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
-    // isLoading,
+    isLoading,
     // error,
     sendRequest: signup,
-  } = useHttp(data => {
-    dispatch(authAction.login(data));
-    navigate('/home');
-  });
+  } = useHttp(
+    useCallback(
+      data => {
+        dispatch(authAction.login(data.data.data));
+      },
+      [dispatch]
+    )
+  );
 
   useEffect(() => {
     document.title = `Đăng ký | ${environment.HEAD_TITLE}`;
     return () => {
-      setPasswordVisible(false);
+      setPasswordVisible({});
     };
   }, []);
 
@@ -73,14 +78,15 @@ const Signup = () => {
             passwordConfirm: '',
           }}
           validationSchema={SignupSchema}
-          onSubmit={values => {
+          onSubmit={async values => {
             // same shape as initial values
             const { name, email, password, passwordConfirm } = values;
-            signup({
+            await signup({
               url: 'users/signup',
               method: 'post',
               body: { name, email, password, passwordConfirm },
             });
+            navigate('/home');
           }}
         >
           {({ errors, touched }) => (
@@ -95,7 +101,7 @@ const Signup = () => {
                   }`}
                 />
                 <label htmlFor="name" className={classes['form-label']}>
-                  Tên người dùng
+                  Họ và tên
                 </label>
               </div>
               {errors.name && touched.name ? (
@@ -181,7 +187,11 @@ const Signup = () => {
                 className={classes.submit}
                 disabled={isSubmitButtonDisabled(touched, errors)}
               >
-                Đăng ký
+                {isLoading ? (
+                  <LoadingSpinner color="#fff" borderSize="4px" size="30px" />
+                ) : (
+                  'Đăng ký'
+                )}
               </button>
             </Form>
           )}

@@ -92,6 +92,7 @@
   position: relative;
   width: 100%;
   transition: 0.25s ease;
+  height: 3.5rem;
 }
 
 .submit:hover {

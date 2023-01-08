@@ -1,24 +1,28 @@
 .btn {
-    color: #fff;
-    width: 4rem;
-    height: 4rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 400;
-    background-color: #d14031;
-    font-size: 1.8rem;
-    z-index: 10;
-    position: fixed;
-    bottom: 5rem;
-    right: 5rem;
-    opacity: 0;
-    pointer-events: none;
-    cursor: pointer;
-    transition: all .2s ease-out;
+  color: #fff;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+  background-color: #222831;
+  font-size: 1.8rem;
+  z-index: 10;
+  position: fixed;
+  bottom: 5rem;
+  right: 5rem;
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+  transition: all 0.25s ease-out;
+  border-radius: 0.5rem;
 }
 
+.btn:hover {
+  background-color: #393e46;
+}
 .btn.active {
-    opacity: 1;
-    pointer-events: all;
+  opacity: 1;
+  pointer-events: all;
 }

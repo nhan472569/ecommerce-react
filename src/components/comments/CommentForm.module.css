@@ -11,11 +11,12 @@
   margin-bottom: 1rem;
   border: 1px solid #eee;
   font-family: inherit;
-  border-radius: 1.2rem;
+  border-radius: 1rem;
+  color: #777;
 }
 
 .textarea:focus-visible {
-  outline-color: #7971ea;
+  outline-color: #393e46;
 }
 
 .button {

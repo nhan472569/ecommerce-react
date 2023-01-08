@@ -9,7 +9,7 @@ const CartButton = () => {
   const quantity = cart.items.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <div className={classes.cart}>
+    <div className={classes.cart} title="Xem giỏ hàng">
       <Link to="/cart">
         <FontAwesomeIcon
           icon={solid('cart-shopping')}

@@ -9,6 +9,7 @@ import { useCallback, useEffect, useState } from 'react';
 import environment from '../../environment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import LoadingSpinner from '../UI/LoadingSpinner';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -22,7 +23,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
-    // isLoading,
+    isLoading,
     // error,
     sendRequest: login,
   } = useHttp(
@@ -125,7 +126,11 @@ const Login = () => {
                     : true
                 }
               >
-                Đăng nhập
+                {isLoading ? (
+                  <LoadingSpinner color="#fff" borderSize="4px" size="30px" />
+                ) : (
+                  'Đăng nhập'
+                )}
               </button>
             </Form>
           )}

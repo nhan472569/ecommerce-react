@@ -1,6 +1,6 @@
 import classes from './SearchPage.module.css';
 import useHttp from '../../../hooks/use-http';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import LoadingSpinner from '../../UI/LoadingSpinner';
 import { useLocation } from 'react-router';
 import BookItem from '../BookItem';
@@ -13,12 +13,17 @@ const SearchPage = () => {
   const query = new URLSearchParams(search);
   const searchValue = query.get('name');
 
-  const { isLoading, sendRequest: getBooks } = useHttp(setBooks);
-  useEffect(
-    () =>
-      (document.title = `${searchValue} - Kết quả tìm kiếm | ${environment.HEAD_TITLE}`),
-    [searchValue]
+  const { isLoading, sendRequest: getBooks } = useHttp(
+    useCallback(data => {
+      setBooks(data.data.data);
+    }, [])
   );
+  useEffect(() => {
+    document.title = `${searchValue} - Kết quả tìm kiếm | ${environment.HEAD_TITLE}`;
+    return () => {
+      setBooks([]);
+    };
+  }, [searchValue]);
   useEffect(() => {
     getBooks({ url: `books/?name=${searchValue}` });
   }, [getBooks, searchValue]);

@@ -13,6 +13,7 @@ const ScrollToTop = props => {
     <div
       className={`${classes.btn} ${isActive && classes.active}`}
       id="scroll-to-top"
+      title="Cuộn lên đầu trang"
       onClick={onClickHandler}
     >
       <FontAwesomeIcon icon={solid('angle-up')} />

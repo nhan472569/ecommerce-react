@@ -64,7 +64,7 @@ const ProfileButton = () => {
         </li>
         <hr className="seperator"></hr>
         <li className={classes.function} onClick={logoutHandler}>
-          <Link to="/wishlist" className={classes['function-link']}>
+          <Link to="#" className={classes['function-link']}>
             <span className={classes.icon}>
               <FontAwesomeIcon
                 icon={solid('right-from-bracket')}

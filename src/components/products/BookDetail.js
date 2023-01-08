@@ -76,7 +76,10 @@ const BookDetail = () => {
     <>
       <div className={classes.image}>
         <img
-          src={environment.DOMAIN + '/img/books/' + loadedBookDetail.imageCover}
+          src={
+            loadedBookDetail.imageCover &&
+            environment.DOMAIN + '/img/books/' + loadedBookDetail.imageCover
+          }
           alt={loadedBookDetail.name}
         ></img>
       </div>

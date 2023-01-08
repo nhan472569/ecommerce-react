@@ -28,13 +28,16 @@ const BookItem = ({ book }) => {
   return (
     <div className={classes.item}>
       <div className={classes.image}>
-        <Link to={`/books/${slug}`}>
+        <Link to={`/books/${slug}`} title={name}>
           <img
             src={environment.DOMAIN + '/img/books/' + imageCover}
             alt={name}
           ></img>
         </Link>
-        <div className={classes['add-to-wishlist']}>
+        <div
+          className={classes['add-to-wishlist']}
+          title="Thêm vào danh sách yêu thích"
+        >
           <FontAwesomeIcon
             icon={regular('heart')}
             className={classes.icon}
@@ -52,7 +55,9 @@ const BookItem = ({ book }) => {
           })}
         </div>
         <h2 className={classes.title}>
-          <Link to={`/books/${slug}`}>{name}</Link>
+          <Link to={`/books/${slug}`} title={name}>
+            {name}
+          </Link>
         </h2>
         <p className={classes.price}>{`${price.toLocaleString('vi-VN')}₫`}</p>
         <RatingStars
