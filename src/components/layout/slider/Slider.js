@@ -36,7 +36,7 @@ const Slider = () => {
       >
         {images.map((img, i) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={i}>
               <img src={img.img} key={i} alt="slide" />
             </SwiperSlide>
           );

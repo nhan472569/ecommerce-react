@@ -34,15 +34,13 @@ function App() {
   const [loadedBooks, setLoadedBooks] = useState([]);
   const [isShowScrollToTop, setIsShowScrollToTop] = useState(false);
 
-  const [isLogin, setIsLogin] = useState(false);
-  const [isSignup, setIsSignup] = useState(false);
   const products = useSelector(state => state.product);
 
   const dispatch = useDispatch();
 
   const handleUserInfo = useCallback(
     data => {
-      dispatch(authAction.login(data));
+      dispatch(authAction.login(data.data.data));
     },
     [dispatch]
   );
@@ -77,26 +75,9 @@ function App() {
   // } = useHttp(loadBookHandler);
 
   useEffect(() => {
+    getUserInfo({ url: 'users/me', method: 'post' });
     getBooks({ url: 'books' });
-    if (localStorage.getItem('userID')) {
-      getUserInfo({
-        url: `user/info?userID=${localStorage.getItem('userID')}`,
-      });
-    }
   }, [dispatch, getBooks, getUserInfo]);
-
-  const onLoginHandler = () => {
-    setIsLogin(true);
-  };
-
-  const onSignupHandler = () => {
-    setIsSignup(true);
-  };
-
-  const onCloseHandler = () => {
-    isLogin && setIsLogin(false);
-    isSignup && setIsSignup(false);
-  };
 
   window.addEventListener('scroll', e => {
     const viewHeight = window.screen.height;
@@ -126,9 +107,7 @@ function App() {
   return (
     <React.Fragment>
       <ScrollToTop active={isShowScrollToTop} />
-      <NavBar onLogin={onLoginHandler} onSignup={onSignupHandler} />
-      {isLogin && <Login onClose={onCloseHandler} />}
-      {isSignup && <Signup onClose={onCloseHandler} />}
+      <NavBar />
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
