@@ -1,6 +1,8 @@
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import environment from '../../environment';
 import useHttp from '../../hooks/use-http';
 import { authAction } from '../../store/auth-context';
@@ -10,6 +12,7 @@ import classes from './ProfileButton.module.css';
 const ProfileButton = () => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth.user);
+  const navigate = useNavigate();
 
   const { sendRequest: logout } = useHttp(
     useCallback(() => {
@@ -28,21 +31,47 @@ const ProfileButton = () => {
         />
       </div>
       <ul className={classes.feature}>
-        <li>
-          <p className={classes.name}>{user.name}</p>
+        <div
+          className={classes['info-section']}
+          onClick={() => navigate('/profile')}
+        >
+          <img
+            src={environment.DOMAIN + '/img/users/' + user.photo}
+            alt={user.name}
+            className={classes.photo}
+          ></img>
+          <div className={classes.info}>
+            <p className={classes.name}>{user.name}</p>
+            <p className={classes.email}>{user.email}</p>
+          </div>
+        </div>
+        <hr className="seperator"></hr>
+        <li className={classes.function}>
+          <Link to="/profile" className={classes['function-link']}>
+            <span className={classes.icon}>
+              <FontAwesomeIcon icon={solid('user')}></FontAwesomeIcon>
+            </span>
+            Tài khoản của tôi
+          </Link>
+        </li>
+        <li className={classes.function}>
+          <Link to="/wishlist" className={classes['function-link']}>
+            <span className={classes.icon}>
+              <FontAwesomeIcon icon={solid('heart')}></FontAwesomeIcon>
+            </span>
+            Danh sách yêu thích
+          </Link>
         </li>
         <hr className="seperator"></hr>
-        <li>
-          <Link to="/profile">Tài khoản của tôi</Link>
-        </li>
-        <li>
-          <Link to="/wishlist">Danh sách yêu thích</Link>
-        </li>
-        <hr className="seperator"></hr>
-        <li>
-          <button onClick={logoutHandler} className={classes.logout}>
+        <li className={classes.function} onClick={logoutHandler}>
+          <Link to="/wishlist" className={classes['function-link']}>
+            <span className={classes.icon}>
+              <FontAwesomeIcon
+                icon={solid('right-from-bracket')}
+              ></FontAwesomeIcon>
+            </span>
             Đăng xuất
-          </button>
+          </Link>
         </li>
       </ul>
     </div>

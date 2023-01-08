@@ -11,25 +11,23 @@ const CommentForm = props => {
 
   const { isLoading, error, sendRequest: postComment } = useHttp(onAddComment);
 
-  const submitCommentHandler = e => {
+  const submitCommentHandler = async e => {
     e.preventDefault();
     try {
-      const commentRaw = commentInputRef.current.value;
-      const comment = commentRaw.trim();
+      const comment = commentInputRef.current.value.trim();
       if (!user._id) {
         throw new Error('Vui lòng đăng nhập trước khi bình luận!');
       }
 
-      if (comment.trim() === '') {
+      if (comment === '') {
         throw new Error('Bình luận không thể để trống!');
       }
 
-      postComment({
-        url: `products/comment/${productId}`,
+      await postComment({
+        url: `books/${productId}/reviews`,
         method: 'post',
         body: {
-          content: comment,
-          userID: user._id,
+          review: comment,
         },
       });
 

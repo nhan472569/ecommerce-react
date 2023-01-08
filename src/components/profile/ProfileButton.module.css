@@ -40,36 +40,34 @@
   transition: all linear 0.1s;
   left: -7.5rem;
   top: 9rem;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   color: #000;
   background-color: #fff;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  padding: 1.5rem;
 }
 
-.feature li:not(:first-child):not(:last-child) {
-  color: #840000;
-  padding: 1rem 0;
-}
-
-.feature li:not(:first-child):not(:last-child) a {
-  color: #840000;
+.feature .function {
   transition: 0.25s ease;
+  cursor: pointer;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
 }
 
-.feature li:not(:first-child):not(:last-child) a:hover {
-  color: #d14031;
+.feature .function:hover {
+  background-color: #eee;
 }
 
-.feature li a {
-  display: block;
+.feature .function .function-link {
+  display: inline-block;
   width: 100%;
   height: 100%;
-  color: #000;
+  color: #393e46;
+  padding: 1rem;
 }
 
-.name {
-  font-weight: 500;
+.function-link .icon {
+  margin-right: 1rem;
+  color: #393e46;
 }
 
 .logout {
@@ -85,4 +83,34 @@
 
 .logout:hover {
   background-color: #393e46;
+}
+
+.info-section {
+  display: flex;
+  cursor: pointer;
+  padding: 1rem;
+  transition: 0.25s ease;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.info-section:hover {
+  background-color: #eee;
+}
+
+.info-section .photo {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 100rem;
+  margin-right: 1rem;
+}
+
+.info-section .name {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.info-section .email {
+  color: #777;
 }

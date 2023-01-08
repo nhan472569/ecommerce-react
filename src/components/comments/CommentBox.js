@@ -17,7 +17,6 @@ const CommentBox = props => {
   const { isLoading, sendRequest: getComments } = useHttp(handleComments);
   useEffect(() => {
     if (productId) {
-      console.warn(productId);
       getComments({ url: `books/${productId}/reviews` });
     }
   }, [getComments, productId]);
