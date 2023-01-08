@@ -39,7 +39,7 @@
   width: 100%;
   font-size: 1.4rem;
   border-radius: 8px;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.5rem;
   border: 1px solid #eee;
   height: 4rem;
   transition: 0.25 ease;
@@ -130,4 +130,22 @@
   margin-bottom: 1rem;
   margin-top: 0.5rem;
   margin-left: 0.2rem;
+}
+
+.password-vision {
+  position: absolute;
+  right: 1.5rem;
+  line-height: 4rem;
+  width: 2rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #777;
+}
+
+.input-error {
+  border: 1px solid #fc6969;
+}
+
+.input-error:focus-visible {
+  outline-color: #fc6969;
 }

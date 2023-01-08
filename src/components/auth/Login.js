@@ -5,8 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import useHttp from '../../hooks/use-http';
 import { useDispatch } from 'react-redux';
 import { authAction } from '../../store/auth-context';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import environment from '../../environment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -16,6 +18,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 const Login = () => {
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -26,15 +29,20 @@ const Login = () => {
     useCallback(
       data => {
         dispatch(authAction.login(data.data.data));
-        navigate('/home');
       },
-      [dispatch, navigate]
+      [dispatch]
     )
   );
   useEffect(() => {
     document.title = `Đăng nhập | ${environment.HEAD_TITLE}`;
+    return () => {
+      setPasswordVisible(false);
+    };
   }, []);
 
+  const viewPasswordHandler = () => {
+    setPasswordVisible(isVisible => !isVisible);
+  };
   return (
     <div className={`${classes.container} container`}>
       <div className={classes['login-card']}>
@@ -45,13 +53,14 @@ const Login = () => {
             password: '',
           }}
           validationSchema={LoginSchema}
-          onSubmit={values => {
+          onSubmit={async values => {
             const { email, password } = values;
-            login({
+            await login({
               url: 'users/login',
               method: 'post',
               body: { email, password },
             });
+            navigate('/home');
           }}
         >
           {({ errors, touched }) => (
@@ -61,7 +70,9 @@ const Login = () => {
                   name="email"
                   type="email"
                   placeholder=" "
-                  className={classes['form-input']}
+                  className={`${classes['form-input']} ${
+                    errors.email && touched.email ? classes['input-error'] : ''
+                  }`}
                 />
                 <label htmlFor="email" className={classes['form-label']}>
                   Email
@@ -73,18 +84,36 @@ const Login = () => {
               <div className={classes['form-field']}>
                 <Field
                   name="password"
-                  type="password"
+                  type={passwordVisible ? 'text' : 'password'}
                   placeholder=" "
-                  className={classes['form-input']}
+                  className={`${classes['form-input']} ${
+                    errors.password && touched.password
+                      ? classes['input-error']
+                      : ''
+                  }`}
                 />
                 <label htmlFor="email" className={classes['form-label']}>
                   Mật khẩu
                 </label>
+                <span
+                  className={classes['password-vision']}
+                  onClick={viewPasswordHandler}
+                >
+                  {passwordVisible ? (
+                    <FontAwesomeIcon icon={solid('eye')} />
+                  ) : (
+                    <FontAwesomeIcon icon={solid('eye-slash')} />
+                  )}
+                </span>
               </div>
               {errors.password && touched.password ? (
                 <div className={classes.error}>{errors.password}</div>
               ) : null}
-              <Link to="forgotten" className={classes.forgotten}>
+              <Link
+                to="forgotten"
+                className={classes.forgotten}
+                title="Quên mật khẩu"
+              >
                 Quên mật khẩu?
               </Link>
               <button
@@ -102,7 +131,11 @@ const Login = () => {
           )}
         </Formik>
         <p className={classes.ps}>
-          Chưa có tài khoản? <Link to="/signup">Đăng ký ngay</Link>.
+          Chưa có tài khoản?{' '}
+          <Link to="/signup" title="Đăng ký tài khoản">
+            Đăng ký ngay
+          </Link>
+          .
         </p>
       </div>
       <div className={classes['thumbnail']}>

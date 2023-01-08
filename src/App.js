@@ -136,6 +136,8 @@ function App() {
           <Route path="search" element={<SearchPage />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
+          <Route path="user/profile" element={<></>} />
+          <Route path="user/wishlist" element={<></>} />
           <Route path="cart" element={<Cart />} />
           <Route path="author/:authorId" element={<Author />} />
           <Route

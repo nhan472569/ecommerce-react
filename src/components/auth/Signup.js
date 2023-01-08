@@ -5,8 +5,10 @@ import { useDispatch } from 'react-redux';
 import useHttp from '../../hooks/use-http';
 import { authAction } from '../../store/auth-context';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import environment from '../../environment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string().required('Vui lòng nhập tên người dùng.'),
@@ -18,6 +20,10 @@ const SignupSchema = Yup.object().shape({
 });
 
 const Signup = () => {
+  const [passwordVisible, setPasswordVisible] = useState({
+    password: false,
+    passwordConfirm: false,
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -29,8 +35,18 @@ const Signup = () => {
     navigate('/home');
   });
 
-  useEffect(() => (document.title = `Đăng ký | ${environment.HEAD_TITLE}`), []);
+  useEffect(() => {
+    document.title = `Đăng ký | ${environment.HEAD_TITLE}`;
+    return () => {
+      setPasswordVisible(false);
+    };
+  }, []);
 
+  const viewPasswordHandler = field => {
+    setPasswordVisible(isVisible => {
+      return { ...isVisible, [field]: !isVisible[field] };
+    });
+  };
   const isSubmitButtonDisabled = (touched, errors) => {
     return touched.name ||
       touched.email ||
@@ -74,7 +90,9 @@ const Signup = () => {
                   name="name"
                   type="text"
                   placeholder=" "
-                  className={classes['form-input']}
+                  className={`${classes['form-input']} ${
+                    errors.name && touched.name ? classes['input-error'] : ''
+                  }`}
                 />
                 <label htmlFor="name" className={classes['form-label']}>
                   Tên người dùng
@@ -88,7 +106,9 @@ const Signup = () => {
                   name="email"
                   type="email"
                   placeholder=" "
-                  className={classes['form-input']}
+                  className={`${classes['form-input']} ${
+                    errors.email && touched.email ? classes['input-error'] : ''
+                  }`}
                 />
                 <label htmlFor="email" className={classes['form-label']}>
                   Email
@@ -100,13 +120,27 @@ const Signup = () => {
               <div className={classes['form-field']}>
                 <Field
                   name="password"
-                  type="password"
+                  type={passwordVisible.password ? 'text' : 'password'}
                   placeholder=" "
-                  className={classes['form-input']}
+                  className={`${classes['form-input']} ${
+                    errors.password && touched.password
+                      ? classes['input-error']
+                      : ''
+                  }`}
                 />
                 <label htmlFor="email" className={classes['form-label']}>
                   Mật khẩu
                 </label>
+                <span
+                  className={classes['password-vision']}
+                  onClick={() => viewPasswordHandler('password')}
+                >
+                  {passwordVisible.password ? (
+                    <FontAwesomeIcon icon={solid('eye')} />
+                  ) : (
+                    <FontAwesomeIcon icon={solid('eye-slash')} />
+                  )}
+                </span>
               </div>
               {errors.password && touched.password ? (
                 <div className={classes.error}>{errors.password}</div>
@@ -114,9 +148,13 @@ const Signup = () => {
               <div className={classes['form-field']}>
                 <Field
                   name="passwordConfirm"
-                  type="password"
+                  type={passwordVisible.passwordConfirm ? 'text' : 'password'}
                   placeholder=" "
-                  className={classes['form-input']}
+                  className={`${classes['form-input']} ${
+                    errors.passwordConfirm && touched.passwordConfirm
+                      ? classes['input-error']
+                      : ''
+                  }`}
                 />
                 <label
                   htmlFor="passwordConfirm"
@@ -124,6 +162,16 @@ const Signup = () => {
                 >
                   Nhập lại mật khẩu
                 </label>
+                <span
+                  className={classes['password-vision']}
+                  onClick={() => viewPasswordHandler('passwordConfirm')}
+                >
+                  {passwordVisible.passwordConfirm ? (
+                    <FontAwesomeIcon icon={solid('eye')} />
+                  ) : (
+                    <FontAwesomeIcon icon={solid('eye-slash')} />
+                  )}
+                </span>
               </div>
               {errors.passwordConfirm && touched.passwordConfirm ? (
                 <div className={classes.error}>{errors.passwordConfirm}</div>
@@ -139,7 +187,11 @@ const Signup = () => {
           )}
         </Formik>
         <p className={classes.ps}>
-          Đã có tài khoản? <Link to="/login">Đăng nhập</Link>.
+          Đã có tài khoản?{' '}
+          <Link to="/login" title="Đăng nhập">
+            Đăng nhập
+          </Link>
+          .
         </p>
       </div>
     </div>
