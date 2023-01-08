@@ -29,7 +29,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const {
     isLoading,
-    // error,
+    error,
     sendRequest: signup,
   } = useHttp(
     useCallback(
@@ -86,7 +86,7 @@ const Signup = () => {
               method: 'post',
               body: { name, email, password, passwordConfirm },
             });
-            navigate('/home');
+            !error && !isLoading && navigate('/home');
           }}
         >
           {({ errors, touched }) => (

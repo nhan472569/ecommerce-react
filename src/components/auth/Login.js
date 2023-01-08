@@ -5,11 +5,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import useHttp from '../../hooks/use-http';
 import { useDispatch } from 'react-redux';
 import { authAction } from '../../store/auth-context';
+import { notificationAction } from '../../store/notification-context';
 import { useCallback, useEffect, useState } from 'react';
 import environment from '../../environment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import LoadingSpinner from '../UI/LoadingSpinner';
+import ToastNotification from '../UI/ToastNotification';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -24,7 +26,7 @@ const Login = () => {
   const navigate = useNavigate();
   const {
     isLoading,
-    // error,
+    error,
     sendRequest: login,
   } = useHttp(
     useCallback(
@@ -46,6 +48,7 @@ const Login = () => {
   };
   return (
     <div className={`${classes.container} container`}>
+      <ToastNotification />
       <div className={classes['login-card']}>
         <h2 className={classes.title}>Đăng nhập</h2>
         <Formik
@@ -61,7 +64,10 @@ const Login = () => {
               method: 'post',
               body: { email, password },
             });
-            navigate('/home');
+            error &&
+              dispatch(
+                notificationAction.push({ message: error, status: 'error' })
+              );
           }}
         >
           {({ errors, touched }) => (

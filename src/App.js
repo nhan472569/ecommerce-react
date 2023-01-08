@@ -21,6 +21,7 @@ import ScrollToTop from './components/UI/ScrollToTop';
 import Author from './components/author/Author';
 import Slider from './components/layout/slider/Slider';
 import Footer from './components/layout/footer/Footer';
+import ToastNotification from './components/UI/ToastNotification';
 
 const BookDetail = React.lazy(() => import('./components/products/BookDetail'));
 const BooksList = React.lazy(() => import('./components/products/BooksList'));
@@ -107,6 +108,7 @@ function App() {
   return (
     <React.Fragment>
       <ScrollToTop active={isShowScrollToTop} />
+      <ToastNotification />
       <NavBar />
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>

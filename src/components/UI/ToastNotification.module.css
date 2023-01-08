@@ -1,0 +1,7 @@
+.toastsBox {
+  position: fixed;
+  bottom: 3rem;
+  right: 2rem;
+  border-radius: 0.5rem;
+  transition: 0.25s ease;
+}
