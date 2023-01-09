@@ -7,6 +7,7 @@ import { cartAction } from '../../store/cart-context';
 import RatingStars from '../UI/RatingStars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import SkeletonLoading from '../UI/loading/SkeletonLoading';
 
 const BookItem = ({ book }) => {
   const {
@@ -71,5 +72,23 @@ const BookItem = ({ book }) => {
     </div>
   );
 };
+
+const Loading = () => {
+  return (
+    <div className={classes.item}>
+      <div className={classes.image}>
+        <SkeletonLoading className="w-full h-full" />
+      </div>
+      <div className={classes.content}>
+        <SkeletonLoading className="w-full h-17 mb-10" />
+        <SkeletonLoading className="w-full h-17 mb-10" />
+        <SkeletonLoading className="w-fourth h-15 mb-10" />
+        <SkeletonLoading className="w-third h-15 mb-10" />
+        <SkeletonLoading className="w-half h-30" />
+      </div>
+    </div>
+  );
+};
+BookItem.Loading = Loading;
 
 export default BookItem;

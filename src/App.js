@@ -22,6 +22,7 @@ import Author from './components/author/Author';
 import Slider from './components/layout/slider/Slider';
 import Footer from './components/layout/footer/Footer';
 import ToastNotification from './components/UI/ToastNotification';
+import BookItem from './components/products/BookItem';
 
 const BookDetail = React.lazy(() => import('./components/products/BookDetail'));
 const BooksList = React.lazy(() => import('./components/products/BooksList'));
@@ -110,7 +111,7 @@ function App() {
       <ScrollToTop active={isShowScrollToTop} />
       <ToastNotification />
       <NavBar />
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense fallback={<div className="container"></div>}>
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="books/:slug" element={<BookDetail />} />
@@ -129,14 +130,11 @@ function App() {
                 {/* <CategoryList
                   getProductsByCategory={getProductsByCategory}
                 ></CategoryList> */}
-                {isLoadingBooks || isLoadingUserInfo ? (
-                  <LoadingSpinner />
-                ) : (
-                  <BooksList
-                    books={loadedBooks}
-                    // getProductsByCategory={getProductsByCategory}
-                  />
-                )}
+                <BooksList
+                  books={loadedBooks}
+                  isLoading={isLoadingBooks}
+                  // getProductsByCategory={getProductsByCategory}
+                />
               </Fragment>
             }
           />

@@ -64,10 +64,10 @@ const Login = () => {
               method: 'post',
               body: { email, password },
             });
-            error &&
-              dispatch(
-                notificationAction.push({ message: error, status: 'error' })
-              );
+            console.warn(error, isLoading);
+            // dispatch(
+            //   notificationAction.push({ message: error, status: 'error' })
+            // );
           }}
         >
           {({ errors, touched }) => (
