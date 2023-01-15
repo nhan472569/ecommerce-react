@@ -46,14 +46,14 @@ const ProfileButton = () => {
           </div>
         </div>
         <hr className="seperator"></hr>
-        <li className={classes.function}>
+        {/* <li className={classes.function}>
           <Link to="/profile" className={classes['function-link']}>
             <span className={classes.icon}>
               <FontAwesomeIcon icon={solid('user')}></FontAwesomeIcon>
             </span>
             Tài khoản của tôi
           </Link>
-        </li>
+        </li> */}
         <li className={classes.function}>
           <Link to="/wishlist" className={classes['function-link']}>
             <span className={classes.icon}>

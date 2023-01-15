@@ -27,9 +27,18 @@ const CommentBox = props => {
 
   return (
     <div className={classes.box}>
-      <h2 className={classes.title}>Bình luận</h2>
-      <CommentForm onAddComment={onAddCommentHandler} productId={productId} />
-      {isLoading ? <LoadingSpinner /> : <CommentsList comments={comments} />}
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <h2 className={classes.title}>Bình luận</h2>
+          <CommentForm
+            onAddComment={onAddCommentHandler}
+            productId={productId}
+          />
+          {!isLoading && <CommentsList comments={comments} />}
+        </>
+      )}
     </div>
   );
 };

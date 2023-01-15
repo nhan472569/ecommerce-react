@@ -105,12 +105,14 @@ const CartSummary = props => {
           {subtotal.toLocaleString('vi-VN')} ₫
         </span>
       </div>
-      <div className="row flex-between mb-05">
-        <span className={classes['text-light-gray']}>Giảm giá</span>
-        <span className={classes['text-light-gray']}>
-          - {calcDiscount.toLocaleString('vi-VN')} ₫
-        </span>
-      </div>
+      {appliedCoupon && (
+        <div className="row flex-between mb-05">
+          <span className={classes['text-light-gray']}>Giảm giá</span>
+          <span className={classes['text-light-gray']}>
+            - {calcDiscount.toLocaleString('vi-VN')} ₫
+          </span>
+        </div>
+      )}
       <div className="row flex-between mb-05">
         <span className={classes['text-light-gray']}>Phí giao hàng</span>
         <span className={classes['text-light-gray']}>
