@@ -108,6 +108,12 @@ code {
 .h-full {
   height: 100%;
 }
+.h-200 {
+  height: 200px;
+}
+.h-50 {
+  height: 50px;
+}
 .h-30 {
   height: 30px;
 }
@@ -119,4 +125,14 @@ code {
 }
 .mb-10 {
   margin-bottom: 10px;
+}
+.mr-20 {
+  margin-right: 20px;
+}
+
+.d-inline {
+  display: inline-block;
+}
+.radius {
+  border-radius: 1.5rem;
 }

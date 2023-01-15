@@ -5,11 +5,11 @@ import { useDispatch } from 'react-redux';
 
 import { cartAction } from '../../store/cart-context';
 import CommentBox from '../comments/CommentBox';
-import LoadingSpinner from '../UI/LoadingSpinner';
 import classes from './BookDetail.module.css';
 import useHttp from '../../hooks/use-http';
 import RatingStars from '../UI/RatingStars';
 import environment from '../../environment';
+import SkeletonLoading from '../UI/loading/SkeletonLoading';
 
 const BookDetail = () => {
   const [quantity, setQuantity] = useState(1);
@@ -36,7 +36,6 @@ const BookDetail = () => {
   const { isLoading, sendRequest: getBookDetail } = useHttp(handleBookDetail);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     document.title = `${loadedBookDetail.name} | ${environment.HEAD_TITLE}`;
   }, [loadedBookDetail.name]);
 
@@ -141,10 +140,35 @@ const BookDetail = () => {
   return (
     <>
       <section className={classes.container}>
-        {isLoading && <LoadingSpinner />}
+        {isLoading && <Loading />}
         {!isLoading && detailContent}
       </section>
       {!isLoading && <CommentBox productId={loadedBookDetail._id} />}
+    </>
+  );
+};
+
+const Loading = () => {
+  return (
+    <>
+      <div className={classes.image}>
+        <SkeletonLoading className="w-full h-full radius" />
+      </div>
+      <div className={classes.content}>
+        <div className={classes.author}>
+          <SkeletonLoading className="w-half h-17" />
+        </div>
+        <SkeletonLoading className="w-half h-17 mb-10" />
+        <SkeletonLoading className="w-third h-17 mb-10" />
+        <SkeletonLoading className="w-third h-17 mb-10" />
+        <SkeletonLoading className="w-full h-200 mb-10" />
+        <hr />
+        <form className={classes['add-to-cart']}>
+          <SkeletonLoading className="w-third h-30 mb-10 radius" />
+          <SkeletonLoading className="w-third h-30 d-inline mr-20 radius" />
+          <SkeletonLoading className="w-third h-30 d-inline radius" />
+        </form>
+      </div>
     </>
   );
 };
