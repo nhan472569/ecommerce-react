@@ -5,7 +5,7 @@ import React, {
   Suspense,
   useCallback,
 } from 'react';
-import { Route, Routes } from 'react-router';
+import { Outlet, Route, Routes } from 'react-router';
 import { Navigate } from 'react-router-dom';
 import useHttp from './hooks/use-http';
 
@@ -16,13 +16,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
 import NavBar from './components/layout/NavBar';
-import LoadingSpinner from './components/UI/LoadingSpinner';
 import ScrollToTop from './components/UI/ScrollToTop';
 import Author from './components/author/Author';
 import Slider from './components/layout/slider/Slider';
 import Footer from './components/layout/footer/Footer';
 import ToastNotification from './components/UI/ToastNotification';
-import BookItem from './components/products/BookItem';
 
 const BookDetail = React.lazy(() => import('./components/products/BookDetail'));
 const BooksList = React.lazy(() => import('./components/products/BooksList'));
@@ -36,8 +34,7 @@ function App() {
   const [loadedBooks, setLoadedBooks] = useState([]);
   const [isShowScrollToTop, setIsShowScrollToTop] = useState(false);
 
-  const products = useSelector(state => state.product);
-
+  const user = useSelector(state => state.auth.user);
   const dispatch = useDispatch();
 
   const handleUserInfo = useCallback(
@@ -59,22 +56,10 @@ function App() {
     },
     [dispatch]
   );
-  const {
-    isLoading: isLoadingBooks,
-    // error: booksError,
-    sendRequest: getBooks,
-  } = useHttp(loadBookHandler);
+  const { isLoading: isLoadingBooks, sendRequest: getBooks } =
+    useHttp(loadBookHandler);
 
-  const {
-    isLoading: isLoadingUserInfo,
-    // error: userError,
-    sendRequest: getUserInfo,
-  } = useHttp(handleUserInfo);
-  // const {
-  //   isLoading: isLoadingBooksByCategory,
-  //   // error: errorBooksByCategory,
-  //   sendRequest: getBooksByCategory,
-  // } = useHttp(loadBookHandler);
+  const { sendRequest: getUserInfo } = useHttp(handleUserInfo);
 
   useEffect(() => {
     getUserInfo({ url: 'users/me', method: 'post' });
@@ -92,20 +77,6 @@ function App() {
     }
   });
 
-  // const getProductsByCategory = category => {
-  //   if (products.items?.[category]) {
-  //     setLoadedBooks(products.items?.[category]);
-  //   } else {
-  //     if (category === 'all') {
-  //       dispatch(productAction.setCategory('all'));
-  //       getBooksByCategory({ url: 'books' });
-  //     } else {
-  //       dispatch(productAction.setCategory(category));
-  //       getBooksByCategory({ url: `books?category=${category}` });
-  //     }
-  //   }
-  // };
-
   return (
     <React.Fragment>
       <ScrollToTop active={isShowScrollToTop} />
@@ -116,8 +87,11 @@ function App() {
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="books/:slug" element={<BookDetail />} />
           <Route path="search" element={<SearchPage />} />
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
+          <Route element={<ProtectedRoute user={user} />}>
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+          </Route>
+
           <Route path="user/profile" element={<></>} />
           <Route path="user/wishlist" element={<></>} />
           <Route path="cart" element={<Cart />} />
@@ -145,5 +119,13 @@ function App() {
     </React.Fragment>
   );
 }
+
+const ProtectedRoute = ({ user, redirectPath = '/home', children }) => {
+  if (Object.keys(user).length !== 0) {
+    return <Navigate to={redirectPath} replace />;
+  }
+
+  return children ? children : <Outlet />;
+};
 
 export default App;
