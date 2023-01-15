@@ -1,11 +1,10 @@
 import classes from './Login.module.css';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import useHttp from '../../hooks/use-http';
 import { useDispatch } from 'react-redux';
 import { authAction } from '../../store/auth-context';
-import { notificationAction } from '../../store/notification-context';
 import { useCallback, useEffect, useState } from 'react';
 import environment from '../../environment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -23,7 +22,6 @@ const LoginSchema = Yup.object().shape({
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const {
     isLoading,
     error,
@@ -46,6 +44,15 @@ const Login = () => {
   const viewPasswordHandler = () => {
     setPasswordVisible(isVisible => !isVisible);
   };
+
+  const onSubmitHandler = async values => {
+    const { email, password } = values;
+    await login({
+      url: 'users/login',
+      method: 'post',
+      body: { email, password },
+    });
+  };
   return (
     <div className={`${classes.container} container`}>
       <ToastNotification />
@@ -57,18 +64,7 @@ const Login = () => {
             password: '',
           }}
           validationSchema={LoginSchema}
-          onSubmit={async values => {
-            const { email, password } = values;
-            await login({
-              url: 'users/login',
-              method: 'post',
-              body: { email, password },
-            });
-            console.warn(error, isLoading);
-            // dispatch(
-            //   notificationAction.push({ message: error, status: 'error' })
-            // );
-          }}
+          onSubmit={onSubmitHandler}
         >
           {({ errors, touched }) => (
             <Form>
@@ -138,6 +134,17 @@ const Login = () => {
                   'Đăng nhập'
                 )}
               </button>
+              {error && (
+                <>
+                  <p className={classes.error}>
+                    <FontAwesomeIcon
+                      icon={solid('circle-exclamation')}
+                      className={classes['error-icon']}
+                    />
+                    {error}
+                  </p>
+                </>
+              )}
             </Form>
           )}
         </Formik>

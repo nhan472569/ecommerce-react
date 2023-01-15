@@ -21,7 +21,7 @@ const useHttp = applyData => {
           console.log(data);
           applyData(data);
         } else {
-          throw new Error('Fail to send request.');
+          setError(response?.data?.message || 'Fail to send request!');
         }
       } catch (err) {
         setError(

@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import useHttp from '../../hooks/use-http';
 import { authAction } from '../../store/auth-context';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import environment from '../../environment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -26,7 +26,6 @@ const Signup = () => {
     passwordConfirm: false,
   });
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const {
     isLoading,
     error,
@@ -86,7 +85,6 @@ const Signup = () => {
               method: 'post',
               body: { name, email, password, passwordConfirm },
             });
-            !error && !isLoading && navigate('/home');
           }}
         >
           {({ errors, touched }) => (
@@ -193,6 +191,17 @@ const Signup = () => {
                   'Đăng ký'
                 )}
               </button>
+              {error && (
+                <>
+                  <p className={classes.error}>
+                    <FontAwesomeIcon
+                      icon={solid('circle-exclamation')}
+                      className={classes['error-icon']}
+                    />
+                    {error}
+                  </p>
+                </>
+              )}
             </Form>
           )}
         </Formik>
