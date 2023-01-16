@@ -13,15 +13,16 @@ import { authAction } from './store/auth-context';
 import { productAction } from './store/product-context';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Login from './components/auth/Login';
-import Signup from './components/auth/Signup';
 import NavBar from './components/layout/NavBar';
 import ScrollToTop from './components/UI/ScrollToTop';
-import Author from './components/author/Author';
-import Slider from './components/layout/slider/Slider';
 import Footer from './components/layout/footer/Footer';
-import ToastNotification from './components/UI/ToastNotification';
 
+const Author = React.lazy(() => import('./components/author/Author'));
+const Slider = React.lazy(() => import('./components/layout/slider/Slider'));
+const Login = React.lazy(() => import('./components/auth/Login'));
+const Signup = React.lazy(() => import('./components/auth/Signup'));
+const Profile = React.lazy(() => import('./components/user/Profile'));
+const Wishlist = React.lazy(() => import('./components/user/Wishlist'));
 const BookDetail = React.lazy(() => import('./components/products/BookDetail'));
 const BooksList = React.lazy(() => import('./components/products/BooksList'));
 const SearchPage = React.lazy(() =>
@@ -80,7 +81,6 @@ function App() {
   return (
     <React.Fragment>
       <ScrollToTop active={isShowScrollToTop} />
-      <ToastNotification />
       <NavBar />
       <Suspense fallback={<div className="container"></div>}>
         <Routes>
@@ -92,8 +92,8 @@ function App() {
             <Route path="signup" element={<Signup />} />
           </Route>
 
-          <Route path="user/profile" element={<></>} />
-          <Route path="user/wishlist" element={<></>} />
+          <Route path="user/profile" element={<Profile />} />
+          <Route path="user/wishlist" element={<Wishlist />} />
           <Route path="cart" element={<Cart />} />
           <Route path="author/:authorId" element={<Author />} />
           <Route

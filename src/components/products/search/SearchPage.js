@@ -57,7 +57,9 @@ const SearchPage = () => {
             : 'Kết quả tìm kiếm cho'
         }: "${searchValue}"`}
       </h2>
-      {isLoading ? <LoadingSpinner /> : result}
+      <div style={{ minHeight: '30rem' }}>
+        {isLoading ? <LoadingSpinner /> : result}
+      </div>
     </div>
   );
 };

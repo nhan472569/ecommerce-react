@@ -15,6 +15,7 @@ const SearchButton = () => {
 
     navigate('/search/?name=' + enteredValue);
     searchInputRef.current.value = '';
+    searchInputRef.current.blur();
   };
 
   return (

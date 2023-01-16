@@ -33,7 +33,7 @@ const ProfileButton = () => {
       <ul className={classes.feature}>
         <div
           className={classes['info-section']}
-          onClick={() => navigate('/profile')}
+          onClick={() => navigate('user/profile')}
         >
           <img
             src={environment.DOMAIN + '/img/users/' + user.photo}
@@ -55,7 +55,7 @@ const ProfileButton = () => {
           </Link>
         </li> */}
         <li className={classes.function}>
-          <Link to="/wishlist" className={classes['function-link']}>
+          <Link to="/user/wishlist" className={classes['function-link']}>
             <span className={classes.icon}>
               <FontAwesomeIcon icon={solid('heart')}></FontAwesomeIcon>
             </span>

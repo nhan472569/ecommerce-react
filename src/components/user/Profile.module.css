@@ -1,0 +1,90 @@
+.profile {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 1.5rem;
+  display: flex;
+  padding: 5rem;
+}
+.right-menu {
+  background-color: #fff;
+  padding: 2px;
+  height: 100%;
+  width: 25%;
+  font-weight: 400;
+}
+.menu-item {
+  padding: 1rem 1.5rem;
+  margin: 5px;
+  font-size: 1.4rem;
+  color: #000;
+  transition: 0.25s ease;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+.active {
+  font-weight: 500;
+  background-color: #eee;
+}
+.menu-item:hover {
+  background-color: #eee;
+}
+.main-section {
+  width: 75%;
+  padding: 0 4rem;
+  border-left: 1px solid #eee;
+}
+.photo {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 100rem;
+  outline: 4px solid #fff;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  margin-bottom: 4rem;
+}
+.form-actions {
+  text-align: right;
+  margin-bottom: 5rem;
+}
+.cancel,
+.save {
+  width: 6rem;
+  height: 3rem;
+  font-size: 1.3rem;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+.cancel {
+  margin-right: 1rem;
+  background-color: #fff;
+  border: 1px solid #eee;
+}
+.cancel:hover {
+  background-color: #eee;
+}
+.save {
+  background-color: #222831;
+  color: #fff;
+}
+.save:hover {
+  background-color: #393e46;
+}
+.form-control {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+.input {
+  width: 60%;
+  border: 1px solid #eee;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+.input:focus-visible {
+  outline-color: #ddd;
+}
+.label {
+  font-weight: 500;
+}
