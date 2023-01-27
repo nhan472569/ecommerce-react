@@ -1,14 +1,46 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import environment from '../../environment';
+import useHttp from '../../hooks/use-http';
+import { authAction } from '../../store/auth-context';
 import classes from './Profile.module.css';
+import * as Yup from 'yup';
+import { Field, Form, Formik } from 'formik';
+
+const UpdateInfoSchema = Yup.object().shape({
+  name: Yup.string().required('Vui lòng nhập tên.'),
+  email: Yup.string()
+    .email('Email không hợp lệ.')
+    .required('Vui lòng nhập email.'),
+  // password: Yup.string().required('Vui lòng nhập mật khẩu.'),
+  // passwordConfirm: Yup.string().required('Vui lòng nhập lại mật khẩu.'),
+});
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState('details');
   const user = useSelector(state => state.auth.user);
+
+  const dispatch = useDispatch();
+
+  const { isLoading, sendRequest: updateInfo } = useHttp(
+    useCallback(
+      data => {
+        dispatch(authAction.login(data.data.user));
+      },
+      [dispatch]
+    )
+  );
   useEffect(() => {
     document.title = `Trang thông tin cá nhân | ${environment.HEAD_TITLE}`;
   });
+  const onSubmitHandler = async values => {
+    console.log('submitted');
+    await updateInfo({
+      url: 'users/updateMe',
+      method: 'patch',
+      body: values,
+    });
+  };
   const renderTemplate = () => {
     switch (activeTab) {
       case 'details':
@@ -20,53 +52,71 @@ const Profile = () => {
               src={`${environment.DOMAIN}/img/users/${user.photo}`}
               alt={user.name}
             ></img>
-            <form className={classes['profile-form']}>
-              <div className={classes['form-actions']}>
-                <button type="button" className={classes.cancel}>
-                  Huỷ
-                </button>
-                <button type="submit" className={classes.save}>
-                  Lưu
-                </button>
-              </div>
-              <div className={classes['form-control']}>
-                <label htmlFor="name" className={classes.label}>
-                  Tên
-                </label>
-                <input
-                  className={classes.input}
-                  id="name"
-                  name="name"
-                  value={user.name}
-                ></input>
-              </div>
-              <div className={classes['form-control']}>
-                <label htmlFor="email" className={classes.label}>
-                  Email
-                </label>
-                <input
-                  className={classes.input}
-                  id="email"
-                  name="email"
-                  value={user.email}
-                ></input>
-              </div>
-              <div className={classes['form-control']}>
-                <label htmlFor="photo" className={classes.label}>
-                  Ảnh đại diện
-                </label>
-                <input
-                  className={classes.input}
-                  id="photo"
-                  name="photo"
-                ></input>
-              </div>
-            </form>
+            <Formik
+              initialValues={{
+                name: user.name,
+                email: user.email,
+                password: '',
+                passwordConfirm: '',
+              }}
+              validationSchema={UpdateInfoSchema}
+              onSubmit={onSubmitHandler}
+              enableReinitialize
+            >
+              {({ errors, touched }) => (
+                <Form className={classes['profile-form']}>
+                  <div className={classes['form-actions']}>
+                    <button type="button" className={classes.cancel}>
+                      Huỷ
+                    </button>
+                    <button type="submit" className={classes.save}>
+                      Lưu
+                    </button>
+                  </div>
+                  <div className={classes['form-control']}>
+                    <label htmlFor="name" className={classes.label}>
+                      Name
+                    </label>
+                    <Field
+                      name="name"
+                      type="name"
+                      placeholder=" "
+                      className={`${classes.input} ${
+                        errors.name && touched.name
+                          ? classes['input-error']
+                          : ''
+                      }`}
+                    />
+                  </div>
+                  {errors.name && touched.name ? (
+                    <div className={classes.error}>{errors.name}</div>
+                  ) : null}
+                  <div className={classes['form-control']}>
+                    <label htmlFor="email" className={classes.label}>
+                      Email
+                    </label>
+                    <Field
+                      name="email"
+                      type="email"
+                      placeholder=" "
+                      className={`${classes.input} ${
+                        errors.email && touched.email
+                          ? classes['input-error']
+                          : ''
+                      }`}
+                    />
+                  </div>
+                  {errors.email && touched.email ? (
+                    <div className={classes.error}>{errors.email}</div>
+                  ) : null}
+                </Form>
+              )}
+            </Formik>
           </>
         );
       case 'password':
         return (
-          <form className={classes['profile-form']}>
+          <form className={classes['profile-form']} onSubmit={onSubmitHandler}>
             <div className={classes['form-control']}>
               <label htmlFor="password" className={classes.label}>
                 Mật khẩu hiện tại

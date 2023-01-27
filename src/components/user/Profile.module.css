@@ -88,3 +88,17 @@
 .label {
   font-weight: 500;
 }
+.error {
+  color: red;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  margin-top: -0.5rem;
+  float: right;
+}
+.input-error {
+  border: 1px solid #fc6969;
+}
+
+.input-error:focus-visible {
+  outline-color: #fc6969;
+}
