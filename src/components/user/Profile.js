@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import environment from '../../environment';
 import useHttp from '../../hooks/use-http';
@@ -15,23 +15,28 @@ const UpdateInfoSchema = Yup.object().shape({
   email: Yup.string()
     .email('Email không hợp lệ.')
     .required('Vui lòng nhập email.'),
-  // password: Yup.string().required('Vui lòng nhập mật khẩu.'),
-  // passwordConfirm: Yup.string().required('Vui lòng nhập lại mật khẩu.'),
+});
+
+const ChangePasswordSchema = Yup.object().shape({
+  passwordCurrent: Yup.string().required('Vui lòng nhập mật khẩu hiện tại.'),
+  password: Yup.string().required('Vui lòng nhập mật khẩu mới.'),
+  passwordConfirm: Yup.string().required('Vui lòng nhập lại mật khẩu mới.'),
 });
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState('details');
   const user = useSelector(state => state.auth.user);
+  const photoRef = useRef();
   const dispatch = useDispatch();
 
   const {
     isLoading,
     error,
-    sendRequest: updateInfo,
+    sendRequest: updateUser,
   } = useHttp(
     useCallback(
       data => {
-        dispatch(authAction.login(data.data.user));
+        dispatch(authAction.login(data.data.data));
       },
       [dispatch]
     )
@@ -39,13 +44,26 @@ const Profile = () => {
   useEffect(() => {
     document.title = `Trang thông tin cá nhân | ${environment.HEAD_TITLE}`;
   });
-  const onSubmitHandler = async values => {
-    console.log('submitted');
-    await updateInfo({
-      url: 'users/updateMe',
-      method: 'patch',
-      body: values,
+  const onSubmitHandler = async (values, { resetForm }) => {
+    let formData = new FormData();
+    console.log(Object.entries(values));
+    Object.entries(values).forEach(([key, value]) => {
+      if (key === 'photo') {
+        return;
+      }
+      formData.append(key, value);
     });
+    if (values.photo) {
+      formData.append('photo', values.photo, values.photo.name);
+      photoRef.current.value = '';
+    }
+
+    await updateUser({
+      url: `users/${activeTab === 'details' ? 'updateMe' : 'updateMyPassword'}`,
+      method: 'patch',
+      body: formData,
+    });
+    activeTab === 'password' && resetForm();
   };
   const renderTemplate = () => {
     switch (activeTab) {
@@ -62,12 +80,13 @@ const Profile = () => {
               initialValues={{
                 name: user.name,
                 email: user.email,
+                photo: '',
               }}
               validationSchema={UpdateInfoSchema}
               onSubmit={onSubmitHandler}
               enableReinitialize
             >
-              {({ errors, touched, resetForm }) => (
+              {({ errors, touched, resetForm, setFieldValue }) => (
                 <Form className={classes['profile-form']}>
                   <div className={classes['form-actions']}>
                     <button
@@ -91,12 +110,11 @@ const Profile = () => {
                   </div>
                   <div className={classes['form-control']}>
                     <label htmlFor="name" className={classes.label}>
-                      Name
+                      Tên
                     </label>
                     <Field
                       name="name"
                       type="name"
-                      placeholder=" "
                       className={`${classes.input} ${
                         errors.name && touched.name
                           ? classes['input-error']
@@ -114,7 +132,6 @@ const Profile = () => {
                     <Field
                       name="email"
                       type="email"
-                      placeholder=" "
                       className={`${classes.input} ${
                         errors.email && touched.email
                           ? classes['input-error']
@@ -124,6 +141,28 @@ const Profile = () => {
                   </div>
                   {errors.email && touched.email ? (
                     <div className={classes.error}>{errors.email}</div>
+                  ) : null}
+                  <div className={classes['form-control']}>
+                    <label htmlFor="photo" className={classes.label}>
+                      Ảnh đại diện
+                    </label>
+                    <input
+                      name="photo"
+                      type="file"
+                      accept="image/*"
+                      onChange={event => {
+                        setFieldValue('photo', event.currentTarget.files[0]);
+                      }}
+                      ref={photoRef}
+                      className={`${classes.input} ${
+                        errors.photo && touched.photo
+                          ? classes['input-error']
+                          : ''
+                      }`}
+                    />
+                  </div>
+                  {errors.photo && touched.photo ? (
+                    <div className={classes.error}>{errors.photo}</div>
                   ) : null}
                   {error && (
                     <>
@@ -143,36 +182,102 @@ const Profile = () => {
         );
       case 'password':
         return (
-          <form className={classes['profile-form']} onSubmit={onSubmitHandler}>
-            <div className={classes['form-control']}>
-              <label htmlFor="password" className={classes.label}>
-                Mật khẩu hiện tại
-              </label>
-              <input
-                className={classes.input}
-                id="password"
-                name="password"
-              ></input>
-            </div>
-            <div className={classes['form-control']}>
-              <label htmlFor="newPassword" className={classes.label}>
-                Đặt lại mật khẩu
-              </label>
-              <input
-                className={classes.input}
-                id="newPassword"
-                name="newPassword"
-              ></input>
-            </div>
-            <div className={classes['form-actions']}>
-              <button type="button" className={classes.cancel}>
-                Huỷ
-              </button>
-              <button type="submit" className={classes.save}>
-                Lưu
-              </button>
-            </div>
-          </form>
+          <Formik
+            initialValues={{
+              passwordCurrent: '',
+              password: '',
+              passwordConfirm: '',
+            }}
+            validationSchema={ChangePasswordSchema}
+            onSubmit={onSubmitHandler}
+          >
+            {({ errors, touched, resetForm }) => (
+              <Form className={classes['profile-form']}>
+                <div className={classes['form-control']}>
+                  <label htmlFor="passwordCurrent" className={classes.label}>
+                    Mật khẩu hiện tại
+                  </label>
+                  <Field
+                    name="passwordCurrent"
+                    type="password"
+                    className={`${classes.input} ${
+                      errors.passwordCurrent && touched.passwordCurrent
+                        ? classes['input-error']
+                        : ''
+                    }`}
+                  />
+                </div>
+                {errors.passwordCurrent && touched.passwordCurrent ? (
+                  <div className={classes.error}>{errors.passwordCurrent}</div>
+                ) : null}
+                <div className={classes['form-control']}>
+                  <label htmlFor="password" className={classes.label}>
+                    Mật khẩu mới
+                  </label>
+                  <Field
+                    name="password"
+                    type="password"
+                    className={`${classes.input} ${
+                      errors.password && touched.password
+                        ? classes['input-error']
+                        : ''
+                    }`}
+                  />
+                </div>
+                {errors.password && touched.password ? (
+                  <div className={classes.error}>{errors.password}</div>
+                ) : null}
+                <div className={classes['form-control']}>
+                  <label htmlFor="email" className={classes.label}>
+                    Nhập lại mật khẩu
+                  </label>
+                  <Field
+                    name="passwordConfirm"
+                    type="password"
+                    className={`${classes.input} ${
+                      errors.passwordConfirm && touched.passwordConfirm
+                        ? classes['input-error']
+                        : ''
+                    }`}
+                  />
+                </div>
+                {errors.passwordConfirm && touched.passwordConfirm ? (
+                  <div className={classes.error}>{errors.passwordConfirm}</div>
+                ) : null}
+                {error && (
+                  <>
+                    <p className={classes.error}>
+                      <FontAwesomeIcon
+                        icon={solid('circle-exclamation')}
+                        className={classes['error-icon']}
+                      />
+                      {error}
+                    </p>
+                  </>
+                )}
+                <div className={classes['form-actions'] + ' mt-20'}>
+                  <button
+                    type="button"
+                    className={classes.cancel}
+                    onClick={resetForm}
+                  >
+                    Huỷ
+                  </button>
+                  <button type="submit" className={classes.save}>
+                    {isLoading ? (
+                      <LoadingSpinner
+                        color="#fff"
+                        borderSize="3px"
+                        size="20px"
+                      />
+                    ) : (
+                      'Lưu'
+                    )}
+                  </button>
+                </div>
+              </Form>
+            )}
+          </Formik>
         );
       case 'orders':
         return;
