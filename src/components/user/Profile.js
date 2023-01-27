@@ -6,6 +6,9 @@ import { authAction } from '../../store/auth-context';
 import classes from './Profile.module.css';
 import * as Yup from 'yup';
 import { Field, Form, Formik } from 'formik';
+import LoadingSpinner from '../UI/LoadingSpinner';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const UpdateInfoSchema = Yup.object().shape({
   name: Yup.string().required('Vui lòng nhập tên.'),
@@ -19,10 +22,13 @@ const UpdateInfoSchema = Yup.object().shape({
 const Profile = () => {
   const [activeTab, setActiveTab] = useState('details');
   const user = useSelector(state => state.auth.user);
-
   const dispatch = useDispatch();
 
-  const { isLoading, sendRequest: updateInfo } = useHttp(
+  const {
+    isLoading,
+    error,
+    sendRequest: updateInfo,
+  } = useHttp(
     useCallback(
       data => {
         dispatch(authAction.login(data.data.user));
@@ -56,21 +62,31 @@ const Profile = () => {
               initialValues={{
                 name: user.name,
                 email: user.email,
-                password: '',
-                passwordConfirm: '',
               }}
               validationSchema={UpdateInfoSchema}
               onSubmit={onSubmitHandler}
               enableReinitialize
             >
-              {({ errors, touched }) => (
+              {({ errors, touched, resetForm }) => (
                 <Form className={classes['profile-form']}>
                   <div className={classes['form-actions']}>
-                    <button type="button" className={classes.cancel}>
+                    <button
+                      type="button"
+                      className={classes.cancel}
+                      onClick={resetForm}
+                    >
                       Huỷ
                     </button>
                     <button type="submit" className={classes.save}>
-                      Lưu
+                      {isLoading ? (
+                        <LoadingSpinner
+                          color="#fff"
+                          borderSize="3px"
+                          size="20px"
+                        />
+                      ) : (
+                        'Lưu'
+                      )}
                     </button>
                   </div>
                   <div className={classes['form-control']}>
@@ -109,6 +125,17 @@ const Profile = () => {
                   {errors.email && touched.email ? (
                     <div className={classes.error}>{errors.email}</div>
                   ) : null}
+                  {error && (
+                    <>
+                      <p className={classes.error}>
+                        <FontAwesomeIcon
+                          icon={solid('circle-exclamation')}
+                          className={classes['error-icon']}
+                        />
+                        {error}
+                      </p>
+                    </>
+                  )}
                 </Form>
               )}
             </Formik>

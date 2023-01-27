@@ -53,6 +53,7 @@
   border: none;
   cursor: pointer;
   transition: 0.25s ease;
+  position: relative;
 }
 .cancel {
   margin-right: 1rem;
@@ -94,6 +95,9 @@
   margin-bottom: 1.5rem;
   margin-top: -0.5rem;
   float: right;
+}
+.error-icon {
+  margin-right: 0.5rem;
 }
 .input-error {
   border: 1px solid #fc6969;

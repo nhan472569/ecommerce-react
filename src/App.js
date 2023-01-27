@@ -91,9 +91,11 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
           </Route>
+          <Route element={<ProtectedRoute user={user} type="protect" />}>
+            <Route path="user/profile" element={<Profile />} />
+            <Route path="user/wishlist" element={<Wishlist />} />
+          </Route>
 
-          <Route path="user/profile" element={<Profile />} />
-          <Route path="user/wishlist" element={<Wishlist />} />
           <Route path="cart" element={<Cart />} />
           <Route path="author/:authorId" element={<Author />} />
           <Route
@@ -101,14 +103,7 @@ function App() {
             element={
               <Fragment>
                 <Slider />
-                {/* <CategoryList
-                  getProductsByCategory={getProductsByCategory}
-                ></CategoryList> */}
-                <BooksList
-                  books={loadedBooks}
-                  isLoading={isLoadingBooks}
-                  // getProductsByCategory={getProductsByCategory}
-                />
+                <BooksList books={loadedBooks} isLoading={isLoadingBooks} />
               </Fragment>
             }
           />
@@ -120,8 +115,17 @@ function App() {
   );
 }
 
-const ProtectedRoute = ({ user, redirectPath = '/home', children }) => {
-  if (Object.keys(user).length !== 0) {
+const ProtectedRoute = ({
+  user,
+  redirectPath = '/home',
+  children,
+  role = 'user',
+  type,
+}) => {
+  if (
+    (type !== 'protect' && Object.keys(user).length !== 0) ||
+    (type === 'protect' && Object.keys(user).length === 0)
+  ) {
     return <Navigate to={redirectPath} replace />;
   }
 
