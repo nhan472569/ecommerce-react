@@ -10,7 +10,6 @@ import environment from '../../environment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import LoadingSpinner from '../UI/LoadingSpinner';
-import ToastNotification from '../UI/ToastNotification';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -55,7 +54,6 @@ const Login = () => {
   };
   return (
     <div className={`${classes.container} container`}>
-      <ToastNotification />
       <div className={classes['login-card']}>
         <h2 className={classes.title}>Đăng nhập</h2>
         <Formik
