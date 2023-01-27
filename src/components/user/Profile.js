@@ -71,11 +71,18 @@ const Profile = () => {
       default:
         return (
           <>
-            <img
-              className={classes.photo}
-              src={`${environment.DOMAIN}/img/users/${user.photo}`}
-              alt={user.name}
-            ></img>
+            <div className={classes.images}>
+              <img
+                className={classes.cover}
+                src={`${process.env.PUBLIC_URL}/images/user-cover.jpg`}
+                alt="user cover"
+              />
+              <img
+                className={classes.photo}
+                src={`${environment.DOMAIN}/img/users/${user.photo}`}
+                alt={user.name}
+              />
+            </div>
             <Formik
               initialValues={{
                 name: user.name,
@@ -302,14 +309,14 @@ const Profile = () => {
         >
           Thay đổi mật khẩu
         </div>
-        <div
+        {/* <div
           className={`${classes['menu-item']} ${
             activeTab === 'orders' ? classes.active : ''
           }`}
           onClick={() => setActiveTab('orders')}
         >
           Đơn hàng đã mua
-        </div>
+        </div> */}
       </div>
       <div className={classes['main-section']}>{renderTemplate()}</div>
     </div>
