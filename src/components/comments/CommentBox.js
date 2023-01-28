@@ -26,6 +26,11 @@ const CommentBox = props => {
   const onAddCommentHandler = newComment => {
     setComments(prev => [Object.assign(newComment, { user }), ...prev]);
   };
+  const deleteCommentHandler = reviewId => {
+    setComments(prev => {
+      return prev.filter(comment => comment.id !== reviewId);
+    });
+  };
 
   return (
     <div className={classes.box}>
@@ -38,7 +43,13 @@ const CommentBox = props => {
             onAddComment={onAddCommentHandler}
             productId={productId}
           />
-          {!isLoading && <CommentsList comments={comments} />}
+          {!isLoading && (
+            <CommentsList
+              bookId={productId}
+              deleteComment={deleteCommentHandler}
+              comments={comments}
+            />
+          )}
         </>
       )}
     </div>

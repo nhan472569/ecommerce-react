@@ -44,3 +44,36 @@
   margin-top: 0.5rem;
   width: 100%;
 }
+.ellipsis {
+  color: #777;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  transition: 0.25s ease;
+}
+.ellipsis:hover {
+  background-color: #eee;
+}
+.actions {
+  list-style-type: none;
+  position: absolute;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  left: 1rem;
+  width: fit-content;
+  border-radius: 1rem;
+}
+.actions li {
+  font-size: 1.4rem;
+  display: block;
+  padding: 0.5rem 1rem;
+  margin: 0.3rem 0.3rem;
+  width: 20rem;
+  transition: 0.25s ease;
+  border-radius: 0.5rem;
+  user-select: none;
+}
+.actions li:hover {
+  background-color: #eee;
+}

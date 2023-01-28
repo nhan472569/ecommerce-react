@@ -6,11 +6,14 @@ const CommentsList = props => {
     <div className={classes.box}>
       {props.comments.map(comment => (
         <CommentItem
-          key={comment._id}
+          key={comment.id}
+          id={comment.id}
+          bookId={props.bookId}
           avatar={comment.user.photo}
           username={comment.user.name}
           content={comment.review}
           date={comment.createAt}
+          deleteComment={props.deleteComment}
         />
       ))}
     </div>
