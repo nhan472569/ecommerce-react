@@ -5,9 +5,11 @@ import CommentForm from './CommentForm';
 import CommentsList from './CommentsList';
 import useHttp from '../../hooks/use-http';
 import LoadingSpinner from '../UI/LoadingSpinner';
+import { useSelector } from 'react-redux';
 
 const CommentBox = props => {
   const [comments, setComments] = useState([]);
+  const user = useSelector(state => state.auth.user);
 
   const { productId } = props;
 
@@ -21,8 +23,8 @@ const CommentBox = props => {
     }
   }, [getComments, productId]);
 
-  const onAddCommentHandler = async () => {
-    getComments({ url: `books/${productId}/reviews` });
+  const onAddCommentHandler = newComment => {
+    setComments(prev => [Object.assign(newComment, { user }), ...prev]);
   };
 
   return (
@@ -31,7 +33,7 @@ const CommentBox = props => {
         <LoadingSpinner />
       ) : (
         <>
-          <h2 className={classes.title}>Bình luận</h2>
+          <h2 className={classes.title}>Đánh giá sản phẩm</h2>
           <CommentForm
             onAddComment={onAddCommentHandler}
             productId={productId}

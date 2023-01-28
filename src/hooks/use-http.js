@@ -16,7 +16,10 @@ const useHttp = applyData => {
           requestConfig?.body,
           { withCredentials: true }
         );
-        if (response.statusText === 'OK') {
+        if (
+          response.status.toString().startsWith('2') ||
+          response.status.toString().startsWith('3')
+        ) {
           const data = response.data;
           console.log(data);
           applyData(data);

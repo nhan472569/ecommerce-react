@@ -121,8 +121,8 @@ const Login = () => {
                 type="submit"
                 className={classes.submit}
                 disabled={
-                  touched.email || touched.password
-                    ? errors.email || errors.password
+                  touched.email || touched.password || isLoading
+                    ? errors.email || errors.password || isLoading
                     : true
                 }
               >

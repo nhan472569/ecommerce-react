@@ -1,52 +1,147 @@
-import { useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useCallback, useRef, useState } from 'react';
 import useHttp from '../../hooks/use-http';
+import LoadingSpinner from '../UI/LoadingSpinner';
 import classes from './CommentForm.module.css';
 
 const CommentForm = props => {
+  const [starClicked, setStarClicked] = useState(false);
+  const [ratingStar, setRatingStar] = useState(null);
+  const [formError, setFormError] = useState({
+    starRating: '',
+    review: '',
+  });
   const commentInputRef = useRef();
-  const user = useSelector(state => state.auth.user);
 
   const { productId, onAddComment } = props;
 
-  const { isLoading, error, sendRequest: postComment } = useHttp(onAddComment);
+  const {
+    isLoading,
+    error,
+    sendRequest: postComment,
+  } = useHttp(
+    useCallback(
+      data => {
+        onAddComment(data.data.data);
+      },
+      [onAddComment]
+    )
+  );
 
   const submitCommentHandler = async e => {
     e.preventDefault();
-    try {
-      const comment = commentInputRef.current.value.trim();
-      if (!user._id) {
-        throw new Error('Vui lòng đăng nhập trước khi bình luận!');
-      }
-
-      if (comment === '') {
-        throw new Error('Bình luận không thể để trống!');
-      }
-
-      await postComment({
-        url: `books/${productId}/reviews`,
-        method: 'post',
-        body: {
-          review: comment,
-        },
+    setFormError({ starRating: '', review: '' });
+    const comment = commentInputRef.current.value.trim();
+    if (!ratingStar && !comment) {
+      setFormError({
+        starRating: 'Vui lòng đánh giá.',
+        review: 'Vui lòng điền phản hồi.',
       });
-
-      if (!isLoading && !error) {
-        commentInputRef.current.value = '';
-      }
-    } catch (error) {
-      alert(error.message);
+      return;
     }
+
+    if (!ratingStar) {
+      setFormError(prev => {
+        return {
+          ...prev,
+          starRating: 'Vui lòng đánh giá trước khi đăng.',
+        };
+      });
+      return;
+    }
+
+    if (!comment) {
+      setFormError(prev => {
+        return { ...prev, review: 'Bình luận không được để trống.' };
+      });
+      return;
+    }
+
+    await postComment({
+      url: `books/${productId}/reviews`,
+      method: 'post',
+      body: {
+        review: comment,
+        rating: ratingStar,
+      },
+    });
+
+    commentInputRef.current.value = '';
+    setRatingStar(null);
   };
 
   return (
     <form className={classes.form} onSubmit={submitCommentHandler}>
+      <div className={classes['star-rating']}>
+        {Array(5)
+          .fill(0)
+          .map((_, i) => (
+            <FontAwesomeIcon
+              key={i}
+              icon={solid('star')}
+              className={
+                classes['star-icon'] +
+                ' ' +
+                (ratingStar > i ? classes.checked : '')
+              }
+              onMouseEnter={() => {
+                !starClicked && setRatingStar(i + 1);
+              }}
+              onMouseLeave={() => {
+                !starClicked && setRatingStar(null);
+              }}
+              onClick={() => {
+                setFormError(prev => {
+                  return {
+                    ...prev,
+                    starRating: '',
+                  };
+                });
+                setRatingStar(i + 1);
+                !starClicked && setStarClicked(true);
+              }}
+            ></FontAwesomeIcon>
+          ))}
+        {formError.starRating && (
+          <p className={classes.error}>{formError.starRating}</p>
+        )}
+      </div>
+
       <textarea
         className={classes.textarea}
-        placeholder="Viết bình luận..."
+        placeholder="Viết đánh giá..."
         ref={commentInputRef}
+        onChange={() => {
+          setFormError(prev => {
+            return {
+              ...prev,
+              review: '',
+            };
+          });
+        }}
       />
-      <button className={classes.button}>Gửi</button>
+      {formError.review && <p className={classes.error}>{formError.review}</p>}
+      {error && (
+        <p className={classes.error}>
+          <FontAwesomeIcon
+            icon={solid('circle-exclamation')}
+            className={classes['error-icon']}
+          />
+          {error}
+        </p>
+      )}
+      <button
+        type="submit"
+        className={classes.button}
+        disabled={isLoading || formError.starRating || formError.review}
+      >
+        {isLoading ? (
+          <LoadingSpinner color="#fff" borderSize="4px" size="30px" />
+        ) : (
+          'Đăng'
+        )}
+      </button>
     </form>
   );
 };

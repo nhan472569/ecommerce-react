@@ -55,8 +55,13 @@ const Signup = () => {
     return touched.name ||
       touched.email ||
       touched.password ||
-      touched.passwordConfirm
-      ? errors.name || errors.email || errors.password || errors.passwordConfirm
+      touched.passwordConfirm ||
+      isLoading
+      ? errors.name ||
+          errors.email ||
+          errors.password ||
+          errors.passwordConfirm ||
+          isLoading
       : true;
   };
   return (

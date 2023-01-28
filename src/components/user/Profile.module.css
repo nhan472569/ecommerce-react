@@ -76,12 +76,19 @@
 .cancel:hover {
   background-color: #eee;
 }
+.cancel:disabled {
+  cursor: not-allowed;
+}
 .save {
   background-color: #222831;
   color: #fff;
 }
 .save:hover {
   background-color: #393e46;
+}
+.save:disabled {
+  background-color: #435c62;
+  cursor: not-allowed;
 }
 .form-control {
   width: 100%;

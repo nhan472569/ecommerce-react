@@ -100,10 +100,15 @@ const Profile = () => {
                       type="button"
                       className={classes.cancel}
                       onClick={resetForm}
+                      disabled={isLoading}
                     >
                       Huỷ
                     </button>
-                    <button type="submit" className={classes.save}>
+                    <button
+                      type="submit"
+                      className={classes.save}
+                      disabled={isLoading}
+                    >
                       {isLoading ? (
                         <LoadingSpinner
                           color="#fff"

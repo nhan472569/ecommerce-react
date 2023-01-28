@@ -3,7 +3,6 @@
 }
 
 .textarea {
-  resize: none;
   width: 100%;
   height: 10rem;
   font-size: 1.5rem;
@@ -31,8 +30,36 @@
   cursor: pointer;
   border-radius: 100rem;
   transition: all linear 0.1s;
+  position: relative;
 }
 
 .button:hover {
   background-color: #393e46;
+}
+.button:disabled {
+  background-color: #435c62;
+  cursor: not-allowed;
+}
+.star-rating {
+  margin-bottom: 1.5rem;
+}
+.star-icon {
+  width: 2rem;
+  height: 2rem;
+  transition: 0.25s ease;
+  margin-right: 0.5rem;
+}
+
+.checked {
+  color: #1aa41b;
+}
+.error {
+  color: red;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  margin-left: 0.2rem;
+}
+.error-icon {
+  margin-right: 0.5rem;
 }

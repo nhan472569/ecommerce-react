@@ -156,12 +156,12 @@ const Loading = () => {
       </div>
       <div className={classes.content}>
         <div className={classes.author}>
-          <SkeletonLoading className="w-half h-17" />
+          <SkeletonLoading className="w-half h-17 radius" />
         </div>
-        <SkeletonLoading className="w-half h-17 mb-10" />
-        <SkeletonLoading className="w-third h-17 mb-10" />
-        <SkeletonLoading className="w-third h-17 mb-10" />
-        <SkeletonLoading className="w-full h-200 mb-10" />
+        <SkeletonLoading className="w-half h-17 mb-10 radius" />
+        <SkeletonLoading className="w-third h-17 mb-10 radius" />
+        <SkeletonLoading className="w-third h-17 mb-10 radius" />
+        <SkeletonLoading className="w-full h-200 mb-10 radius" />
         <hr />
         <form className={classes['add-to-cart']}>
           <SkeletonLoading className="w-third h-30 mb-10 radius" />
