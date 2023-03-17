@@ -42,7 +42,7 @@
   padding: 0.5rem 1.5rem;
   border: 1px solid #eee;
   height: 4rem;
-  transition: 0.25 ease;
+  transition: 0.25s ease;
   color: #777;
 }
 

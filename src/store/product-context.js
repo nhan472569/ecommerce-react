@@ -5,6 +5,8 @@ const productSlice = createSlice({
   initialState: {
     items: {},
     currentCategory: null,
+    itemsPerPage: 8,
+    count: 0,
   },
   reducers: {
     fillProduct(state, products) {
@@ -13,6 +15,9 @@ const productSlice = createSlice({
     },
     setCategory(state, category) {
       state.currentCategory = category.payload;
+    },
+    setCount(state, count) {
+      state.count = count.payload;
     },
   },
 });

@@ -33,9 +33,12 @@ const NotFound = React.lazy(() => import('./components/layout/NotFound'));
 
 function App() {
   const [loadedBooks, setLoadedBooks] = useState([]);
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(0);
   const [isShowScrollToTop, setIsShowScrollToTop] = useState(false);
 
   const user = useSelector(state => state.auth.user);
+  const itemsPerPage = useSelector(state => state.product.itemsPerPage);
   const dispatch = useDispatch();
 
   const handleUserInfo = useCallback(
@@ -45,27 +48,39 @@ function App() {
     [dispatch]
   );
   // use http
-  const loadBookHandler = useCallback(
+  const loadBookHandler = useCallback(data => {
+    const bookList = data.data.data;
+    setLoadedBooks(prev => [...prev, ...bookList]);
+  }, []);
+  const updateProductCount = useCallback(
     data => {
-      const bookList = data.data.data;
-      setLoadedBooks(bookList);
-      dispatch(
-        productAction.fillProduct({
-          items: bookList,
-        })
-      );
+      const count = data.data.data;
+      setCount(count);
+      dispatch(productAction.setCount(count));
     },
     [dispatch]
   );
   const { isLoading: isLoadingBooks, sendRequest: getBooks } =
     useHttp(loadBookHandler);
+  const { isLoading: isGettingCount, sendRequest: getCount } =
+    useHttp(updateProductCount);
 
   const { sendRequest: getUserInfo } = useHttp(handleUserInfo);
 
   useEffect(() => {
     getUserInfo({ url: 'users/me', method: 'post' });
     getBooks({ url: 'books' });
-  }, [dispatch, getBooks, getUserInfo]);
+    getCount({ url: 'books/count' });
+  }, [getBooks, getUserInfo, getCount]);
+
+  const getMoreBooks = useCallback(() => {
+    setPage(page => {
+      const nextPage = page + 1;
+      if (page >= Math.ceil(count / itemsPerPage)) return page;
+      getBooks({ url: `books?page=${nextPage}` });
+      return nextPage;
+    });
+  }, [getBooks, count, itemsPerPage]);
 
   window.addEventListener('scroll', e => {
     const viewHeight = window.screen.height;
@@ -108,7 +123,12 @@ function App() {
             element={
               <Fragment>
                 <Slider />
-                <BooksList books={loadedBooks} isLoading={isLoadingBooks} />
+                <BooksList
+                  books={loadedBooks}
+                  isLoading={isLoadingBooks || isGettingCount}
+                  getMoreBooks={getMoreBooks}
+                  currentPage={page}
+                />
               </Fragment>
             }
           />

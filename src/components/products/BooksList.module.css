@@ -11,3 +11,29 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.load {
+  margin: auto;
+  padding: 1.5rem 3rem;
+  background-color: #fff;
+  border-radius: 50rem;
+  outline: none;
+  color: #222831;
+  border: 1px solid #222831;
+  box-shadow: rgba(149, 157, 165, 0.2) 3px 10px 5px;
+  transition: 0.25s ease;
+  cursor: pointer;
+}
+
+.load:hover {
+  transform: translateY(-3px);
+  box-shadow: rgba(149, 157, 165, 0.2) 3px 15px 10px;
+}
+
+.load:active {
+  transform: translateY(-1px);
+}
+
+.load svg {
+  margin-left: 0.5rem;
+}

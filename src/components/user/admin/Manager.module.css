@@ -1,0 +1,19 @@
+.input-search {
+  width: 30rem;
+  height: 4rem;
+  padding-left: 2rem;
+  margin-right: 1rem;
+  font-size: 1.3rem;
+  border-radius: 100rem;
+  border: 1px solid #eee;
+  transition: width 0.25s ease;
+}
+
+.input-search:focus-visible {
+  outline-color: #222831;
+}
+
+.input-search::placeholder {
+  user-select: none;
+  pointer-events: none;
+}
