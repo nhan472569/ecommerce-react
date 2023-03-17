@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { cartAction } from '../../store/cart-context';
@@ -68,7 +67,7 @@ const BookDetail = () => {
   };
 
   const splitParagragh = description => {
-    return description.split('/n');
+    return description?.split('/n');
   };
 
   const detailContent = (
@@ -83,23 +82,23 @@ const BookDetail = () => {
         ></img>
       </div>
       <div className={classes.content}>
-        <div className={classes.author}>
-          {loadedBookDetail.authors.map(a => {
+        {/* <div className={classes.author}>
+          {loadedBookDetail?.authors?.map(a => {
             return (
               <Link to={`/author/${a._id}`} key={a._id}>
                 {a.name}
               </Link>
             );
           })}
-        </div>
+        </div> */}
         <h2 className={classes.title}>{loadedBookDetail.name}</h2>
         <RatingStars
           ratingAverage={loadedBookDetail.ratingsAverage}
           ratingCount={loadedBookDetail.ratingsQuantity}
         />
-        <p className={classes.price}>{`${loadedBookDetail.price.toLocaleString(
-          'vi-VN'
-        )}₫`}</p>
+        <p
+          className={classes.price}
+        >{`${loadedBookDetail?.price?.toLocaleString('vi-VN')}₫`}</p>
         <p className={classes.description}>
           {splitParagragh(loadedBookDetail.description).map((paragraph, i) => (
             <p className={classes.paragraph} key={i}>

@@ -46,21 +46,22 @@ const ProfileButton = () => {
           </div>
         </div>
         <hr className="seperator"></hr>
-        {/* <li className={classes.function}>
-          <Link to="/profile" className={classes['function-link']}>
-            <span className={classes.icon}>
-              <FontAwesomeIcon icon={solid('user')}></FontAwesomeIcon>
-            </span>
-            Tài khoản của tôi
-          </Link>
-        </li> */}
         <li className={classes.function}>
-          <Link to="/user/wishlist" className={classes['function-link']}>
-            <span className={classes.icon}>
-              <FontAwesomeIcon icon={solid('heart')}></FontAwesomeIcon>
-            </span>
-            Danh sách yêu thích
-          </Link>
+          {user.role === 'admin' ? (
+            <Link to="/admin/manage" className={classes['function-link']}>
+              <span className={classes.icon}>
+                <FontAwesomeIcon icon={solid('chart-line')}></FontAwesomeIcon>
+              </span>
+              Quản lý
+            </Link>
+          ) : (
+            <Link to="/user/wishlist" className={classes['function-link']}>
+              <span className={classes.icon}>
+                <FontAwesomeIcon icon={solid('heart')}></FontAwesomeIcon>
+              </span>
+              Danh sách yêu thích
+            </Link>
+          )}
         </li>
         <hr className="seperator"></hr>
         <li className={classes.function} onClick={logoutHandler}>

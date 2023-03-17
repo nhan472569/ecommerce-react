@@ -3,13 +3,20 @@ import environment from '../../environment';
 import classes from './Profile.module.css';
 import UpdateDetailProfile from './UpdateDetailProfile';
 import ChangePasswordProfile from './ChangePasswordProfile';
+import Manager from './admin/Manager';
 
-const Profile = () => {
+const Profile = ({ manager = false }) => {
   const [activeTab, setActiveTab] = useState('details');
 
   useEffect(() => {
-    document.title = `Thông tin cá nhân | ${environment.HEAD_TITLE}`;
-  });
+    document.title = `${manager ? 'Quản trị' : 'Thông tin cá nhân'} | ${
+      environment.HEAD_TITLE
+    }`;
+    manager && setActiveTab('book-manage');
+    return () => {
+      setActiveTab('details');
+    };
+  }, [manager]);
 
   const renderTemplate = () => {
     switch (activeTab) {
@@ -18,37 +25,65 @@ const Profile = () => {
         return <UpdateDetailProfile />;
       case 'password':
         return <ChangePasswordProfile />;
-      case 'orders':
-        return;
+      case 'book-manage':
+        return <Manager></Manager>;
+      case 'user-manage':
+        return <Manager></Manager>;
+      case 'stats-manage':
+        return <Manager></Manager>;
     }
   };
   return (
     <div className={classes.profile + ' container'}>
       <div className={classes['right-menu']}>
-        <div
-          className={`${classes['menu-item']} ${
-            activeTab === 'details' ? classes.active : ''
-          }`}
-          onClick={() => setActiveTab('details')}
-        >
-          Thông tin tài khoản
-        </div>
-        <div
-          className={`${classes['menu-item']} ${
-            activeTab === 'password' ? classes.active : ''
-          }`}
-          onClick={() => setActiveTab('password')}
-        >
-          Thay đổi mật khẩu
-        </div>
-        {/* <div
-          className={`${classes['menu-item']} ${
-            activeTab === 'orders' ? classes.active : ''
-          }`}
-          onClick={() => setActiveTab('orders')}
-        >
-          Đơn hàng đã mua
-        </div> */}
+        {!manager ? (
+          <>
+            <div
+              className={`${classes['menu-item']} ${
+                activeTab === 'details' ? classes.active : ''
+              }`}
+              onClick={() => setActiveTab('details')}
+            >
+              Thông tin tài khoản
+            </div>
+            <div
+              className={`${classes['menu-item']} ${
+                activeTab === 'password' ? classes.active : ''
+              }`}
+              onClick={() => setActiveTab('password')}
+            >
+              Thay đổi mật khẩu
+            </div>
+          </>
+        ) : (
+          <>
+            <div
+              className={`${classes['menu-item']} ${
+                activeTab === 'book-manage' ? classes.active : ''
+              }`}
+              onClick={() => setActiveTab('book-manage')}
+            >
+              Quản lý sách
+            </div>
+            <div
+              className={`${classes['menu-item']} ${
+                activeTab === 'user-manage' ? classes.active : ''
+              }`}
+              onClick={() => setActiveTab('user-manage')}
+            >
+              Quản lý tài khoản
+            </div>
+            <div
+              className={`${classes['menu-item']} ${
+                activeTab === 'stats-manage' ? classes.active : ''
+              }`}
+              n
+              onClick={() => setActiveTab('stats-manage')}
+            >
+              Thống kê
+            </div>
+          </>
+        )}
       </div>
       <div className={classes['main-section']}>{renderTemplate()}</div>
     </div>
