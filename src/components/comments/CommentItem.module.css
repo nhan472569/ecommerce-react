@@ -19,31 +19,35 @@
 }
 
 .ContentBox {
-  min-width: 5rem;
-  background-color: #f0f2f5;
+  width: calc(100% - 8.2rem);
+  background-color: #fff;
   display: inline-block;
   border-radius: 1rem;
-  padding: 1rem;
+  padding: 0 1.5rem 2rem;
 }
 
 .username {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
 }
 
-.content {
-  font-size: 1.6rem;
-  margin-bottom: 0.5rem;
+.rating {
+  margin-bottom: 1rem;
+  margin-top: -0.5rem;
 }
 
 .date {
   font-size: 1.3rem;
   font-weight: 500;
-  color: #000;
-  margin-top: 0.5rem;
+  color: #757575;
   width: 100%;
+  margin-bottom: 1rem;
 }
+
+.content {
+  font-size: 1.5rem;
+}
+
 .ellipsis {
   color: #777;
   padding: 0.5rem 1rem;
@@ -54,15 +58,17 @@
   transition: 0.25s ease;
 }
 .ellipsis:hover {
-  background-color: #eee;
+  background-color: #fefefe;
 }
 .actions {
   list-style-type: none;
   position: absolute;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  left: 1rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 2px;
+  top: 3rem;
+  right: 0rem;
   width: fit-content;
   border-radius: 1rem;
+  background-color: #fff;
 }
 .actions li {
   font-size: 1.4rem;

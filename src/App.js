@@ -68,6 +68,31 @@ function App() {
   const { sendRequest: getUserInfo } = useHttp(handleUserInfo);
 
   useEffect(() => {
+    window.addEventListener('scroll', e => {
+      const viewHeight = window.screen.height;
+      if (!isShowScrollToTop && window.scrollY >= viewHeight / 2) {
+        setIsShowScrollToTop(true);
+      }
+
+      if (isShowScrollToTop && window.scrollY < viewHeight / 2) {
+        setIsShowScrollToTop(false);
+      }
+    });
+    return () => {
+      window.removeEventListener('scroll', e => {
+        const viewHeight = window.screen.height;
+        if (!isShowScrollToTop && window.scrollY >= viewHeight / 2) {
+          setIsShowScrollToTop(true);
+        }
+
+        if (isShowScrollToTop && window.scrollY < viewHeight / 2) {
+          setIsShowScrollToTop(false);
+        }
+      });
+    };
+  });
+
+  useEffect(() => {
     getUserInfo({ url: 'users/me', method: 'post' });
     getBooks({ url: 'books' });
     getCount({ url: 'books/count' });
@@ -81,17 +106,6 @@ function App() {
       return nextPage;
     });
   }, [getBooks, count, itemsPerPage]);
-
-  window.addEventListener('scroll', e => {
-    const viewHeight = window.screen.height;
-    if (!isShowScrollToTop && window.scrollY >= viewHeight / 2) {
-      setIsShowScrollToTop(true);
-    }
-
-    if (isShowScrollToTop && window.scrollY < viewHeight / 2) {
-      setIsShowScrollToTop(false);
-    }
-  });
 
   return (
     <React.Fragment>

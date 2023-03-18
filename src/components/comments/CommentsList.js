@@ -14,6 +14,7 @@ const CommentsList = props => {
           content={comment.review}
           date={comment.createAt}
           deleteComment={props.deleteComment}
+          rating={comment.rating}
         />
       ))}
     </div>

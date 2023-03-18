@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classes from './RatingStars.module.css';
 
 const RatingStars = props => {
-  const { ratingAverage, ratingCount } = props;
+  const { ratingAverage, ratingCount, hideRatingNum } = props;
 
   const renderStars = ratedStar => {
     const stars = [];
@@ -28,8 +28,8 @@ const RatingStars = props => {
   return (
     <div className={classes.stars}>
       {renderStars(ratingAverage)}
-      <span className="ml-05">{ratingAverage}</span>
-      <span className="ml-02">({ratingCount})</span>
+      {!hideRatingNum && <span className="ml-05">{ratingAverage}</span>}
+      {ratingCount >= 0 && <span className="ml-02">({ratingCount})</span>}
     </div>
   );
 };
