@@ -13,8 +13,14 @@ const CommentItem = props => {
   );
 
   useEffect(() => {
+    document
+      .querySelector('body')
+      .addEventListener('click', () => setIsActiveActions(false));
     return () => {
       setIsActiveActions(false);
+      document
+        .querySelector('body')
+        .removeEventListener('click', () => setIsActiveActions(false));
     };
   }, [setIsActiveActions]);
 
@@ -78,8 +84,11 @@ const CommentItem = props => {
         <FontAwesomeIcon
           icon={solid('ellipsis')}
           className={classes.ellipsis}
-          onClick={() => {
-            !isLoading && toggleActiveActions();
+          onClick={e => {
+            if (!isLoading) {
+              toggleActiveActions();
+              e.stopPropagation();
+            }
           }}
         />
         {isActiveActions && (
