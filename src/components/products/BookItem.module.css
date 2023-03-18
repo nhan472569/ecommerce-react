@@ -6,16 +6,18 @@
 
 .image {
   width: 100%;
-  height: 30rem;
+  /* height: 30rem; */
   position: relative;
   transition: all 0.2s ease-out;
   border-radius: 1rem;
+  aspect-ratio: 2/2.5;
 }
 
 .image img {
   width: 100%;
   height: 100%;
   border-radius: 1rem;
+  object-fit: cover;
 }
 
 .add-to-wishlist {
