@@ -4,7 +4,6 @@ import classes from './CommentBox.module.css';
 import CommentForm from './CommentForm';
 import CommentsList from './CommentsList';
 import useHttp from '../../hooks/use-http';
-import LoadingSpinner from '../UI/LoadingSpinner';
 import { useSelector } from 'react-redux';
 
 const CommentBox = props => {
@@ -36,15 +35,12 @@ const CommentBox = props => {
     <div className={classes.box}>
       <>
         <CommentForm onAddComment={onAddCommentHandler} productId={productId} />
-        {isLoading ? (
-          <LoadingSpinner />
-        ) : (
-          <CommentsList
-            bookId={productId}
-            deleteComment={deleteCommentHandler}
-            comments={comments}
-          />
-        )}
+        <CommentsList
+          bookId={productId}
+          deleteComment={deleteCommentHandler}
+          comments={comments}
+          isLoading={isLoading}
+        />
       </>
     </div>
   );
