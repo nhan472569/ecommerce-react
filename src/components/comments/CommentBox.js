@@ -34,24 +34,18 @@ const CommentBox = props => {
 
   return (
     <div className={classes.box}>
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : (
-        <>
-          <h2 className={classes.title}>Đánh giá sản phẩm</h2>
-          <CommentForm
-            onAddComment={onAddCommentHandler}
-            productId={productId}
+      <>
+        <CommentForm onAddComment={onAddCommentHandler} productId={productId} />
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <CommentsList
+            bookId={productId}
+            deleteComment={deleteCommentHandler}
+            comments={comments}
           />
-          {!isLoading && (
-            <CommentsList
-              bookId={productId}
-              deleteComment={deleteCommentHandler}
-              comments={comments}
-            />
-          )}
-        </>
-      )}
+        )}
+      </>
     </div>
   );
 };

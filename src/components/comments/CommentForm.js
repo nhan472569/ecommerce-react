@@ -73,6 +73,7 @@ const CommentForm = props => {
 
   return (
     <form className={classes.form} onSubmit={submitCommentHandler}>
+      <h2 className={classes.title}>Đánh giá sản phẩm</h2>
       <div className={classes['star-rating']}>
         {Array(5)
           .fill(0)

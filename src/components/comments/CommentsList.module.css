@@ -1,7 +1,14 @@
 .box {
-  width: 100%;
+  width: 60%;
   max-height: 50rem;
   overflow-y: auto;
   overflow-x: hidden;
-  margin: 1rem auto;
+  margin: 1rem 0 1rem 5rem;
+}
+
+.title {
+  margin-top: 1rem;
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
 }

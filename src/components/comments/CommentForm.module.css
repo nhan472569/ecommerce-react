@@ -1,5 +1,12 @@
 .form {
-  width: 100%;
+  width: 40%;
+}
+
+.title {
+  margin-top: 1rem;
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
 }
 
 .textarea {

@@ -4,6 +4,7 @@ import classes from './CommentsList.module.css';
 const CommentsList = props => {
   return (
     <div className={classes.box}>
+      <h2 className={classes.title}>Đánh giá từ khách hàng</h2>
       {props.comments.map(comment => (
         <CommentItem
           key={comment.id}
