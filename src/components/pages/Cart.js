@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import environment from '../../environment';
 import classes from './Cart.module.css';
-import CartItem from './CartItem';
-import CartSummary from './CartSummary';
+import CartItem from '../cart/CartItem';
+import CartSummary from '../cart/CartSummary';
 
 const Cart = () => {
   const cart = useSelector(state => state.cart);

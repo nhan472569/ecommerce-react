@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { authAction } from '../../store/auth-context';
-import ProfileButton from '../user/ProfileButton';
+import { authAction } from '../../../store/auth-context';
+import ProfileButton from '../nav/ProfileButton';
 
 import classes from './Auth.module.css';
 

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import CartButton from '../cart/CartButton';
+import CartButton from '../nav/CartButton';
 import SearchButton from './SearchButton';
 import Auth from './Auth';
 import classes from './NavBar.module.css';

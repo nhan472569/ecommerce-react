@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import environment from '../../environment';
-import useHttp from '../../hooks/use-http';
-import { authAction } from '../../store/auth-context';
+import environment from '../../../environment';
+import useHttp from '../../../hooks/use-http';
+import { authAction } from '../../../store/auth-context';
 
 import classes from './ProfileButton.module.css';
 

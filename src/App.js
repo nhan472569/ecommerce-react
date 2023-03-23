@@ -13,23 +13,21 @@ import { authAction } from './store/auth-context';
 import { productAction } from './store/product-context';
 import { useDispatch, useSelector } from 'react-redux';
 
-import NavBar from './components/layout/NavBar';
+import NavBar from './components/layout/nav/NavBar';
 import ScrollToTop from './components/UI/ScrollToTop';
 import Footer from './components/layout/footer/Footer';
 
-const Author = React.lazy(() => import('./components/author/Author'));
+const Author = React.lazy(() => import('./components/pages/Author'));
 const Slider = React.lazy(() => import('./components/layout/slider/Slider'));
-const Login = React.lazy(() => import('./components/auth/Login'));
-const Signup = React.lazy(() => import('./components/auth/Signup'));
-const Profile = React.lazy(() => import('./components/user/Profile'));
-const Wishlist = React.lazy(() => import('./components/user/Wishlist'));
-const BookDetail = React.lazy(() => import('./components/products/BookDetail'));
+const Login = React.lazy(() => import('./components/pages/Login'));
+const Signup = React.lazy(() => import('./components/pages/Signup'));
+const Profile = React.lazy(() => import('./components/pages/Profile'));
+const Wishlist = React.lazy(() => import('./components/pages/Wishlist'));
+const BookDetail = React.lazy(() => import('./components/pages/BookDetail'));
 const BooksList = React.lazy(() => import('./components/products/BooksList'));
-const SearchPage = React.lazy(() =>
-  import('./components/products/search/SearchPage')
-);
-const Cart = React.lazy(() => import('./components/cart/Cart'));
-const NotFound = React.lazy(() => import('./components/layout/NotFound'));
+const SearchPage = React.lazy(() => import('./components/pages/SearchPage'));
+const Cart = React.lazy(() => import('./components/pages/Cart'));
+const NotFound = React.lazy(() => import('./components/pages/NotFound'));
 
 function App() {
   const [loadedBooks, setLoadedBooks] = useState([]);

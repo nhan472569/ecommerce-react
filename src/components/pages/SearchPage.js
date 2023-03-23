@@ -1,10 +1,10 @@
 import classes from './SearchPage.module.css';
-import useHttp from '../../../hooks/use-http';
+import useHttp from '../../hooks/use-http';
 import { useCallback, useEffect, useState } from 'react';
-import LoadingSpinner from '../../UI/LoadingSpinner';
+import LoadingSpinner from '../UI/LoadingSpinner';
 import { useLocation } from 'react-router';
-import BookItem from '../BookItem';
-import environment from '../../../environment';
+import BookItem from '../products/BookItem';
+import environment from '../../environment';
 
 const SearchPage = () => {
   const { search } = useLocation();

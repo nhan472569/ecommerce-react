@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import environment from '../../environment';
 import classes from './Profile.module.css';
-import UpdateDetailProfile from './UpdateDetailProfile';
-import ChangePasswordProfile from './ChangePasswordProfile';
-import Manager from './admin/Manager';
+import UpdateDetailProfile from '../user/UpdateDetailProfile';
+import ChangePasswordProfile from '../user/ChangePasswordProfile';
+import Manager from '../pages/Manager';
 
 const Profile = ({ manager = false }) => {
   const [activeTab, setActiveTab] = useState('details');

@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+#root {
+  min-height: 100%;
+}
+
 a {
   text-decoration: none;
   transition: color 0.2s ease-out;
@@ -11,6 +15,7 @@ a {
 
 html {
   font-size: 62.5%;
+  height: 100%;
 }
 
 body {
@@ -22,6 +27,7 @@ body {
   /* font-family: 'Montserrat', sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
 }
 
 code {
@@ -32,6 +38,7 @@ code {
 .container {
   width: 80%;
   margin: 20rem auto 12rem;
+  min-height: calc(100vh - 44rem);
 }
 
 .clearfix::after {
