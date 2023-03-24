@@ -25,6 +25,12 @@
   outline-color: #222831;
 }
 
+@media screen and (max-width: 1279.98px) {
+  .search input:focus-visible {
+    width: 20rem;
+  }
+}
+
 .search input::placeholder {
   user-select: none;
   pointer-events: none;

@@ -1,8 +1,8 @@
 const environment = {
-  DOMAIN: 'http://localhost:4000',
+  // DOMAIN: 'http://localhost:4000',
   VERSION: 'v1',
   HEAD_TITLE: 'BookShop',
-  // "DOMAIN": "https://bookstore-new-app.herokuapp.com"
+  DOMAIN: 'https://api-bookstore-orpin.vercel.app',
 };
 
 export default environment;

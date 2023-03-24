@@ -41,6 +41,14 @@ code {
   min-height: calc(100vh - 44rem);
 }
 
+@media screen and (max-width: 1023.98px) {
+  .container {
+    width: 90%;
+    margin: 20rem auto 12rem;
+    min-height: calc(100vh - 44rem);
+  }
+}
+
 .clearfix::after {
   content: '';
   clear: both;
