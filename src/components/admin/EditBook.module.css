@@ -1,11 +1,11 @@
-.photo {
-  position: absolute;
-  width: 10rem;
-  height: 10rem;
-  border-radius: 100rem;
-  outline: 4px solid #fff;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  margin-bottom: 4rem;
-  left: 5rem;
-  bottom: -4rem;
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 3rem auto 0;
+}
+.form {
+  margin-top: 3rem;
+}
+.containter {
+  margin-top: 3rem;
 }

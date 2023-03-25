@@ -4,12 +4,17 @@ import classes from './BookManage.module.css';
 import BookItem from '../products/BookItem';
 import Paginator from '../UI/Paginator';
 import SearchFrom from '../UI/SearchForm';
+import EditBook from './EditBook';
 
 const BookManage = () => {
   const [books, setBooks] = useState([]);
+  const [currentBookId, setCurrentBookId] = useState('');
   const [totalBooks, setTotalBooks] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isEdit, setIsEdit] = useState(false);
   const searchInputRef = useRef();
+
+  let content = null;
 
   const { isLoading, sendRequest: getBooks } = useHttp(
     useCallback(
@@ -49,23 +54,49 @@ const BookManage = () => {
     getBooks({ url: `books/?page=${page}` });
   };
 
+  if (isEdit) {
+    content = (
+      <EditBook
+        id={currentBookId}
+        onClick={() => {
+          setIsEdit(false);
+          setCurrentBookId('');
+        }}
+      />
+    );
+  } else {
+    content = (
+      <>
+        <section className={classes['book-list']}>
+          {isLoading
+            ? Array(8)
+                .fill(8)
+                .map((_, i) => <BookItem.Loading key={i}></BookItem.Loading>)
+            : books.map(book => (
+                <BookItem
+                  key={book._id}
+                  book={book}
+                  isManaged={true}
+                  onClick={() => {
+                    setIsEdit(true);
+                    setCurrentBookId(book._id);
+                  }}
+                ></BookItem>
+              ))}
+        </section>
+        <Paginator
+          totalItems={totalBooks}
+          currentPage={currentPage}
+          paginate={paginate}
+        />
+      </>
+    );
+  }
+
   return (
     <>
       <SearchFrom ref={searchInputRef} search={search} />
-      <section className={classes['book-list']}>
-        {isLoading
-          ? Array(8)
-              .fill(8)
-              .map((_, i) => <BookItem.Loading key={i}></BookItem.Loading>)
-          : books.map(book => (
-              <BookItem key={book._id} book={book} isManaged={true}></BookItem>
-            ))}
-      </section>
-      <Paginator
-        totalItems={totalBooks}
-        currentPage={currentPage}
-        paginate={paginate}
-      />
+      {content}
     </>
   );
 };

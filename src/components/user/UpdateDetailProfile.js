@@ -43,6 +43,10 @@ const UpdateDetailProfile = () => {
       if (key === 'photo') {
         return;
       }
+      if (
+        JSON.stringify(values[key]).trim() === JSON.stringify(user[key]).trim()
+      )
+        return;
       formData.append(key, value);
     });
     if (values.photo) {

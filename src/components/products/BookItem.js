@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import SkeletonLoading from '../UI/loading/SkeletonLoading';
 
-const BookItem = ({ book, isManaged }) => {
+const BookItem = ({ book, isManaged, onClick }) => {
   const {
     name,
     ratingsAverage,
@@ -27,59 +27,62 @@ const BookItem = ({ book, isManaged }) => {
     dispatch(cartAction.addItem({ ...book, quantity: 1 }));
   };
   return (
-    <div className={classes.item}>
-      <div className={classes.image}>
-        <Link
-          to={isManaged ? `/books/${slug}/edit` : `/books/${slug}`}
-          title={name}
-        >
-          <img
-            src={environment.DOMAIN + '/img/books/' + imageCover}
-            alt={name}
-          ></img>
-        </Link>
-        {!isManaged && (
-          <div
-            className={classes['add-to-wishlist']}
-            title="Thêm vào danh sách yêu thích"
-          >
-            <FontAwesomeIcon
-              icon={regular('heart')}
-              className={classes.icon}
-            ></FontAwesomeIcon>
-          </div>
-        )}
-      </div>
-      <div className={classes.content}>
-        <div className={classes.author}>
-          {authors.map(a => {
-            return (
-              <Link to={`/author/${a._id}`} key={a._id}>
-                {a.name}
-              </Link>
-            );
-          })}
-        </div>
-        <h2 className={classes.title}>
-          <Link
-            to={isManaged ? `/books/${slug}/edit` : `/books/${slug}`}
-            title={name}
-          >
-            {name}
+    <>
+      <div className={classes.item}>
+        <div className={classes.image}>
+          <Link to={`/books/${slug}`} title={name}>
+            <img
+              src={environment.DOMAIN + '/img/books/' + imageCover}
+              alt={name}
+            ></img>
           </Link>
-        </h2>
-        <p className={classes.price}>{`${price.toLocaleString('vi-VN')}₫`}</p>
-        <RatingStars
-          ratingAverage={ratingsAverage}
-          ratingCount={ratingsQuantity}
-        />
-        {!isManaged && (
-          <button className={classes['add-to-cart']} onClick={addToCart}>
-            Thêm vào giỏ
-          </button>
+          {!isManaged && (
+            <div
+              className={classes['add-to-wishlist']}
+              title="Thêm vào danh sách yêu thích"
+            >
+              <FontAwesomeIcon
+                icon={regular('heart')}
+                className={classes.icon}
+              ></FontAwesomeIcon>
+            </div>
+          )}
+        </div>
+        <div className={classes.content}>
+          <div className={classes.author}>
+            {authors.map(a => {
+              return (
+                <Link to={`/author/${a._id}`} key={a._id}>
+                  {a.name}
+                </Link>
+              );
+            })}
+          </div>
+          <h2 className={classes.title}>
+            <Link to={`/books/${slug}`} title={name}>
+              {name}
+            </Link>
+          </h2>
+          <p className={classes.price}>{`${price.toLocaleString('vi-VN')}₫`}</p>
+          <RatingStars
+            ratingAverage={ratingsAverage}
+            ratingCount={ratingsQuantity}
+          />
+          {!isManaged && (
+            <button className={classes['add-to-cart']} onClick={addToCart}>
+              Thêm vào giỏ
+            </button>
+          )}
+        </div>
+        {isManaged && (
+          <div
+            className={classes.backdrop}
+            title="edit"
+            onClick={onClick}
+          ></div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

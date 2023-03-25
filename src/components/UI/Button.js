@@ -1,6 +1,7 @@
+import React from 'react';
 import classes from './Button.module.css';
 
-const Button = ({ children, mode, type, disabled, onClick }) => {
+const Button = React.memo(({ children, mode, type, disabled, onClick }) => {
   return (
     <button
       className={classes.btn + ' ' + classes['btn-' + mode]}
@@ -11,6 +12,6 @@ const Button = ({ children, mode, type, disabled, onClick }) => {
       {children}
     </button>
   );
-};
+});
 
 export default Button;
