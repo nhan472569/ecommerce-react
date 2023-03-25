@@ -1,0 +1,10 @@
+.btn-paging {
+  border: 1px solid #222831;
+  font-size: 1.3rem;
+  padding: 1rem;
+  background-color: #fff;
+  outline: none;
+  border-radius: 0.5rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}

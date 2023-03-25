@@ -60,7 +60,7 @@ const CommentItem = props => {
     setIsActiveActions(false);
     deleteComment({
       url: `books/${props.bookId}/reviews/${props.id}`,
-      method: 'post',
+      method: 'delete',
     });
   };
 

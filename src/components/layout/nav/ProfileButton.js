@@ -20,7 +20,7 @@ const ProfileButton = () => {
     }, [dispatch])
   );
   const logoutHandler = () => {
-    logout({ url: 'users/logout', method: 'post' });
+    logout({ url: 'users/logout', method: 'get' });
   };
   return (
     <div className={classes.thumb}>

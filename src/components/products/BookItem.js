@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import SkeletonLoading from '../UI/loading/SkeletonLoading';
 
-const BookItem = ({ book }) => {
+const BookItem = ({ book, isManaged }) => {
   const {
     name,
     ratingsAverage,
@@ -35,15 +35,17 @@ const BookItem = ({ book }) => {
             alt={name}
           ></img>
         </Link>
-        <div
-          className={classes['add-to-wishlist']}
-          title="Thêm vào danh sách yêu thích"
-        >
-          <FontAwesomeIcon
-            icon={regular('heart')}
-            className={classes.icon}
-          ></FontAwesomeIcon>
-        </div>
+        {!isManaged && (
+          <div
+            className={classes['add-to-wishlist']}
+            title="Thêm vào danh sách yêu thích"
+          >
+            <FontAwesomeIcon
+              icon={regular('heart')}
+              className={classes.icon}
+            ></FontAwesomeIcon>
+          </div>
+        )}
       </div>
       <div className={classes.content}>
         <div className={classes.author}>
@@ -65,9 +67,11 @@ const BookItem = ({ book }) => {
           ratingAverage={ratingsAverage}
           ratingCount={ratingsQuantity}
         />
-        <button className={classes['add-to-cart']} onClick={addToCart}>
-          Thêm vào giỏ
-        </button>
+        {!isManaged && (
+          <button className={classes['add-to-cart']} onClick={addToCart}>
+            Thêm vào giỏ
+          </button>
+        )}
       </div>
     </div>
   );

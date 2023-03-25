@@ -91,7 +91,7 @@ function App() {
   });
 
   useEffect(() => {
-    getUserInfo({ url: 'users/me', method: 'post' });
+    getUserInfo({ url: 'users/me', method: 'get' });
     getBooks({ url: 'books' });
     getCount({ url: 'books/count' });
   }, [getBooks, getUserInfo, getCount]);

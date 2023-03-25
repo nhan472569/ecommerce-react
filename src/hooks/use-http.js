@@ -2,6 +2,10 @@ import { useState, useCallback } from 'react';
 import axios from 'axios';
 import environment from '../environment';
 
+const axiosInstance = axios.create({
+  withCredentials: true,
+});
+
 const useHttp = applyData => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -11,10 +15,11 @@ const useHttp = applyData => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await axios[`${requestConfig.method || 'get'}`](
+        const response = await axiosInstance[
+          `${requestConfig.method || 'get'}`
+        ](
           `${environment.DOMAIN}/api/${environment.VERSION}/${requestConfig.url}`,
-          requestConfig?.body,
-          { withCredentials: true }
+          requestConfig?.body
         );
         if (
           response.status.toString().startsWith('2') ||

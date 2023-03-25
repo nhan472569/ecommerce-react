@@ -3,7 +3,8 @@ import environment from '../../environment';
 import classes from './Profile.module.css';
 import UpdateDetailProfile from '../user/UpdateDetailProfile';
 import ChangePasswordProfile from '../user/ChangePasswordProfile';
-import Manager from '../pages/Manager';
+import BookManage from '../user/BookManage';
+import UserManage from '../user/UserManage';
 
 const Profile = ({ manager = false }) => {
   const [activeTab, setActiveTab] = useState('details');
@@ -26,11 +27,11 @@ const Profile = ({ manager = false }) => {
       case 'password':
         return <ChangePasswordProfile />;
       case 'book-manage':
-        return <Manager></Manager>;
+        return <BookManage />;
       case 'user-manage':
-        return <Manager></Manager>;
+        return <UserManage />;
       case 'stats-manage':
-        return <Manager></Manager>;
+        return null;
     }
   };
   return (
