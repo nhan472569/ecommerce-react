@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
 import useHttp from '../../hooks/use-http';
 import Paginator from '../UI/Paginator';
 import SearchFrom from '../UI/SearchForm';
@@ -8,9 +7,9 @@ import classes from './UserManage.module.css';
 
 function UserManage() {
   const [users, setUsers] = useState([]);
+  const [totalUsers, setTotalUsers] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const searchInputRef = useRef();
-  const totalUsers = useSelector(state => state.product.count);
 
   const { isLoading, sendRequest: getUsers } = useHttp(
     useCallback(
@@ -20,14 +19,23 @@ function UserManage() {
       [setUsers]
     )
   );
+  const { sendRequest: getTotals } = useHttp(
+    useCallback(
+      data => {
+        setTotalUsers(data.data.data);
+      },
+      [setTotalUsers]
+    )
+  );
 
   useEffect(() => {
     getUsers({ url: 'users' });
+    getTotals({ url: 'users/count' });
     return () => {
       setUsers([]);
       setCurrentPage(null);
     };
-  }, [getUsers]);
+  }, [getUsers, getTotals]);
 
   const search = event => {
     event.preventDefault();
@@ -47,9 +55,13 @@ function UserManage() {
 
   return (
     <>
-      <SearchFrom />
-      <section className={classes['users-list']}>
-        <UserItem />
+      <SearchFrom search={search} ref={searchInputRef} />
+      <section className={classes['user-list']}>
+        {isLoading
+          ? Array(4)
+              .fill(0)
+              .map((_, i) => <UserItem.Loading key={i} />)
+          : users.map(user => <UserItem key={user._id} user={user} />)}
       </section>
       <Paginator
         totalItems={totalUsers}

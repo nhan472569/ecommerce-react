@@ -64,7 +64,7 @@ const Login = () => {
           validationSchema={LoginSchema}
           onSubmit={onSubmitHandler}
         >
-          {({ errors, touched }) => (
+          {({ errors, touched, dirty }) => (
             <Form>
               <div className={classes['form-field']}>
                 <Field
@@ -121,7 +121,7 @@ const Login = () => {
                 type="submit"
                 className={classes.submit}
                 disabled={
-                  touched.email || touched.password || isLoading
+                  dirty || touched.email || touched.password || isLoading
                     ? errors.email || errors.password || isLoading
                     : true
                 }

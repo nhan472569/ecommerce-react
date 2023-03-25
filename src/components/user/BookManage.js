@@ -2,15 +2,14 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import useHttp from '../../hooks/use-http';
 import classes from './BookManage.module.css';
 import BookItem from '../products/BookItem';
-import { useSelector } from 'react-redux';
 import Paginator from '../UI/Paginator';
 import SearchFrom from '../UI/SearchForm';
 
 const BookManage = () => {
   const [books, setBooks] = useState([]);
+  const [totalBooks, setTotalBooks] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const searchInputRef = useRef();
-  const totalBooks = useSelector(state => state.product.count);
 
   const { isLoading, sendRequest: getBooks } = useHttp(
     useCallback(
@@ -20,10 +19,19 @@ const BookManage = () => {
       [setBooks]
     )
   );
+  const { sendRequest: getTotals } = useHttp(
+    useCallback(
+      data => {
+        setTotalBooks(data.data.data);
+      },
+      [setTotalBooks]
+    )
+  );
 
   useEffect(() => {
     getBooks({ url: 'books' });
-  }, [getBooks]);
+    getTotals({ url: 'books/count' });
+  }, [getBooks, getTotals]);
 
   const search = event => {
     event.preventDefault();
