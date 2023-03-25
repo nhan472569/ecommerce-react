@@ -26,11 +26,12 @@ const BooksList = ({ books, isLoading, getMoreBooks, currentPage }) => {
           )
             .fill(0)
             .map((item, i) => <BookItem.Loading key={i}></BookItem.Loading>)}
-        {!isLoading &&
+        {(!isLoading &&
           books.length &&
           books.map(book => {
             return <BookItem key={book._id} book={book} />;
-          })}
+          })) ||
+          ''}
       </div>
       {currentPage < Math.ceil(count / itemsPerPage) && (
         <button

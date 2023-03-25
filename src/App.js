@@ -22,6 +22,7 @@ const Slider = React.lazy(() => import('./components/layout/slider/Slider'));
 const Login = React.lazy(() => import('./components/pages/Login'));
 const Signup = React.lazy(() => import('./components/pages/Signup'));
 const Profile = React.lazy(() => import('./components/pages/Profile'));
+const EditBook = React.lazy(() => import('./components/admin/EditBook'));
 const Wishlist = React.lazy(() => import('./components/pages/Wishlist'));
 const BookDetail = React.lazy(() => import('./components/pages/BookDetail'));
 const BooksList = React.lazy(() => import('./components/products/BooksList'));
@@ -127,7 +128,11 @@ function App() {
           >
             <Route path="admin/manage" element={<Profile manager={true} />} />
           </Route>
-
+          <Route
+            element={<ProtectedRoute user={user} type="protect" role="admin" />}
+          >
+            <Route path="books/:slug/edit" element={<EditBook />} />
+          </Route>
           <Route path="cart" element={<Cart />} />
           <Route path="author/:authorId" element={<Author />} />
           <Route

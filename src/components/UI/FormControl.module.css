@@ -1,0 +1,40 @@
+.form-control {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+.input {
+  width: 80%;
+  border: 1px solid #eee;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+textarea.input {
+  min-height: 10rem;
+  resize: vertical;
+}
+.input:focus-visible {
+  outline-color: #ddd;
+}
+.label {
+  font-weight: 500;
+}
+.error {
+  color: red;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  margin-top: -0.5rem;
+  text-align: right;
+}
+.error-icon {
+  margin-right: 0.5rem;
+}
+.input-error {
+  border: 1px solid #fc6969;
+}
+
+.input-error:focus-visible {
+  outline-color: #fc6969;
+}

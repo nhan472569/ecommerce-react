@@ -29,7 +29,10 @@ const BookItem = ({ book, isManaged }) => {
   return (
     <div className={classes.item}>
       <div className={classes.image}>
-        <Link to={`/books/${slug}`} title={name}>
+        <Link
+          to={isManaged ? `/books/${slug}/edit` : `/books/${slug}`}
+          title={name}
+        >
           <img
             src={environment.DOMAIN + '/img/books/' + imageCover}
             alt={name}
@@ -58,7 +61,10 @@ const BookItem = ({ book, isManaged }) => {
           })}
         </div>
         <h2 className={classes.title}>
-          <Link to={`/books/${slug}`} title={name}>
+          <Link
+            to={isManaged ? `/books/${slug}/edit` : `/books/${slug}`}
+            title={name}
+          >
             {name}
           </Link>
         </h2>

@@ -3,8 +3,8 @@ import environment from '../../environment';
 import classes from './Profile.module.css';
 import UpdateDetailProfile from '../user/UpdateDetailProfile';
 import ChangePasswordProfile from '../user/ChangePasswordProfile';
-import BookManage from '../user/BookManage';
-import UserManage from '../user/UserManage';
+import BookManage from '../admin/BookManage';
+import UserManage from '../admin/UserManage';
 
 const Profile = ({ manager = false }) => {
   const [activeTab, setActiveTab] = useState('details');

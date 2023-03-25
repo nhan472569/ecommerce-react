@@ -1,10 +1,51 @@
-.button {
-  margin-top: 2rem;
-  padding: 1rem 3rem;
-  font-size: 1.6rem;
-  display: inline-block;
+.btn {
   border: none;
-  background-color: #000;
-  color: #fff;
+  outline: none;
   cursor: pointer;
+  background-color: #fff;
+  font-size: 1.7rem;
+  font-weight: 400;
+  transition: color 0.2s ease-out;
+  position: relative;
+}
+
+.btn-primary,
+.btn-secondary {
+  width: 20rem;
+  height: 4rem;
+  padding: 1rem 2rem;
+  transition: all 0.25s ease-out;
+  font-weight: 500;
+  border-radius: 100rem;
+  text-transform: capitalize;
+  font-size: 1.4rem;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #222831;
+}
+.btn-secondary {
+  color: #222831;
+  background-color: #fff;
+  border: 1px solid #222831;
+  margin-right: 2rem;
+}
+
+.btn-primary:hover {
+  background-color: #393e46;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #eee;
+  color: #000;
+}
+
+.btn-secondary:disabled {
+  cursor: not-allowed;
+}
+
+.btn-primary:disabled {
+  background-color: #435c62;
+  cursor: not-allowed;
 }
