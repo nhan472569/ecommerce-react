@@ -80,7 +80,7 @@ const BookDetail = () => {
             environment.DOMAIN +
             '/img/books/' +
             (clickedImage && clickedImage !== 'cover'
-              ? loadedBookDetail.images[clickedImage]
+              ? loadedBookDetail.images[clickedImage - 1]
               : loadedBookDetail.imageCover)
           }
           alt={loadedBookDetail.name}
@@ -102,9 +102,9 @@ const BookDetail = () => {
                 src={environment.DOMAIN + '/img/books/' + image}
                 alt={loadedBookDetail.name}
                 onClick={() => {
-                  setClickedImage(i);
+                  setClickedImage(i + 1);
                 }}
-                className={i === clickedImage && classes['img-active']}
+                className={i + 1 === clickedImage && classes['img-active']}
               ></img>
             ))}
         </div>
