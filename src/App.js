@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import NavBar from './components/layout/nav/NavBar';
 import ScrollToTop from './components/UI/ScrollToTop';
 import Footer from './components/layout/footer/Footer';
-import Alert from './components/UI/Alert';
+import Notification from './components/UI/Notification';
 
 const Author = React.lazy(() => import('./components/pages/Author'));
 const Slider = React.lazy(() => import('./components/layout/slider/Slider'));
@@ -118,7 +118,7 @@ function App() {
     setErrors([getBooksError, getBookCountError, getUserError].filter(Boolean));
   }, [getBooksError, getBookCountError, getUserError]);
 
-  const closeAlert = index => {
+  const closeNotification = index => {
     setErrors(prev => {
       const errors = [...prev];
       errors.splice(index, 1);
@@ -129,9 +129,14 @@ function App() {
     <React.Fragment>
       {!!errors.length &&
         errors.map((error, i) => (
-          <Alert key={i} type="error" onClose={() => closeAlert(i)}>
+          <Notification
+            key={i}
+            type="error"
+            onClose={() => closeNotification(i)}
+            zIndex={{ zIndex: i + 1 + '' }}
+          >
             {error}
-          </Alert>
+          </Notification>
         ))}
       <ScrollToTop active={isShowScrollToTop} />
       <NavBar />

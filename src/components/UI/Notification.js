@@ -1,21 +1,37 @@
-import classes from './Alert.module.css';
+import classes from './Notification.module.css';
 import reactDom from 'react-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { useEffect, useState } from 'react';
 
 const overlayEl = document.getElementById('overlays');
+const TIMEOUT = 4000;
+const colors = {
+  error: { color: 'red' },
+  success: { color: 'green' },
+  info: { color: 'blue' },
+};
+const titleVieMapping = {
+  error: 'Lỗi',
+  success: 'Thành công',
+  info: 'Thông tin',
+};
 
-const Alert = ({ type, children, onClose }) => {
-  const colors = {
-    error: { color: 'red' },
-    success: { color: 'green' },
-    info: { color: 'blue' },
-  };
-  const titleVieMapping = {
-    error: 'Lỗi',
-    success: 'Thành công',
-    info: 'Thông tin',
-  };
+const Notification = ({ type, children, onClose, zIndex }) => {
+  const [seconds, setSeconds] = useState(TIMEOUT / 1000);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setSeconds(seconds => seconds - 0.5);
+    }, 500);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
+    if (seconds === 0) {
+      onClose();
+    }
+  }, [seconds, onClose]);
 
   const getIcon = type => {
     let icon;
@@ -57,7 +73,10 @@ const Alert = ({ type, children, onClose }) => {
   return (
     <>
       {reactDom.createPortal(
-        <div className={classes.alert + ' ' + classes[`alert-${type}`]}>
+        <div
+          className={classes.alert + ' ' + classes[`alert-${type}`]}
+          style={{ zIndex }}
+        >
           {getIcon(type)}
           <div className={classes.detail}>
             <h4 className={classes.title}>{titleVieMapping[type]}</h4>
@@ -66,7 +85,13 @@ const Alert = ({ type, children, onClose }) => {
           <button type="button" onClick={onClose} className={classes.close}>
             <FontAwesomeIcon icon={solid('xmark')} />
           </button>
-          <div className={classes['progress-bar']}></div>
+          <div
+            className={classes['progress-bar']}
+            style={{
+              width: `${(seconds / 4) * 100}%`,
+              backgroundColor: colors[type].color,
+            }}
+          ></div>
         </div>,
         overlayEl
       )}
@@ -74,4 +99,4 @@ const Alert = ({ type, children, onClose }) => {
   );
 };
 
-export default Alert;
+export default Notification;

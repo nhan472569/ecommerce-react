@@ -5,15 +5,21 @@ import LoadingSpinner from '../UI/LoadingSpinner';
 import { useLocation } from 'react-router';
 import BookItem from '../products/BookItem';
 import environment from '../../environment';
+import Notification from '../UI/Notification';
 
 const SearchPage = () => {
   const { search } = useLocation();
   const [books, setBooks] = useState([]);
+  const [showNotification, setShowNotification] = useState(false);
 
   const query = new URLSearchParams(search);
   const searchValue = query.get('name');
 
-  const { isLoading, sendRequest: getBooks } = useHttp(
+  const {
+    isLoading,
+    sendRequest: getBooks,
+    error,
+  } = useHttp(
     useCallback(data => {
       setBooks(data.data.data);
     }, [])
@@ -48,8 +54,21 @@ const SearchPage = () => {
       fallback
     );
 
+  useEffect(() => {
+    if (error) setShowNotification(true);
+  }, [error]);
+
+  const closeNotification = () => {
+    setShowNotification(false);
+  };
+
   return (
     <div className="container">
+      {error && showNotification && (
+        <Notification type="error" onClose={closeNotification}>
+          {error}
+        </Notification>
+      )}
       <h2 className={classes.header}>
         {`${
           books.length === 0

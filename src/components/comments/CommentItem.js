@@ -3,15 +3,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import environment from '../../environment';
 import useHttp from '../../hooks/use-http';
+import Notification from '../UI/Notification';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import RatingStars from '../UI/RatingStars';
 import classes from './CommentItem.module.css';
 
 const CommentItem = props => {
   const [isActiveActions, setIsActiveActions] = useState(false);
-  const { isLoading, sendRequest: deleteComment } = useHttp(() =>
-    props.deleteComment(props.id)
-  );
+  const [showNotification, setShowNotification] = useState(false);
+
+  const {
+    isLoading,
+    sendRequest: deleteComment,
+    error,
+  } = useHttp(() => props.deleteComment(props.id));
 
   useEffect(() => {
     document
@@ -63,46 +68,59 @@ const CommentItem = props => {
       method: 'delete',
     });
   };
+  useEffect(() => {
+    if (error) setShowNotification(true);
+  }, [error]);
 
+  const closeNotification = () => {
+    setShowNotification(false);
+  };
   return (
-    <div className={classes.item}>
-      <div className={classes.avatar}>
-        <img
-          src={environment.DOMAIN + '/img/users/' + props.avatar}
-          alt="avatar"
-        />
-      </div>
-      <div className={classes.ContentBox}>
-        <div className={classes.username}>{props.username}</div>
-        <div className={classes.rating}>
-          <RatingStars ratingAverage={props.rating} hideRatingNum={true} />
+    <>
+      {error && showNotification && (
+        <Notification type="error" onClose={closeNotification}>
+          {error}
+        </Notification>
+      )}
+      <div className={classes.item}>
+        <div className={classes.avatar}>
+          <img
+            src={environment.DOMAIN + '/img/users/' + props.avatar}
+            alt="avatar"
+          />
         </div>
-        <p className={classes.date} title={originalDate}>
-          {formattedDate}
-        </p>
-        <div className={classes.content}>{props.content}</div>
+        <div className={classes.ContentBox}>
+          <div className={classes.username}>{props.username}</div>
+          <div className={classes.rating}>
+            <RatingStars ratingAverage={props.rating} hideRatingNum={true} />
+          </div>
+          <p className={classes.date} title={originalDate}>
+            {formattedDate}
+          </p>
+          <div className={classes.content}>{props.content}</div>
+        </div>
+        <div style={{ position: 'relative' }}>
+          <FontAwesomeIcon
+            icon={solid('ellipsis')}
+            className={classes.ellipsis}
+            onClick={e => {
+              if (!isLoading) {
+                toggleActiveActions();
+                e.stopPropagation();
+              }
+            }}
+          />
+          {isActiveActions && (
+            <ul className={classes.actions}>
+              <li onClick={deleteCommentHandler}>Xoá đánh giá</li>
+            </ul>
+          )}
+          {isLoading && (
+            <LoadingSpinner color="#000" borderSize="4px" size="30px" />
+          )}
+        </div>
       </div>
-      <div style={{ position: 'relative' }}>
-        <FontAwesomeIcon
-          icon={solid('ellipsis')}
-          className={classes.ellipsis}
-          onClick={e => {
-            if (!isLoading) {
-              toggleActiveActions();
-              e.stopPropagation();
-            }
-          }}
-        />
-        {isActiveActions && (
-          <ul className={classes.actions}>
-            <li onClick={deleteCommentHandler}>Xoá đánh giá</li>
-          </ul>
-        )}
-        {isLoading && (
-          <LoadingSpinner color="#000" borderSize="4px" size="30px" />
-        )}
-      </div>
-    </div>
+    </>
   );
 };
 

@@ -1,13 +1,16 @@
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import useHttp from '../../hooks/use-http';
+import Notification from '../UI/Notification';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import classes from './CommentForm.module.css';
 
 const CommentForm = props => {
   const [starClicked, setStarClicked] = useState(false);
   const [ratingStar, setRatingStar] = useState(null);
+  const [showNotification, setShowNotification] = useState(false);
+  const [postSuccessfully, setPostSuccessfully] = useState(false);
   const [formError, setFormError] = useState({
     starRating: '',
     review: '',
@@ -24,10 +27,15 @@ const CommentForm = props => {
     useCallback(
       data => {
         onAddComment(data.data.data);
+        setPostSuccessfully(true);
       },
       [onAddComment]
     )
   );
+
+  useEffect(() => {
+    if (error || postSuccessfully) setShowNotification(true);
+  }, [error, postSuccessfully]);
 
   const submitCommentHandler = async e => {
     e.preventDefault();
@@ -71,79 +79,91 @@ const CommentForm = props => {
     setRatingStar(null);
   };
 
-  return (
-    <form className={classes.form} onSubmit={submitCommentHandler}>
-      <h2 className={classes.title}>Đánh giá sản phẩm</h2>
-      <div className={classes['star-rating']}>
-        {Array(5)
-          .fill(0)
-          .map((_, i) => (
-            <FontAwesomeIcon
-              key={i}
-              icon={solid('star')}
-              className={
-                classes['star-icon'] +
-                ' ' +
-                (ratingStar > i ? classes.checked : '')
-              }
-              onMouseEnter={() => {
-                !starClicked && setRatingStar(i + 1);
-              }}
-              onMouseLeave={() => {
-                !starClicked && setRatingStar(null);
-              }}
-              onClick={() => {
-                setFormError(prev => {
-                  return {
-                    ...prev,
-                    starRating: '',
-                  };
-                });
-                setRatingStar(i + 1);
-                !starClicked && setStarClicked(true);
-              }}
-            ></FontAwesomeIcon>
-          ))}
-        {formError.starRating && (
-          <p className={classes.error}>{formError.starRating}</p>
-        )}
-      </div>
+  const closeNotification = () => {
+    setShowNotification(false);
+    if (postSuccessfully) {
+      setPostSuccessfully(false);
+    }
+  };
 
-      <textarea
-        className={classes.textarea}
-        placeholder="Viết đánh giá..."
-        ref={commentInputRef}
-        onChange={() => {
-          setFormError(prev => {
-            return {
-              ...prev,
-              review: '',
-            };
-          });
-        }}
-      />
-      {formError.review && <p className={classes.error}>{formError.review}</p>}
-      {error && (
-        <p className={classes.error}>
-          <FontAwesomeIcon
-            icon={solid('circle-exclamation')}
-            className={classes['error-icon']}
-          />
+  return (
+    <>
+      {error && showNotification && (
+        <Notification type="error" onClose={closeNotification}>
           {error}
-        </p>
+        </Notification>
       )}
-      <button
-        type="submit"
-        className={classes.button}
-        disabled={isLoading || formError.starRating || formError.review}
-      >
-        {isLoading ? (
-          <LoadingSpinner color="#fff" borderSize="4px" size="30px" />
-        ) : (
-          'Đăng'
+      {postSuccessfully && showNotification && (
+        <Notification type="success" onClose={closeNotification}>
+          Đánh giá sản phẩm thành công
+        </Notification>
+      )}
+      <form className={classes.form} onSubmit={submitCommentHandler}>
+        <h2 className={classes.title}>Đánh giá sản phẩm</h2>
+        <div className={classes['star-rating']}>
+          {Array(5)
+            .fill(0)
+            .map((_, i) => (
+              <FontAwesomeIcon
+                key={i}
+                icon={solid('star')}
+                className={
+                  classes['star-icon'] +
+                  ' ' +
+                  (ratingStar > i ? classes.checked : '')
+                }
+                onMouseEnter={() => {
+                  !starClicked && setRatingStar(i + 1);
+                }}
+                onMouseLeave={() => {
+                  !starClicked && setRatingStar(null);
+                }}
+                onClick={() => {
+                  setFormError(prev => {
+                    return {
+                      ...prev,
+                      starRating: '',
+                    };
+                  });
+                  setRatingStar(i + 1);
+                  !starClicked && setStarClicked(true);
+                }}
+              ></FontAwesomeIcon>
+            ))}
+          {formError.starRating && (
+            <p className={classes.error}>{formError.starRating}</p>
+          )}
+        </div>
+
+        <textarea
+          className={classes.textarea}
+          placeholder="Viết đánh giá..."
+          ref={commentInputRef}
+          onChange={() => {
+            setFormError(prev => {
+              return {
+                ...prev,
+                review: '',
+              };
+            });
+          }}
+        />
+        {formError.review && (
+          <p className={classes.error}>{formError.review}</p>
         )}
-      </button>
-    </form>
+        <button
+          type="submit"
+          className={classes.button}
+          disabled={isLoading || formError.starRating || formError.review}
+        >
+          {isLoading ? (
+            <LoadingSpinner color="#fff" borderSize="4px" size="30px" />
+          ) : (
+            'Đăng'
+          )}
+        </button>
+      </form>
+    </>
   );
 };
 

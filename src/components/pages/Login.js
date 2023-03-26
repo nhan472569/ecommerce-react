@@ -10,7 +10,7 @@ import environment from '../../environment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import LoadingSpinner from '../UI/LoadingSpinner';
-import Alert from '../UI/Alert';
+import Notification from '../UI/Notification';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -21,7 +21,7 @@ const LoginSchema = Yup.object().shape({
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
   const dispatch = useDispatch();
   const {
     isLoading,
@@ -43,7 +43,7 @@ const Login = () => {
   }, []);
 
   useEffect(() => {
-    if (error) setShowAlert(true);
+    if (error) setShowNotification(true);
   }, [error]);
 
   const viewPasswordHandler = () => {
@@ -59,16 +59,16 @@ const Login = () => {
     });
   };
 
-  const closeAlert = () => {
-    setShowAlert(false);
+  const closeNotification = () => {
+    setShowNotification(false);
   };
 
   return (
     <div className={`${classes.container} container`}>
-      {error && showAlert && (
-        <Alert type="error" onClose={closeAlert}>
+      {error && showNotification && (
+        <Notification type="error" onClose={closeNotification}>
           {error}
-        </Alert>
+        </Notification>
       )}
       <div className={classes['login-card']}>
         <h2 className={classes.title}>Đăng nhập</h2>

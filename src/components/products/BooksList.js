@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import environment from '../../environment';
-import Alert from '../UI/Alert';
 import BookItem from './BookItem';
 import classes from './BooksList.module.css';
 
@@ -17,7 +16,6 @@ const BooksList = ({ books, isLoading, getMoreBooks, currentPage }) => {
 
   return (
     <main className={classes.container}>
-      {/* <Alert type="error">Noi dung</Alert> */}
       <div className={classes.section}>
         {isLoading &&
           books.length &&
