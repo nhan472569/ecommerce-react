@@ -13,9 +13,11 @@ import SkeletonLoading from '../UI/loading/SkeletonLoading';
 const BookDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [isInvalid, setIsInvalid] = useState(false);
+  const [clickedImage, setClickedImage] = useState(null);
   const [loadedBookDetail, setLoadedBookDetail] = useState({
     _id: '',
-    image: '',
+    imageCover: '',
+    images: [],
     name: '',
     price: 0,
     description: '',
@@ -75,11 +77,37 @@ const BookDetail = () => {
       <div className={classes.image}>
         <img
           src={
-            loadedBookDetail.imageCover &&
-            environment.DOMAIN + '/img/books/' + loadedBookDetail.imageCover
+            environment.DOMAIN +
+            '/img/books/' +
+            (clickedImage && clickedImage !== 'cover'
+              ? loadedBookDetail.images[clickedImage]
+              : loadedBookDetail.imageCover)
           }
           alt={loadedBookDetail.name}
         ></img>
+        <div className={classes.images}>
+          <img
+            src={
+              environment.DOMAIN + '/img/books/' + loadedBookDetail.imageCover
+            }
+            alt={loadedBookDetail.name}
+            onClick={() => {
+              setClickedImage('cover');
+            }}
+            className={clickedImage === 'cover' && classes['img-active']}
+          ></img>
+          {!!loadedBookDetail.images.length &&
+            loadedBookDetail.images.map((image, i) => (
+              <img
+                src={environment.DOMAIN + '/img/books/' + image}
+                alt={loadedBookDetail.name}
+                onClick={() => {
+                  setClickedImage(i);
+                }}
+                className={i === clickedImage && classes['img-active']}
+              ></img>
+            ))}
+        </div>
       </div>
       <div className={classes.content}>
         {/* <div className={classes.author}>
