@@ -9,7 +9,7 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const NavBar = props => {
   return (
-    <header className={classes.header}>
+    <header className={classes.header} id="navbar">
       <div className={classes.logo}>
         <Link to="/home">BookShop</Link>
       </div>

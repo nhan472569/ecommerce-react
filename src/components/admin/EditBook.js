@@ -3,14 +3,13 @@ import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 import { useCallback, useEffect, useState } from 'react';
 import LoadingSpinner from '../UI/LoadingSpinner';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import useHttp from '../../hooks/use-http';
 import FormControl from '../UI/FormControl';
 import Button from '../UI/Button';
 import environment from '../../environment';
 import ImageEdit from '../UI/ImageEdit';
 import SkeletonLoading from '../UI/loading/SkeletonLoading';
+import Notification from '../UI/Notification';
 
 const UpdateInfoSchema = Yup.object().shape({
   name: Yup.string().trim().required('Vui lòng nhập tên.'),
@@ -33,18 +32,28 @@ const EditBook = ({ id, onClick }) => {
     category: [],
     authors: [],
   });
+  const [showNotification, setShowNotification] = useState(false);
+  const [updateSuccessfully, setUpdateSuccessfully] = useState(false);
+  const [errors, setErrors] = useState([]);
 
-  const handleBookDetail = useCallback(data => {
+  const setBookDetail = useCallback(data => {
     setBook(data.data.data);
   }, []);
+  const updateBookDetail = useCallback(data => {
+    setBook(data.data.data);
+    setUpdateSuccessfully(true);
+  }, []);
 
-  const { isLoading: isGettingBook, sendRequest: getBook } =
-    useHttp(handleBookDetail);
+  const {
+    isLoading: isGettingBook,
+    sendRequest: getBook,
+    error: getBookError,
+  } = useHttp(setBookDetail);
   const {
     isLoading,
     sendRequest: updateBook,
-    error,
-  } = useHttp(handleBookDetail);
+    error: updateBookError,
+  } = useHttp(updateBookDetail);
 
   useEffect(() => {
     getBook({ url: `books/${id}` });
@@ -87,8 +96,44 @@ const EditBook = ({ id, onClick }) => {
     });
   };
 
+  useEffect(() => {
+    if (errors || updateSuccessfully) setShowNotification(true);
+  }, [errors, updateSuccessfully]);
+
+  useEffect(() => {
+    setErrors([getBookError, updateBookError].filter(Boolean));
+  }, [getBookError, updateBookError]);
+
+  const closeNotification = index => {
+    if (!index) {
+      setShowNotification(false);
+      return;
+    }
+    setErrors(prev => {
+      const errors = [...prev];
+      errors.splice(index, 1);
+      return errors;
+    });
+  };
+
   return (
     <div className={classes.containter}>
+      {!!errors.length &&
+        errors.map((error, i) => (
+          <Notification
+            key={i}
+            type="error"
+            onClose={() => closeNotification(i)}
+            zIndex={{ zIndex: i + 1 + '' }}
+          >
+            {error}
+          </Notification>
+        ))}
+      {updateSuccessfully && showNotification && (
+        <Notification type="success" onClose={closeNotification}>
+          Thay đổi thông tin sách thành công
+        </Notification>
+      )}
       {isGettingBook ? (
         <LoadingSpinner />
       ) : (
@@ -188,17 +233,6 @@ const EditBook = ({ id, onClick }) => {
               >
                 Mô tả
               </FormControl>
-              {error && (
-                <>
-                  <p className={classes.error}>
-                    <FontAwesomeIcon
-                      icon={solid('circle-exclamation')}
-                      className={classes['error-icon']}
-                    />
-                    {error}
-                  </p>
-                </>
-              )}
               <div className={classes.actions}>
                 <Button mode="secondary" type="button" onClick={onClick}>
                   Quay về

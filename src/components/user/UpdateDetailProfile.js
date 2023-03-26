@@ -1,7 +1,5 @@
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Formik } from 'formik';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import environment from '../../environment';
 import * as Yup from 'yup';
@@ -12,6 +10,7 @@ import { authAction } from '../../store/auth-context';
 import Button from '../UI/Button';
 import FormControl from '../UI/FormControl';
 import ImageEdit from '../UI/ImageEdit';
+import Notification from '../UI/Notification';
 
 const UpdateInfoSchema = Yup.object().shape({
   name: Yup.string().required('Vui lòng nhập tên.'),
@@ -33,6 +32,9 @@ const photoStyle = {
 };
 
 const UpdateDetailProfile = () => {
+  const [showNotification, setShowNotification] = useState(false);
+  const [updateSuccessfully, setUpdateSuccessfully] = useState(false);
+
   const user = useSelector(state => state.auth.user);
   const dispatch = useDispatch();
 
@@ -44,7 +46,7 @@ const UpdateDetailProfile = () => {
     useCallback(
       data => {
         dispatch(authAction.login(data.data.data));
-        alert('Thay đổi thông tin thành công.');
+        setUpdateSuccessfully(true);
       },
       [dispatch]
     )
@@ -73,8 +75,28 @@ const UpdateDetailProfile = () => {
       body: formData,
     });
   };
+  useEffect(() => {
+    if (error || updateSuccessfully) setShowNotification(true);
+  }, [error, updateSuccessfully]);
+
+  const closeNotification = () => {
+    setShowNotification(false);
+    if (updateSuccessfully) {
+      setUpdateSuccessfully(false);
+    }
+  };
   return (
     <>
+      {error && showNotification && (
+        <Notification type="error" onClose={closeNotification}>
+          {error}
+        </Notification>
+      )}
+      {updateSuccessfully && showNotification && (
+        <Notification type="success" onClose={closeNotification}>
+          Thay đổi thông tin thành công
+        </Notification>
+      )}
       <Formik
         initialValues={{
           name: user.name,
@@ -120,17 +142,6 @@ const UpdateDetailProfile = () => {
             >
               Email
             </FormControl>
-            {error && (
-              <>
-                <p className={classes.error}>
-                  <FontAwesomeIcon
-                    icon={solid('circle-exclamation')}
-                    className={classes['error-icon']}
-                  />
-                  {error}
-                </p>
-              </>
-            )}
             <div className={classes['form-actions']}>
               <Button
                 mode="secondary"
