@@ -8,4 +8,12 @@
 }
 .containter {
   margin-top: 3rem;
+  position: relative;
+  min-height: 20rem;
+}
+
+.images {
+  display: flex;
+  width: 50%;
+  margin: 0 auto;
 }
