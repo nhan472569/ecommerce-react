@@ -4,7 +4,7 @@ import { forwardRef, useEffect, useState } from 'react';
 import classes from './ImageEdit.module.css';
 
 const ImageEdit = forwardRef(
-  ({ image, alt, id, path, onChange, size }, ref) => {
+  ({ image, alt, id, path, onChange, size, style }, ref) => {
     const [imagePreviewUrl, setImagePreviewUrl] = useState('');
 
     useEffect(() => {
@@ -31,6 +31,7 @@ const ImageEdit = forwardRef(
       <label
         className={classes.image + ' ' + classes[`image-${size}`]}
         htmlFor={id}
+        style={style}
       >
         <img src={imagePreviewUrl} alt={alt} />
         <input

@@ -64,10 +64,10 @@ const EditBook = ({ id, onClick }) => {
     });
 
     //* Images processing
-    if (values.imageCover && values.imageCover !== book.imageCover) {
+    if (values.imageCover) {
       formData.append('imageCover', values.imageCover, values.imageCover.name);
     }
-    if (JSON.stringify(values.images) !== JSON.stringify(book.images)) {
+    if (values.image1 || values.image2 || values.image3) {
       imageKeys.forEach((imgKey, i) => {
         if (values[imgKey] === book.images[i]) return;
 
@@ -99,10 +99,10 @@ const EditBook = ({ id, onClick }) => {
             price: book.price,
             summary: book.summary,
             description: book.description,
-            imageCover: book.imageCover,
-            image1: book.images[0],
-            image2: book.images[1],
-            image3: book.images[2],
+            imageCover: '',
+            image1: '',
+            image2: '',
+            image3: '',
             category: book.category,
             authors: book.authors,
           }}
@@ -110,7 +110,7 @@ const EditBook = ({ id, onClick }) => {
           onSubmit={onSubmitHandler}
           enableReinitialize
         >
-          {({ errors, touched, setFieldValue }) => (
+          {({ errors, touched, setFieldValue, dirty }) => (
             <Form>
               <ImageEdit
                 alt={book.name}
@@ -126,7 +126,7 @@ const EditBook = ({ id, onClick }) => {
                   alt={book.name}
                   path={environment.DOMAIN + '/img/books/'}
                   image={book.images[0]}
-                  for="images"
+                  for="image1"
                   onChange={event => {
                     event.currentTarget.files[0].order = 1;
                     setFieldValue('image1', event.currentTarget.files[0]);
@@ -137,7 +137,7 @@ const EditBook = ({ id, onClick }) => {
                   alt={book.name}
                   path={environment.DOMAIN + '/img/books/'}
                   image={book.images[1]}
-                  for="images"
+                  for="image2"
                   onChange={event => {
                     event.currentTarget.files[0].order = 2;
                     setFieldValue('image2', event.currentTarget.files[0]);
@@ -148,7 +148,7 @@ const EditBook = ({ id, onClick }) => {
                   alt={book.name}
                   path={environment.DOMAIN + '/img/books/'}
                   image={book.images[2]}
-                  for="images"
+                  for="image3"
                   onChange={event => {
                     event.currentTarget.files[0].order = 3;
                     setFieldValue('image3', event.currentTarget.files[0]);
@@ -203,7 +203,11 @@ const EditBook = ({ id, onClick }) => {
                 <Button mode="secondary" type="button" onClick={onClick}>
                   Quay về
                 </Button>
-                <Button mode="primary" type="submit" disabled={isLoading}>
+                <Button
+                  mode="primary"
+                  type="submit"
+                  disabled={!dirty || isLoading}
+                >
                   {isLoading ? (
                     <LoadingSpinner color="#fff" borderSize="3px" size="20px" />
                   ) : (

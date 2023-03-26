@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import NavBar from './components/layout/nav/NavBar';
 import ScrollToTop from './components/UI/ScrollToTop';
 import Footer from './components/layout/footer/Footer';
+import Alert from './components/UI/Alert';
 
 const Author = React.lazy(() => import('./components/pages/Author'));
 const Slider = React.lazy(() => import('./components/layout/slider/Slider'));
@@ -34,6 +35,7 @@ function App() {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [isShowScrollToTop, setIsShowScrollToTop] = useState(false);
+  const [errors, setErrors] = useState([]);
 
   const user = useSelector(state => state.auth.user);
   const itemsPerPage = useSelector(state => state.product.itemsPerPage);
@@ -58,12 +60,19 @@ function App() {
     },
     [dispatch]
   );
-  const { isLoading: isLoadingBooks, sendRequest: getBooks } =
-    useHttp(loadBookHandler);
-  const { isLoading: isGettingCount, sendRequest: getCount } =
-    useHttp(updateProductCount);
+  const {
+    isLoading: isLoadingBooks,
+    sendRequest: getBooks,
+    error: getBooksError,
+  } = useHttp(loadBookHandler);
+  const {
+    isLoading: isGettingCount,
+    sendRequest: getCount,
+    error: getBookCountError,
+  } = useHttp(updateProductCount);
 
-  const { sendRequest: getUserInfo } = useHttp(handleUserInfo);
+  const { sendRequest: getUserInfo, error: getUserError } =
+    useHttp(handleUserInfo);
 
   useEffect(() => {
     window.addEventListener('scroll', e => {
@@ -105,8 +114,25 @@ function App() {
     });
   }, [getBooks, count, itemsPerPage]);
 
+  useEffect(() => {
+    setErrors([getBooksError, getBookCountError, getUserError].filter(Boolean));
+  }, [getBooksError, getBookCountError, getUserError]);
+
+  const closeAlert = index => {
+    setErrors(prev => {
+      const errors = [...prev];
+      errors.splice(index, 1);
+      return errors;
+    });
+  };
   return (
     <React.Fragment>
+      {!!errors.length &&
+        errors.map((error, i) => (
+          <Alert key={i} type="error" onClose={() => closeAlert(i)}>
+            {error}
+          </Alert>
+        ))}
       <ScrollToTop active={isShowScrollToTop} />
       <NavBar />
       <Suspense fallback={<div className="container"></div>}>

@@ -18,6 +18,8 @@
   height: 4rem;
   border-radius: 50%;
   cursor: pointer;
+  aspect-ratio: 1/1;
+  overflow: hidden;
 }
 
 .avatar img {

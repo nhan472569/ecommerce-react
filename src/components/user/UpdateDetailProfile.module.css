@@ -1,5 +1,6 @@
 .images {
   position: relative;
+  margin-bottom: 3rem;
 }
 .cover {
   width: 100%;
@@ -21,7 +22,7 @@
 }
 .form-actions {
   text-align: right;
-  margin-bottom: 5rem;
+  margin-top: 3rem;
 }
 .cancel,
 .save {

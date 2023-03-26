@@ -10,6 +10,7 @@ import environment from '../../environment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import LoadingSpinner from '../UI/LoadingSpinner';
+import Alert from '../UI/Alert';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -20,6 +21,7 @@ const LoginSchema = Yup.object().shape({
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const dispatch = useDispatch();
   const {
     isLoading,
@@ -40,6 +42,10 @@ const Login = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (error) setShowAlert(true);
+  }, [error]);
+
   const viewPasswordHandler = () => {
     setPasswordVisible(isVisible => !isVisible);
   };
@@ -52,8 +58,18 @@ const Login = () => {
       body: { email, password },
     });
   };
+
+  const closeAlert = () => {
+    setShowAlert(false);
+  };
+
   return (
     <div className={`${classes.container} container`}>
+      {error && showAlert && (
+        <Alert type="error" onClose={closeAlert}>
+          {error}
+        </Alert>
+      )}
       <div className={classes['login-card']}>
         <h2 className={classes.title}>Đăng nhập</h2>
         <Formik
@@ -132,17 +148,6 @@ const Login = () => {
                   'Đăng nhập'
                 )}
               </button>
-              {error && (
-                <>
-                  <p className={classes.error}>
-                    <FontAwesomeIcon
-                      icon={solid('circle-exclamation')}
-                      className={classes['error-icon']}
-                    />
-                    {error}
-                  </p>
-                </>
-              )}
             </Form>
           )}
         </Formik>

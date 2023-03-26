@@ -1,0 +1,46 @@
+.alert {
+  position: fixed;
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  width: 40rem;
+  min-height: 5rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #000;
+  border-radius: 0.5rem;
+  display: flex;
+  padding: 1.5rem 3rem 1.5rem 2rem;
+  font-size: 1.3rem;
+  transition: 0.2s ease;
+  backdrop-filter: blur(10px);
+  animation: dropdown 0.5s forwards;
+}
+@keyframes dropdown {
+  0% {
+    top: 5rem;
+  }
+  100% {
+    top: 10rem;
+  }
+}
+
+.icon {
+  margin-right: 1rem;
+}
+
+.title {
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
+}
+.close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  background-color: transparent;
+  border: none;
+}
