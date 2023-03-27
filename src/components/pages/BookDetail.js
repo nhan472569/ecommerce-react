@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useDispatch } from 'react-redux';
 
 import { cartAction } from '../../store/cart-context';
@@ -9,6 +9,7 @@ import useHttp from '../../hooks/use-http';
 import RatingStars from '../UI/RatingStars';
 import environment from '../../environment';
 import SkeletonLoading from '../UI/loading/SkeletonLoading';
+import { notificationAction } from '../../store/notification-context';
 
 const BookDetail = () => {
   const [quantity, setQuantity] = useState(1);
@@ -26,6 +27,7 @@ const BookDetail = () => {
   });
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const params = useParams();
   const { slug } = params;
@@ -34,11 +36,22 @@ const BookDetail = () => {
     setLoadedBookDetail(data.data.data);
   }, []);
 
-  const { isLoading, sendRequest: getBookDetail } = useHttp(handleBookDetail);
+  const {
+    isLoading,
+    sendRequest: getBookDetail,
+    error,
+  } = useHttp(handleBookDetail);
 
   useEffect(() => {
     document.title = `${loadedBookDetail.name} | ${environment.HEAD_TITLE}`;
   }, [loadedBookDetail.name]);
+
+  useEffect(() => {
+    if (error) {
+      dispatch(notificationAction.push({ type: 'error', message: error }));
+      navigate('/not-found');
+    }
+  }, [error, dispatch, navigate]);
 
   useEffect(() => {
     if (slug) {

@@ -8,7 +8,6 @@ const notificationSlice = createSlice({
   },
   reducers: {
     push(state, detail) {
-      if (!detail.payload.message) return;
       state[detail.payload.type].push(detail.payload.message);
       if (Array.isArray(detail.payload.message)) {
         state[detail.payload.type] = state[detail.payload.type].flatMap(

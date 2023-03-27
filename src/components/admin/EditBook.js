@@ -45,7 +45,7 @@ const EditBook = ({ id, onClick }) => {
       dispatch(
         notificationAction.push({
           type: 'success',
-          message: 'Cập nhật thông tin sáchs thành công',
+          message: 'Cập nhật thông tin sách thành công',
         })
       );
     },

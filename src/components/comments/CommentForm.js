@@ -32,7 +32,7 @@ const CommentForm = props => {
         dispatch(
           notificationAction.push({
             type: 'success',
-            message: 'Đăng đánh giá sản phẩm thành công',
+            message: 'Đăng bài đánh giá thành công',
           })
         );
       },
