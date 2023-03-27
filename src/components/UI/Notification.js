@@ -98,4 +98,34 @@ const Notification = ({ type, children, onClose, zIndex }) => {
   );
 };
 
+const NotificationContainer = ({ errors, successes, closeNotification }) => {
+  return (
+    <>
+      {!!errors.length &&
+        errors.map((error, i) => (
+          <Notification
+            key={i}
+            type="error"
+            onClose={() => closeNotification('error', i)}
+            zIndex={{ zIndex: i + 1 + '' }}
+          >
+            {error}
+          </Notification>
+        ))}
+      {!!successes.length &&
+        successes.map((error, i) => (
+          <Notification
+            key={i}
+            type="success"
+            onClose={() => closeNotification('success', i)}
+            zIndex={{ zIndex: i + 1 + '' }}
+          >
+            {error}
+          </Notification>
+        ))}
+    </>
+  );
+};
+
+Notification.Container = NotificationContainer;
 export default Notification;

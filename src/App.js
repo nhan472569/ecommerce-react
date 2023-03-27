@@ -94,28 +94,11 @@ function App() {
   };
   return (
     <React.Fragment>
-      {!!errors.length &&
-        errors.map((error, i) => (
-          <Notification
-            key={i}
-            type="error"
-            onClose={() => closeNotification('error', i)}
-            zIndex={{ zIndex: i + 1 + '' }}
-          >
-            {error}
-          </Notification>
-        ))}
-      {!!successes.length &&
-        successes.map((error, i) => (
-          <Notification
-            key={i}
-            type="success"
-            onClose={() => closeNotification('success', i)}
-            zIndex={{ zIndex: i + 1 + '' }}
-          >
-            {error}
-          </Notification>
-        ))}
+      <Notification.Container
+        errors={errors}
+        successes={successes}
+        closeNotification={closeNotification}
+      />
       <ScrollToTop active={isShowScrollToTop} />
       <NavBar />
       <Suspense fallback={<div className="container"></div>}>
