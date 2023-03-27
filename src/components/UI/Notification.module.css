@@ -17,21 +17,14 @@
   backdrop-filter: blur(10px);
   animation-name: dropdown, pullup;
   animation-duration: 0.5s, 0.5s;
-  animation-delay: 0s, 4s;
+  animation-delay: 0s, 6s;
   animation-fill-mode: forwards;
-  animation-direction: normal;
 }
 @keyframes dropdown {
   0% {
     top: 5rem;
     opacity: 0;
   }
-  /* 87.5% {
-    top: 10rem;
-  }
-  90% {
-    top: 11rem;
-  } */
   100% {
     top: 10rem;
     opacity: 1;
@@ -78,7 +71,7 @@
   bottom: 0;
   left: 0;
   transition: all 0.2s ease;
-  animation: progress-bar 4s forwards;
+  animation: progress-bar 6s ease forwards;
 }
 
 @keyframes progress-bar {

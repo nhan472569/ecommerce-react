@@ -4,13 +4,13 @@ import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import useHttp from '../../hooks/use-http';
 import { authAction } from '../../store/auth-context';
+import { notificationAction } from '../../store/notification-context';
 import { Link } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import environment from '../../environment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import LoadingSpinner from '../UI/LoadingSpinner';
-import Notification from '../UI/Notification';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string().required('Vui lòng nhập tên người dùng.'),
@@ -26,7 +26,6 @@ const Signup = () => {
     password: false,
     passwordConfirm: false,
   });
-  const [showNotification, setShowNotification] = useState(false);
 
   const dispatch = useDispatch();
   const {
@@ -49,8 +48,9 @@ const Signup = () => {
     };
   }, []);
   useEffect(() => {
-    if (error) setShowNotification(true);
-  }, [error]);
+    if (error)
+      dispatch(notificationAction.push({ type: 'error', message: error }));
+  }, [error, dispatch]);
 
   const viewPasswordHandler = field => {
     setPasswordVisible(isVisible => {
@@ -71,17 +71,8 @@ const Signup = () => {
       : true;
   };
 
-  const closeNotification = () => {
-    setShowNotification(false);
-  };
-
   return (
     <div className={`${classes.container} container`}>
-      {error && showNotification && (
-        <Notification type="error" onClose={closeNotification}>
-          {error}
-        </Notification>
-      )}
       <div className={classes['thumbnail']}>
         <img
           src={process.env.PUBLIC_URL + '/images/signup.jpeg'}

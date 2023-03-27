@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 import useHttp from '../../hooks/use-http';
 import { useDispatch } from 'react-redux';
 import { authAction } from '../../store/auth-context';
+import { notificationAction } from '../../store/notification-context';
 import { useCallback, useEffect, useState } from 'react';
 import environment from '../../environment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import LoadingSpinner from '../UI/LoadingSpinner';
-import Notification from '../UI/Notification';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -21,7 +21,6 @@ const LoginSchema = Yup.object().shape({
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [showNotification, setShowNotification] = useState(false);
   const dispatch = useDispatch();
   const {
     isLoading,
@@ -43,8 +42,9 @@ const Login = () => {
   }, []);
 
   useEffect(() => {
-    if (error) setShowNotification(true);
-  }, [error]);
+    if (error)
+      dispatch(notificationAction.push({ type: 'error', message: error }));
+  }, [error, dispatch]);
 
   const viewPasswordHandler = () => {
     setPasswordVisible(isVisible => !isVisible);
@@ -59,17 +59,8 @@ const Login = () => {
     });
   };
 
-  const closeNotification = () => {
-    setShowNotification(false);
-  };
-
   return (
     <div className={`${classes.container} container`}>
-      {error && showNotification && (
-        <Notification type="error" onClose={closeNotification}>
-          {error}
-        </Notification>
-      )}
       <div className={classes['login-card']}>
         <h2 className={classes.title}>Đăng nhập</h2>
         <Formik

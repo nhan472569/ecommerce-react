@@ -5,7 +5,7 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { useEffect, useState } from 'react';
 
 const overlayEl = document.getElementById('overlays');
-const TIMEOUT = 4000;
+const TIMEOUT = 6000;
 const colors = {
   error: { color: 'red' },
   success: { color: 'green' },

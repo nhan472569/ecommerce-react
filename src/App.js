@@ -11,6 +11,7 @@ import useHttp from './hooks/use-http';
 
 import { authAction } from './store/auth-context';
 import { productAction } from './store/product-context';
+import { notificationAction } from './store/notification-context';
 import { useDispatch, useSelector } from 'react-redux';
 
 import NavBar from './components/layout/nav/NavBar';
@@ -35,10 +36,11 @@ function App() {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [isShowScrollToTop, setIsShowScrollToTop] = useState(false);
-  const [errors, setErrors] = useState([]);
 
   const user = useSelector(state => state.auth.user);
   const itemsPerPage = useSelector(state => state.product.itemsPerPage);
+  const errors = useSelector(state => state.noti.error);
+  const successes = useSelector(state => state.noti.success);
   const dispatch = useDispatch();
 
   const handleUserInfo = useCallback(
@@ -60,6 +62,7 @@ function App() {
     },
     [dispatch]
   );
+
   const {
     isLoading: isLoadingBooks,
     sendRequest: getBooks,
@@ -70,7 +73,6 @@ function App() {
     sendRequest: getCount,
     error: getBookCountError,
   } = useHttp(updateProductCount);
-
   const { sendRequest: getUserInfo, error: getUserError } =
     useHttp(handleUserInfo);
 
@@ -128,15 +130,18 @@ function App() {
   }, [getBooks, count, itemsPerPage]);
 
   useEffect(() => {
-    setErrors([getBooksError, getBookCountError, getUserError].filter(Boolean));
-  }, [getBooksError, getBookCountError, getUserError]);
+    dispatch(
+      notificationAction.push({
+        type: 'error',
+        message: [getBooksError, getBookCountError, getUserError].filter(
+          Boolean
+        ),
+      })
+    );
+  }, [getBooksError, getBookCountError, getUserError, dispatch]);
 
-  const closeNotification = index => {
-    setErrors(prev => {
-      const errors = [...prev];
-      errors.splice(index, 1);
-      return errors;
-    });
+  const closeNotification = (type, index) => {
+    dispatch(notificationAction.remove({ type, index }));
   };
   return (
     <React.Fragment>
@@ -145,7 +150,18 @@ function App() {
           <Notification
             key={i}
             type="error"
-            onClose={() => closeNotification(i)}
+            onClose={() => closeNotification('error', i)}
+            zIndex={{ zIndex: i + 1 + '' }}
+          >
+            {error}
+          </Notification>
+        ))}
+      {!!successes.length &&
+        successes.map((error, i) => (
+          <Notification
+            key={i}
+            type="success"
+            onClose={() => closeNotification('success', i)}
             zIndex={{ zIndex: i + 1 + '' }}
           >
             {error}

@@ -2,21 +2,22 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import useHttp from '../../hooks/use-http';
-import Notification from '../UI/Notification';
+import { notificationAction } from '../../store/notification-context';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import classes from './CommentForm.module.css';
+import { useDispatch } from 'react-redux';
 
 const CommentForm = props => {
   const [starClicked, setStarClicked] = useState(false);
   const [ratingStar, setRatingStar] = useState(null);
-  const [showNotification, setShowNotification] = useState(false);
-  const [postSuccessfully, setPostSuccessfully] = useState(false);
   const [formError, setFormError] = useState({
     starRating: '',
     review: '',
   });
-  const commentInputRef = useRef();
 
+  const dispatch = useDispatch();
+
+  const commentInputRef = useRef();
   const { productId, onAddComment } = props;
 
   const {
@@ -27,15 +28,21 @@ const CommentForm = props => {
     useCallback(
       data => {
         onAddComment(data.data.data);
-        setPostSuccessfully(true);
+        dispatch(
+          notificationAction.push({
+            type: 'success',
+            message: 'Đăng đánh giá sản phẩm thành công',
+          })
+        );
       },
-      [onAddComment]
+      [onAddComment, dispatch]
     )
   );
 
   useEffect(() => {
-    if (error || postSuccessfully) setShowNotification(true);
-  }, [error, postSuccessfully]);
+    if (error)
+      dispatch(notificationAction.push({ type: 'error', message: error }));
+  }, [error, dispatch]);
 
   const submitCommentHandler = async e => {
     e.preventDefault();
@@ -79,25 +86,8 @@ const CommentForm = props => {
     setRatingStar(null);
   };
 
-  const closeNotification = () => {
-    setShowNotification(false);
-    if (postSuccessfully) {
-      setPostSuccessfully(false);
-    }
-  };
-
   return (
     <>
-      {error && showNotification && (
-        <Notification type="error" onClose={closeNotification}>
-          {error}
-        </Notification>
-      )}
-      {postSuccessfully && showNotification && (
-        <Notification type="success" onClose={closeNotification}>
-          Đánh giá sản phẩm thành công
-        </Notification>
-      )}
       <form className={classes.form} onSubmit={submitCommentHandler}>
         <h2 className={classes.title}>Đánh giá sản phẩm</h2>
         <div className={classes['star-rating']}>
