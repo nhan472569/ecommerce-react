@@ -184,7 +184,11 @@ const BookDetail = () => {
         {isLoading && <Loading />}
         {!isLoading && detailContent}
       </section>
-      {!isLoading && <CommentBox productId={loadedBookDetail._id} />}
+      {isLoading ? (
+        <CommentBox.Loading />
+      ) : (
+        <CommentBox productId={loadedBookDetail._id} />
+      )}
     </>
   );
 };

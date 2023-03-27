@@ -5,6 +5,7 @@ import CommentForm from './CommentForm';
 import CommentsList from './CommentsList';
 import useHttp from '../../hooks/use-http';
 import { useSelector } from 'react-redux';
+import SkeletonLoading from '../UI/loading/SkeletonLoading';
 
 const CommentBox = props => {
   const [comments, setComments] = useState([]);
@@ -46,4 +47,9 @@ const CommentBox = props => {
   );
 };
 
+const Loading = () => {
+  return <SkeletonLoading className={classes.box + ' mb-10 mt-20 radius'} />;
+};
+
+CommentBox.Loading = Loading;
 export default CommentBox;

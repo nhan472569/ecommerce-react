@@ -6,6 +6,7 @@ import { notificationAction } from '../../store/notification-context';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import classes from './CommentForm.module.css';
 import { useDispatch } from 'react-redux';
+import Button from '../UI/Button';
 
 const CommentForm = props => {
   const [starClicked, setStarClicked] = useState(false);
@@ -141,7 +142,8 @@ const CommentForm = props => {
         {formError.review && (
           <p className={classes.error}>{formError.review}</p>
         )}
-        <button
+        <Button
+          mode="primary"
           type="submit"
           className={classes.button}
           disabled={isLoading || formError.starRating || formError.review}
@@ -151,7 +153,7 @@ const CommentForm = props => {
           ) : (
             'Đăng'
           )}
-        </button>
+        </Button>
       </form>
     </>
   );
