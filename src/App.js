@@ -31,6 +31,7 @@ const Cart = React.lazy(() => import('./components/pages/Cart'));
 const NotFound = React.lazy(() => import('./components/pages/NotFound'));
 
 function App() {
+  // const [navItem, setNavItem] = useState(null);
   const [isShowScrollToTop, setIsShowScrollToTop] = useState(false);
 
   const user = useSelector(state => state.auth.user);
@@ -76,9 +77,11 @@ function App() {
     };
   });
 
+  console.log();
   useEffect(() => {
     var prevScrollpos = window.pageYOffset;
     window.onscroll = function () {
+      if (document.querySelector('#navbar:hover')) return;
       var currentScrollPos = window.pageYOffset;
       if (prevScrollpos > currentScrollPos) {
         document.getElementById('navbar').style.top = '0';
