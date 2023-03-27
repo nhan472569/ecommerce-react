@@ -18,7 +18,7 @@ const titleVieMapping = {
 };
 
 const Notification = ({ type, children, onClose, zIndex }) => {
-  const [seconds, setSeconds] = useState(TIMEOUT / 1000);
+  const [seconds, setSeconds] = useState(TIMEOUT / 1000 + 0.5);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -88,7 +88,6 @@ const Notification = ({ type, children, onClose, zIndex }) => {
           <div
             className={classes['progress-bar']}
             style={{
-              width: `${(seconds / 4) * 100}%`,
               backgroundColor: colors[type].color,
             }}
           ></div>
