@@ -41,7 +41,9 @@ const BookDetail = () => {
   }, [loadedBookDetail.name]);
 
   useEffect(() => {
-    getBookDetail({ url: `slug/books/${slug}` });
+    if (slug) {
+      getBookDetail({ url: `slug/books/${slug}` });
+    }
     return () => {
       setLoadedBookDetail({});
     };
@@ -77,24 +79,30 @@ const BookDetail = () => {
       <div className={classes.image}>
         <img
           src={
-            environment.DOMAIN +
-            '/img/books/' +
-            (clickedImage && clickedImage !== 'cover'
-              ? loadedBookDetail.images[clickedImage - 1]
-              : loadedBookDetail.imageCover)
+            loadedBookDetail.imageCover
+              ? environment.DOMAIN +
+                '/img/books/' +
+                (clickedImage && clickedImage !== 'cover'
+                  ? loadedBookDetail.images[clickedImage - 1]
+                  : loadedBookDetail.imageCover)
+              : ''
           }
           alt={loadedBookDetail.name}
         ></img>
         <div className={classes.images}>
           <img
             src={
-              environment.DOMAIN + '/img/books/' + loadedBookDetail.imageCover
+              loadedBookDetail.imageCover
+                ? environment.DOMAIN +
+                  '/img/books/' +
+                  loadedBookDetail.imageCover
+                : ''
             }
             alt={loadedBookDetail.name}
             onClick={() => {
               setClickedImage('cover');
             }}
-            className={clickedImage === 'cover' && classes['img-active']}
+            className={clickedImage === 'cover' ? classes['img-active'] : ''}
           ></img>
           {!!loadedBookDetail.images.length &&
             loadedBookDetail.images.map((image, i) => (
@@ -104,7 +112,7 @@ const BookDetail = () => {
                 onClick={() => {
                   setClickedImage(i + 1);
                 }}
-                className={i + 1 === clickedImage && classes['img-active']}
+                className={i + 1 === clickedImage ? classes['img-active'] : ''}
               ></img>
             ))}
         </div>
@@ -127,13 +135,13 @@ const BookDetail = () => {
         <p
           className={classes.price}
         >{`${loadedBookDetail?.price?.toLocaleString('vi-VN')}₫`}</p>
-        <p className={classes.description}>
+        <div className={classes.description}>
           {splitParagragh(loadedBookDetail.description).map((paragraph, i) => (
             <p className={classes.paragraph} key={i}>
               {paragraph}
             </p>
           ))}
-        </p>
+        </div>
         <hr />
         <form className={classes['add-to-cart']} onSubmit={addToCartHandler}>
           <div className={classes.quantity}>
@@ -143,7 +151,13 @@ const BookDetail = () => {
               onClick={decreaseHandler}
               disabled={isInvalid}
             ></span>
-            <input type="text" name="quantity" id="quantity" value={quantity} />
+            <input
+              type="text"
+              name="quantity"
+              id="quantity"
+              value={quantity}
+              readOnly
+            />
             <span
               className={`${classes.btn} ${classes['btn-quantity-right']}`}
               type="button"

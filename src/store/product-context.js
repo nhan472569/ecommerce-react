@@ -3,15 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 const productSlice = createSlice({
   name: 'product',
   initialState: {
-    items: {},
+    books: [],
     currentCategory: null,
     itemsPerPage: 8,
     count: 0,
   },
   reducers: {
-    fillProduct(state, products) {
-      const category = state.currentCategory;
-      state.items[category] = products.payload.items;
+    fill(state, books) {
+      state.books = books.payload;
     },
     setCategory(state, category) {
       state.currentCategory = category.payload;

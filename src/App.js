@@ -10,7 +10,6 @@ import { Navigate } from 'react-router-dom';
 import useHttp from './hooks/use-http';
 
 import { authAction } from './store/auth-context';
-import { productAction } from './store/product-context';
 import { notificationAction } from './store/notification-context';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -32,13 +31,9 @@ const Cart = React.lazy(() => import('./components/pages/Cart'));
 const NotFound = React.lazy(() => import('./components/pages/NotFound'));
 
 function App() {
-  const [loadedBooks, setLoadedBooks] = useState([]);
-  const [page, setPage] = useState(1);
-  const [count, setCount] = useState(0);
   const [isShowScrollToTop, setIsShowScrollToTop] = useState(false);
 
   const user = useSelector(state => state.auth.user);
-  const itemsPerPage = useSelector(state => state.product.itemsPerPage);
   const errors = useSelector(state => state.noti.error);
   const successes = useSelector(state => state.noti.success);
   const dispatch = useDispatch();
@@ -49,32 +44,12 @@ function App() {
     },
     [dispatch]
   );
-  // use http
-  const loadBookHandler = useCallback(data => {
-    const bookList = data.data.data;
-    setLoadedBooks(prev => [...prev, ...bookList]);
-  }, []);
-  const updateProductCount = useCallback(
-    data => {
-      const count = data.data.data;
-      setCount(count);
-      dispatch(productAction.setCount(count));
-    },
-    [dispatch]
-  );
+  //* API calls
+  const { sendRequest: getUserInfo } = useHttp(handleUserInfo);
 
-  const {
-    isLoading: isLoadingBooks,
-    sendRequest: getBooks,
-    error: getBooksError,
-  } = useHttp(loadBookHandler);
-  const {
-    isLoading: isGettingCount,
-    sendRequest: getCount,
-    error: getBookCountError,
-  } = useHttp(updateProductCount);
-  const { sendRequest: getUserInfo, error: getUserError } =
-    useHttp(handleUserInfo);
+  useEffect(() => {
+    getUserInfo({ url: 'users/me', method: 'get' });
+  }, [getUserInfo]);
 
   useEffect(() => {
     window.addEventListener('scroll', e => {
@@ -113,32 +88,6 @@ function App() {
       prevScrollpos = currentScrollPos;
     };
   }, []);
-
-  useEffect(() => {
-    getUserInfo({ url: 'users/me', method: 'get' });
-    getBooks({ url: 'books' });
-    getCount({ url: 'books/count' });
-  }, [getBooks, getUserInfo, getCount]);
-
-  const getMoreBooks = useCallback(() => {
-    setPage(page => {
-      const nextPage = page + 1;
-      if (page >= Math.ceil(count / itemsPerPage)) return page;
-      getBooks({ url: `books?page=${nextPage}` });
-      return nextPage;
-    });
-  }, [getBooks, count, itemsPerPage]);
-
-  useEffect(() => {
-    dispatch(
-      notificationAction.push({
-        type: 'error',
-        message: [getBooksError, getBookCountError, getUserError].filter(
-          Boolean
-        ),
-      })
-    );
-  }, [getBooksError, getBookCountError, getUserError, dispatch]);
 
   const closeNotification = (type, index) => {
     dispatch(notificationAction.remove({ type, index }));
@@ -194,12 +143,7 @@ function App() {
             element={
               <Fragment>
                 <Slider />
-                <BooksList
-                  books={loadedBooks}
-                  isLoading={isLoadingBooks || isGettingCount}
-                  getMoreBooks={getMoreBooks}
-                  currentPage={page}
-                />
+                <BooksList />
               </Fragment>
             }
           />
