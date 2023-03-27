@@ -4,10 +4,10 @@ import * as Yup from 'yup';
 import classes from './ChangePasswordProfile.module.css';
 import { useDispatch } from 'react-redux';
 import useHttp from '../../hooks/use-http';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { authAction } from '../../store/auth-context';
-import Notification from '../UI/Notification';
 import Button from '../UI/Button';
+import { notificationAction } from '../../store/notification-context';
 
 const ChangePasswordSchema = Yup.object().shape({
   passwordCurrent: Yup.string().required('Vui lòng nhập mật khẩu hiện tại.'),
@@ -16,9 +16,6 @@ const ChangePasswordSchema = Yup.object().shape({
 });
 
 const ChangePasswordProfile = () => {
-  const [showNotification, setShowNotification] = useState(false);
-  const [updateSuccessfully, setUpdateSuccessfully] = useState(false);
-
   const dispatch = useDispatch();
 
   const {
@@ -29,7 +26,12 @@ const ChangePasswordProfile = () => {
     useCallback(
       data => {
         dispatch(authAction.login(data.data.data));
-        setUpdateSuccessfully(true);
+        dispatch(
+          notificationAction.push({
+            type: 'success',
+            message: 'Thay đổi mật khầu thành công',
+          })
+        );
       },
       [dispatch]
     )
@@ -45,28 +47,12 @@ const ChangePasswordProfile = () => {
   };
 
   useEffect(() => {
-    if (error || updateSuccessfully) setShowNotification(true);
-  }, [error, updateSuccessfully]);
-
-  const closeNotification = () => {
-    setShowNotification(false);
-    if (updateSuccessfully) {
-      setUpdateSuccessfully(false);
-    }
-  };
+    if (error)
+      dispatch(notificationAction.push({ type: 'error', message: error }));
+  }, [error, dispatch]);
 
   return (
     <>
-      {error && showNotification && (
-        <Notification type="error" onClose={closeNotification}>
-          {error}
-        </Notification>
-      )}
-      {updateSuccessfully && showNotification && (
-        <Notification type="success" onClose={closeNotification}>
-          Thay đổi thông tin thành công
-        </Notification>
-      )}
       <Formik
         initialValues={{
           passwordCurrent: '',

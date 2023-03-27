@@ -3,14 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import environment from '../../environment';
 import useHttp from '../../hooks/use-http';
-import Notification from '../UI/Notification';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import RatingStars from '../UI/RatingStars';
 import classes from './CommentItem.module.css';
+import { notificationAction } from '../../store/notification-context';
+import { useDispatch } from 'react-redux';
 
 const CommentItem = props => {
   const [isActiveActions, setIsActiveActions] = useState(false);
-  const [showNotification, setShowNotification] = useState(false);
+  const dispatch = useDispatch();
 
   const {
     isLoading,
@@ -69,19 +70,12 @@ const CommentItem = props => {
     });
   };
   useEffect(() => {
-    if (error) setShowNotification(true);
-  }, [error]);
+    if (error)
+      dispatch(notificationAction.push({ type: 'error', message: error }));
+  }, [error, dispatch]);
 
-  const closeNotification = () => {
-    setShowNotification(false);
-  };
   return (
     <>
-      {error && showNotification && (
-        <Notification type="error" onClose={closeNotification}>
-          {error}
-        </Notification>
-      )}
       <div className={classes.item}>
         <div className={classes.avatar}>
           <img

@@ -9,7 +9,8 @@ import Button from '../UI/Button';
 import environment from '../../environment';
 import ImageEdit from '../UI/ImageEdit';
 import SkeletonLoading from '../UI/loading/SkeletonLoading';
-import Notification from '../UI/Notification';
+import { notificationAction } from '../../store/notification-context';
+import { useDispatch } from 'react-redux';
 
 const UpdateInfoSchema = Yup.object().shape({
   name: Yup.string().trim().required('Vui lòng nhập tên.'),
@@ -32,17 +33,24 @@ const EditBook = ({ id, onClick }) => {
     category: [],
     authors: [],
   });
-  const [showNotification, setShowNotification] = useState(false);
-  const [updateSuccessfully, setUpdateSuccessfully] = useState(false);
-  const [errors, setErrors] = useState([]);
+
+  const dispatch = useDispatch();
 
   const setBookDetail = useCallback(data => {
     setBook(data.data.data);
   }, []);
-  const updateBookDetail = useCallback(data => {
-    setBook(data.data.data);
-    setUpdateSuccessfully(true);
-  }, []);
+  const updateBookDetail = useCallback(
+    data => {
+      setBook(data.data.data);
+      dispatch(
+        notificationAction.push({
+          type: 'success',
+          message: 'Cập nhật thông tin sáchs thành công',
+        })
+      );
+    },
+    [dispatch]
+  );
 
   const {
     isLoading: isGettingBook,
@@ -97,43 +105,16 @@ const EditBook = ({ id, onClick }) => {
   };
 
   useEffect(() => {
-    if (errors || updateSuccessfully) setShowNotification(true);
-  }, [errors, updateSuccessfully]);
-
-  useEffect(() => {
-    setErrors([getBookError, updateBookError].filter(Boolean));
-  }, [getBookError, updateBookError]);
-
-  const closeNotification = index => {
-    if (!index) {
-      setShowNotification(false);
-      return;
-    }
-    setErrors(prev => {
-      const errors = [...prev];
-      errors.splice(index, 1);
-      return errors;
-    });
-  };
+    dispatch(
+      notificationAction.push({
+        type: 'error',
+        message: [getBookError, updateBookError].filter(Boolean),
+      })
+    );
+  }, [getBookError, updateBookError, dispatch]);
 
   return (
     <div className={classes.containter}>
-      {!!errors.length &&
-        errors.map((error, i) => (
-          <Notification
-            key={i}
-            type="error"
-            onClose={() => closeNotification(i)}
-            zIndex={{ zIndex: i + 1 + '' }}
-          >
-            {error}
-          </Notification>
-        ))}
-      {updateSuccessfully && showNotification && (
-        <Notification type="success" onClose={closeNotification}>
-          Thay đổi thông tin sách thành công
-        </Notification>
-      )}
       {isGettingBook ? (
         <LoadingSpinner />
       ) : (

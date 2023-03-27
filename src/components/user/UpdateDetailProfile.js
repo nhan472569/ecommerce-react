@@ -1,5 +1,5 @@
 import { Form, Formik } from 'formik';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import environment from '../../environment';
 import * as Yup from 'yup';
@@ -10,7 +10,7 @@ import { authAction } from '../../store/auth-context';
 import Button from '../UI/Button';
 import FormControl from '../UI/FormControl';
 import ImageEdit from '../UI/ImageEdit';
-import Notification from '../UI/Notification';
+import { notificationAction } from '../../store/notification-context';
 
 const UpdateInfoSchema = Yup.object().shape({
   name: Yup.string().required('Vui lòng nhập tên.'),
@@ -32,9 +32,6 @@ const photoStyle = {
 };
 
 const UpdateDetailProfile = () => {
-  const [showNotification, setShowNotification] = useState(false);
-  const [updateSuccessfully, setUpdateSuccessfully] = useState(false);
-
   const user = useSelector(state => state.auth.user);
   const dispatch = useDispatch();
 
@@ -46,7 +43,12 @@ const UpdateDetailProfile = () => {
     useCallback(
       data => {
         dispatch(authAction.login(data.data.data));
-        setUpdateSuccessfully(true);
+        dispatch(
+          notificationAction.push({
+            type: 'success',
+            message: 'Thay đổi thông tin thành công',
+          })
+        );
       },
       [dispatch]
     )
@@ -75,28 +77,14 @@ const UpdateDetailProfile = () => {
       body: formData,
     });
   };
-  useEffect(() => {
-    if (error || updateSuccessfully) setShowNotification(true);
-  }, [error, updateSuccessfully]);
 
-  const closeNotification = () => {
-    setShowNotification(false);
-    if (updateSuccessfully) {
-      setUpdateSuccessfully(false);
-    }
-  };
+  useEffect(() => {
+    if (error)
+      dispatch(notificationAction.push({ type: 'error', message: error }));
+  }, [error, dispatch]);
+
   return (
     <>
-      {error && showNotification && (
-        <Notification type="error" onClose={closeNotification}>
-          {error}
-        </Notification>
-      )}
-      {updateSuccessfully && showNotification && (
-        <Notification type="success" onClose={closeNotification}>
-          Thay đổi thông tin thành công
-        </Notification>
-      )}
       <Formik
         initialValues={{
           name: user.name,
