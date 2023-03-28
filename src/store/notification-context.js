@@ -3,34 +3,23 @@ import { createSlice } from '@reduxjs/toolkit';
 const notificationSlice = createSlice({
   name: 'notification',
   initialState: {
-    error: [],
-    success: [],
+    notifications: [],
   },
   reducers: {
-    push(state, detail) {
-      state[detail.payload.type].push(detail.payload.message);
-      if (Array.isArray(detail.payload.message)) {
-        state[detail.payload.type] = state[detail.payload.type].flatMap(
-          message => message
+    push(state, data) {
+      state.notifications.push(data.payload);
+
+      if (Array.isArray(data.payload)) {
+        state.notifications = state.notifications.flatMap(
+          notification => notification
         );
       }
     },
-    remove(state, detail) {
-      setTimeout(() => {
-        state[detail.payload.type].splice(detail.payload.index, 1);
-      }, 0);
+    remove(state, id) {
+      state.notifications = state.notifications.filter(
+        notification => notification.id !== id.payload
+      );
     },
-    // pushSuccess(state, detail) {
-    //   state.successes.push(detail.payload);
-    //   if (Array.isArray(detail.payload)) {
-    //     state.successes = state.successes.flatMap(success => success);
-    //   }
-    // },
-    // removeSuccess(state, index) {
-    //   setTimeout(() => {
-    //     state.successes.splice(index.payload, 1);
-    //   }, 0);
-    // },
   },
 });
 

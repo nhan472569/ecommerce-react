@@ -10,7 +10,6 @@ import { Navigate } from 'react-router-dom';
 import useHttp from './hooks/use-http';
 
 import { authAction } from './store/auth-context';
-import { notificationAction } from './store/notification-context';
 import { useDispatch, useSelector } from 'react-redux';
 
 import NavBar from './components/layout/nav/NavBar';
@@ -31,12 +30,9 @@ const Cart = React.lazy(() => import('./components/pages/Cart'));
 const NotFound = React.lazy(() => import('./components/pages/NotFound'));
 
 function App() {
-  // const [navItem, setNavItem] = useState(null);
   const [isShowScrollToTop, setIsShowScrollToTop] = useState(false);
 
   const user = useSelector(state => state.auth.user);
-  const errors = useSelector(state => state.noti.error);
-  const successes = useSelector(state => state.noti.success);
   const dispatch = useDispatch();
 
   const handleUserInfo = useCallback(
@@ -77,7 +73,6 @@ function App() {
     };
   });
 
-  console.log();
   useEffect(() => {
     var prevScrollpos = window.pageYOffset;
     window.onscroll = function () {
@@ -92,16 +87,9 @@ function App() {
     };
   }, []);
 
-  const closeNotification = (type, index) => {
-    dispatch(notificationAction.remove({ type, index }));
-  };
   return (
     <React.Fragment>
-      <Notification.Container
-        errors={errors}
-        successes={successes}
-        closeNotification={closeNotification}
-      />
+      <Notification.Container />
       <ScrollToTop active={isShowScrollToTop} />
       <NavBar />
       <Suspense fallback={<div className="container"></div>}>

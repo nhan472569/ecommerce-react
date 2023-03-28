@@ -11,6 +11,7 @@ import environment from '../../environment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import LoadingSpinner from '../UI/LoadingSpinner';
+import NotificationModel from '../../models/NotificationModel';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -43,7 +44,9 @@ const Login = () => {
 
   useEffect(() => {
     if (error)
-      dispatch(notificationAction.push({ type: 'error', message: error }));
+      dispatch(
+        notificationAction.push(new NotificationModel('error', error).toJSON())
+      );
   }, [error, dispatch]);
 
   const viewPasswordHandler = () => {

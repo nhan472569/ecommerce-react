@@ -1,6 +1,6 @@
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import environment from '../../environment';
 import useHttp from '../../hooks/use-http';
 import LoadingSpinner from '../UI/LoadingSpinner';
@@ -8,6 +8,7 @@ import RatingStars from '../UI/RatingStars';
 import classes from './CommentItem.module.css';
 import { notificationAction } from '../../store/notification-context';
 import { useDispatch } from 'react-redux';
+import NotificationModel from '../../models/NotificationModel';
 
 const CommentItem = props => {
   const [isActiveActions, setIsActiveActions] = useState(false);
@@ -17,7 +18,16 @@ const CommentItem = props => {
     isLoading,
     sendRequest: deleteComment,
     error,
-  } = useHttp(() => props.deleteComment(props.id));
+  } = useHttp(
+    useCallback(() => {
+      props.deleteComment(props.id);
+      dispatch(
+        notificationAction.push(
+          new NotificationModel('success', 'Xoá bình luận thành công').toJSON()
+        )
+      );
+    }, [props, dispatch])
+  );
 
   useEffect(() => {
     document
@@ -71,7 +81,9 @@ const CommentItem = props => {
   };
   useEffect(() => {
     if (error)
-      dispatch(notificationAction.push({ type: 'error', message: error }));
+      dispatch(
+        notificationAction.push(new NotificationModel('error', error).toJSON())
+      );
   }, [error, dispatch]);
 
   return (

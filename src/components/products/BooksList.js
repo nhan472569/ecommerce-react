@@ -8,6 +8,7 @@ import { notificationAction } from '../../store/notification-context';
 import { productAction } from '../../store/product-context';
 import BookItem from './BookItem';
 import classes from './BooksList.module.css';
+import NotificationModel from '../../models/NotificationModel';
 
 const BooksList = () => {
   const [page, setPage] = useState(1);
@@ -46,17 +47,18 @@ const BooksList = () => {
   } = useHttp(updateProductCount);
 
   useEffect(() => {
-    if (countStore && books) return;
-    getBooks({ url: 'books' });
-    getCount({ url: 'books/count' });
+    if (!countStore) getBooks({ url: 'books' });
+    if (!books.length) getCount({ url: 'books/count' });
   }, [getBooks, getCount, countStore, books]);
 
   useEffect(() => {
+    const messages = [getBooksError, getBookCountError].filter(Boolean);
     dispatch(
-      notificationAction.push({
-        type: 'error',
-        message: [getBooksError, getBookCountError].filter(Boolean),
-      })
+      notificationAction.push(
+        messages.map(message =>
+          new NotificationModel('error', message).toJSON()
+        )
+      )
     );
   }, [getBooksError, getBookCountError, dispatch]);
 
@@ -83,14 +85,14 @@ const BooksList = () => {
           })}
         {(isLoadingBooks || isGettingCount) &&
           Array(
-            page < Math.ceil(count / itemsPerPage)
+            page < Math.ceil(countStore / itemsPerPage)
               ? itemsPerPage
-              : count % itemsPerPage || itemsPerPage
+              : countStore % itemsPerPage || itemsPerPage
           )
             .fill(0)
             .map((_, i) => <BookItem.Loading key={i}></BookItem.Loading>)}
       </div>
-      {page < Math.ceil(count / itemsPerPage) && (
+      {page < Math.ceil(countStore / itemsPerPage) && (
         <button
           className={classes.load}
           disabled={isLoadingBooks || isGettingCount}

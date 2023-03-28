@@ -3,6 +3,8 @@ import reactDom from 'react-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { notificationAction } from '../../store/notification-context';
 
 const overlayEl = document.getElementById('overlays');
 const TIMEOUT = 6000;
@@ -73,10 +75,7 @@ const Notification = ({ type, children, onClose, zIndex }) => {
   return (
     <>
       {reactDom.createPortal(
-        <div
-          className={classes.alert + ' ' + classes[`alert-${type}`]}
-          style={{ zIndex }}
-        >
+        <div className={classes.alert} style={{ zIndex }}>
           {getIcon(type)}
           <div className={classes.detail}>
             <h4 className={classes.title}>{titleVieMapping[type]}</h4>
@@ -98,29 +97,25 @@ const Notification = ({ type, children, onClose, zIndex }) => {
   );
 };
 
-const NotificationContainer = ({ errors, successes, closeNotification }) => {
+const NotificationContainer = () => {
+  const notifications = useSelector(state => state.noti.notifications);
+  const dispatch = useDispatch();
+
+  const closeNotification = id => {
+    dispatch(notificationAction.remove(id));
+  };
+
   return (
     <>
-      {!!errors.length &&
-        errors.map((error, i) => (
+      {!!notifications.length &&
+        notifications.map((notification, i) => (
           <Notification
-            key={i}
-            type="error"
-            onClose={() => closeNotification('error', i)}
+            key={notification.id}
+            type={notification.type}
+            onClose={() => closeNotification(notification.id)}
             zIndex={{ zIndex: i + 1 + '' }}
           >
-            {error}
-          </Notification>
-        ))}
-      {!!successes.length &&
-        successes.map((error, i) => (
-          <Notification
-            key={i}
-            type="success"
-            onClose={() => closeNotification('success', i)}
-            zIndex={{ zIndex: i + 1 + '' }}
-          >
-            {error}
+            {notification.message}
           </Notification>
         ))}
     </>

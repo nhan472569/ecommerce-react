@@ -8,6 +8,7 @@ import { useCallback, useEffect } from 'react';
 import { authAction } from '../../store/auth-context';
 import Button from '../UI/Button';
 import { notificationAction } from '../../store/notification-context';
+import NotificationModel from '../../models/NotificationModel';
 
 const ChangePasswordSchema = Yup.object().shape({
   passwordCurrent: Yup.string().required('Vui lòng nhập mật khẩu hiện tại.'),
@@ -27,10 +28,12 @@ const ChangePasswordProfile = () => {
       data => {
         dispatch(authAction.login(data.data.data));
         dispatch(
-          notificationAction.push({
-            type: 'success',
-            message: 'Thay đổi mật khầu thành công',
-          })
+          notificationAction.push(
+            new NotificationModel(
+              'success',
+              'Thay đổi mật khầu thành công'
+            ).toJSON()
+          )
         );
       },
       [dispatch]
@@ -48,7 +51,9 @@ const ChangePasswordProfile = () => {
 
   useEffect(() => {
     if (error)
-      dispatch(notificationAction.push({ type: 'error', message: error }));
+      dispatch(
+        notificationAction.push(new NotificationModel('error', error).toJSON())
+      );
   }, [error, dispatch]);
 
   return (

@@ -7,6 +7,7 @@ import LoadingSpinner from '../UI/LoadingSpinner';
 import classes from './CommentForm.module.css';
 import { useDispatch } from 'react-redux';
 import Button from '../UI/Button';
+import NotificationModel from '../../models/NotificationModel';
 
 const CommentForm = props => {
   const [starClicked, setStarClicked] = useState(false);
@@ -30,10 +31,12 @@ const CommentForm = props => {
       data => {
         onAddComment(data.data.data);
         dispatch(
-          notificationAction.push({
-            type: 'success',
-            message: 'Đăng bài đánh giá thành công',
-          })
+          notificationAction.push(
+            new NotificationModel(
+              'success',
+              'Đăng bài đánh giá thành công'
+            ).toJSON()
+          )
         );
       },
       [onAddComment, dispatch]
@@ -42,7 +45,9 @@ const CommentForm = props => {
 
   useEffect(() => {
     if (error)
-      dispatch(notificationAction.push({ type: 'error', message: error }));
+      dispatch(
+        notificationAction.push(new NotificationModel('error', error).toJSON())
+      );
   }, [error, dispatch]);
 
   const submitCommentHandler = async e => {

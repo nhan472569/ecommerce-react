@@ -11,6 +11,7 @@ import Button from '../UI/Button';
 import FormControl from '../UI/FormControl';
 import ImageEdit from '../UI/ImageEdit';
 import { notificationAction } from '../../store/notification-context';
+import NotificationModel from '../../models/NotificationModel';
 
 const UpdateInfoSchema = Yup.object().shape({
   name: Yup.string().required('Vui lòng nhập tên.'),
@@ -44,10 +45,12 @@ const UpdateDetailProfile = () => {
       data => {
         dispatch(authAction.login(data.data.data));
         dispatch(
-          notificationAction.push({
-            type: 'success',
-            message: 'Thay đổi thông tin thành công',
-          })
+          notificationAction.push(
+            new NotificationModel(
+              'success',
+              'Thay đổi thông tin thành công'
+            ).toJSON()
+          )
         );
       },
       [dispatch]
@@ -80,7 +83,9 @@ const UpdateDetailProfile = () => {
 
   useEffect(() => {
     if (error)
-      dispatch(notificationAction.push({ type: 'error', message: error }));
+      dispatch(
+        notificationAction.push(new NotificationModel('error', error).toJSON())
+      );
   }, [error, dispatch]);
 
   return (

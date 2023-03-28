@@ -11,6 +11,7 @@ import ImageEdit from '../UI/ImageEdit';
 import SkeletonLoading from '../UI/loading/SkeletonLoading';
 import { notificationAction } from '../../store/notification-context';
 import { useDispatch } from 'react-redux';
+import NotificationModel from '../../models/NotificationModel';
 
 const UpdateInfoSchema = Yup.object().shape({
   name: Yup.string().trim().required('Vui lòng nhập tên.'),
@@ -43,10 +44,12 @@ const EditBook = ({ id, onClick }) => {
     data => {
       setBook(data.data.data);
       dispatch(
-        notificationAction.push({
-          type: 'success',
-          message: 'Cập nhật thông tin sách thành công',
-        })
+        notificationAction.push(
+          new NotificationModel(
+            'success',
+            'Cập nhật thông tin sách thành công'
+          ).toJSON()
+        )
       );
     },
     [dispatch]
@@ -105,11 +108,13 @@ const EditBook = ({ id, onClick }) => {
   };
 
   useEffect(() => {
+    const messages = [getBookError, updateBookError].filter(Boolean);
     dispatch(
-      notificationAction.push({
-        type: 'error',
-        message: [getBookError, updateBookError].filter(Boolean),
-      })
+      notificationAction.push(
+        messages.map(message =>
+          new NotificationModel('error', message).toJSON()
+        )
+      )
     );
   }, [getBookError, updateBookError, dispatch]);
 

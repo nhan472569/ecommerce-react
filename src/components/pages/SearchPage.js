@@ -7,6 +7,7 @@ import BookItem from '../products/BookItem';
 import environment from '../../environment';
 import { notificationAction } from '../../store/notification-context';
 import { useDispatch } from 'react-redux';
+import NotificationModel from '../../models/NotificationModel';
 
 const SearchPage = () => {
   const { search } = useLocation();
@@ -57,7 +58,9 @@ const SearchPage = () => {
 
   useEffect(() => {
     if (error)
-      dispatch(notificationAction.push({ type: 'error', message: error }));
+      dispatch(
+        notificationAction.push(new NotificationModel('error', error).toJSON())
+      );
   }, [error, dispatch]);
 
   return (

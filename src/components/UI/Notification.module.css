@@ -1,8 +1,6 @@
 .alert {
   position: fixed;
-  top: 5rem;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 10rem;
   z-index: 10;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   width: 40rem;
@@ -15,32 +13,32 @@
   font-size: 1.3rem;
   transition: 0.2s ease;
   backdrop-filter: blur(10px);
-  animation-name: dropdown, pullup;
+  animation-name: show, hide;
   animation-duration: 0.5s, 0.5s;
   animation-delay: 0s, 6s;
   animation-fill-mode: forwards;
 }
-@keyframes dropdown {
+@keyframes show {
   0% {
-    top: 5rem;
+    right: -5rem;
     opacity: 0;
   }
   100% {
-    top: 10rem;
+    right: 3rem;
     opacity: 1;
   }
 }
 
-@keyframes pullup {
+@keyframes hide {
   0% {
-    top: 10rem;
+    right: 3rem;
     opacity: 1;
   }
-  20% {
-    top: 11rem;
-  }
+  /* 20% {
+    right: rem;
+  } */
   100% {
-    top: 5rem;
+    right: -5rem;
     opacity: 0;
   }
 }

@@ -10,6 +10,7 @@ import RatingStars from '../UI/RatingStars';
 import environment from '../../environment';
 import SkeletonLoading from '../UI/loading/SkeletonLoading';
 import { notificationAction } from '../../store/notification-context';
+import NotificationModel from '../../models/NotificationModel';
 
 const BookDetail = () => {
   const [quantity, setQuantity] = useState(1);
@@ -48,7 +49,9 @@ const BookDetail = () => {
 
   useEffect(() => {
     if (error) {
-      dispatch(notificationAction.push({ type: 'error', message: error }));
+      dispatch(
+        notificationAction.push(new NotificationModel('error', error).toJSON())
+      );
       navigate('/not-found');
     }
   }, [error, dispatch, navigate]);
