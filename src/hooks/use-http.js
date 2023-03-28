@@ -26,7 +26,7 @@ const useHttp = applyData => {
           response.status.toString().startsWith('3')
         ) {
           const data = response.data;
-          console.log(data);
+          // console.log(data);
           applyData(data);
         } else {
           setError(response?.data?.message || 'Fail to send request!');
@@ -41,11 +41,11 @@ const useHttp = applyData => {
     [applyData]
   );
 
-  console.log({
-    isLoading: isLoading,
-    error: error,
-    sendRequest: sendRequest,
-  });
+  // console.log({
+  //   isLoading: isLoading,
+  //   error: error,
+  //   sendRequest: sendRequest,
+  // });
 
   return {
     isLoading: isLoading,

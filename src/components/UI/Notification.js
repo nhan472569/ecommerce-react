@@ -75,7 +75,11 @@ const Notification = ({ type, children, onClose, zIndex }) => {
   return (
     <>
       {reactDom.createPortal(
-        <div className={classes.alert} style={{ zIndex }}>
+        <div
+          className={classes.notication}
+          style={{ zIndex }}
+          data-type="notification"
+        >
           {getIcon(type)}
           <div className={classes.detail}>
             <h4 className={classes.title}>{titleVieMapping[type]}</h4>

@@ -77,11 +77,25 @@ function App() {
     var prevScrollpos = window.pageYOffset;
     window.onscroll = function () {
       if (document.querySelector('#navbar:hover')) return;
-      var currentScrollPos = window.pageYOffset;
+      const currentScrollPos = window.pageYOffset;
+      const noticationElList = document.querySelectorAll(
+        '[data-type="notification"]'
+      );
+
       if (prevScrollpos > currentScrollPos) {
         document.getElementById('navbar').style.top = '0';
+        if (noticationElList.length) {
+          noticationElList.forEach(el => {
+            el.style.top = '10rem';
+          });
+        }
       } else {
         document.getElementById('navbar').style.top = '-8rem';
+        if (noticationElList.length) {
+          noticationElList.forEach(el => {
+            el.style.top = '2rem';
+          });
+        }
       }
       prevScrollpos = currentScrollPos;
     };

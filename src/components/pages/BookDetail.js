@@ -123,6 +123,7 @@ const BookDetail = () => {
           {!!loadedBookDetail.images.length &&
             loadedBookDetail.images.map((image, i) => (
               <img
+                key={i}
                 src={environment.DOMAIN + '/img/books/' + image}
                 alt={loadedBookDetail.name}
                 onClick={() => {
