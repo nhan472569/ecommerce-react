@@ -48,7 +48,7 @@ const CommentBox = props => {
 };
 
 const Loading = () => {
-  return <SkeletonLoading className={classes.box + ' mb-10 mt-20 radius'} />;
+  return <SkeletonLoading className={classes.box + ' mt-20 radius'} />;
 };
 
 CommentBox.Loading = Loading;

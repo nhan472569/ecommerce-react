@@ -47,19 +47,23 @@ const BooksList = () => {
   } = useHttp(updateProductCount);
 
   useEffect(() => {
-    if (!countStore) getBooks({ url: 'books' });
-    if (!books.length) getCount({ url: 'books/count' });
-  }, [getBooks, getCount, countStore, books]);
+    if (!books.length) getBooks({ url: 'books' });
+  }, [getBooks, books]);
+  useEffect(() => {
+    if (!countStore) getCount({ url: 'books/count' });
+  }, [getCount, countStore]);
 
   useEffect(() => {
     const messages = [getBooksError, getBookCountError].filter(Boolean);
-    dispatch(
-      notificationAction.push(
-        messages.map(message =>
-          new NotificationModel('error', message).toJSON()
+    if (messages.length > 0) {
+      dispatch(
+        notificationAction.push(
+          messages.map(message =>
+            new NotificationModel('error', message).toJSON()
+          )
         )
-      )
-    );
+      );
+    }
   }, [getBooksError, getBookCountError, dispatch]);
 
   const getMoreBooks = useCallback(() => {

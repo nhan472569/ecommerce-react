@@ -109,13 +109,15 @@ const EditBook = ({ id, onClick }) => {
 
   useEffect(() => {
     const messages = [getBookError, updateBookError].filter(Boolean);
-    dispatch(
-      notificationAction.push(
-        messages.map(message =>
-          new NotificationModel('error', message).toJSON()
+    if (messages.length > 0) {
+      dispatch(
+        notificationAction.push(
+          messages.map(message =>
+            new NotificationModel('error', message).toJSON()
+          )
         )
-      )
-    );
+      );
+    }
   }, [getBookError, updateBookError, dispatch]);
 
   return (
