@@ -28,3 +28,4 @@ firebase.json
 .firebaserc
 
 /.github
+/src/environment.js

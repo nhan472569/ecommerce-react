@@ -35,12 +35,11 @@
 .feature {
   list-style-type: none;
   text-align: left;
-  width: 20rem;
   opacity: 0;
   pointer-events: none;
   position: absolute;
   transition: all linear 0.1s;
-  left: -7.5rem;
+  right: -8rem;
   top: 9rem;
   font-size: 1.4rem;
   color: #000;
@@ -85,6 +84,10 @@
 
 .logout:hover {
   background-color: #393e46;
+}
+
+.info {
+  min-width: 20rem;
 }
 
 .info-section {

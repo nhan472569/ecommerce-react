@@ -34,9 +34,11 @@ const BookManage = () => {
   );
 
   useEffect(() => {
-    getBooks({ url: 'books' });
-    getTotals({ url: 'books/count' });
-  }, [getBooks, getTotals]);
+    if (!books.length) getBooks({ url: 'books' });
+  }, [getBooks, books]);
+  useEffect(() => {
+    if (!totalBooks) getTotals({ url: 'books/count' });
+  }, [getTotals, totalBooks]);
 
   const search = event => {
     event.preventDefault();
@@ -76,7 +78,7 @@ const BookManage = () => {
                 <BookItem
                   key={book._id}
                   book={book}
-                  isManaged={true}
+                  isManaged={'Y'}
                   onClick={() => {
                     setIsEdit(true);
                     setCurrentBookId(book._id);

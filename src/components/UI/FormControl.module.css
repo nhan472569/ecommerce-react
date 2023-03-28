@@ -4,12 +4,14 @@
   justify-content: space-between;
   font-size: 1.4rem;
   margin-bottom: 1rem;
+  align-items: center;
 }
 .input {
-  width: 80%;
+  width: 75%;
   border: 1px solid #eee;
   padding: 1rem;
   border-radius: 0.5rem;
+  margin-left: 3rem;
 }
 textarea.input {
   min-height: 10rem;

@@ -1,4 +1,4 @@
-import { Field, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import * as Yup from 'yup';
 import classes from './ChangePasswordProfile.module.css';
@@ -9,6 +9,7 @@ import { authAction } from '../../store/auth-context';
 import Button from '../UI/Button';
 import { notificationAction } from '../../store/notification-context';
 import NotificationModel from '../../models/NotificationModel';
+import FormControl from '../UI/FormControl';
 
 const ChangePasswordSchema = Yup.object().shape({
   passwordCurrent: Yup.string().required('Vui lòng nhập mật khẩu hiện tại.'),
@@ -69,57 +70,30 @@ const ChangePasswordProfile = () => {
       >
         {({ errors, touched, dirty, resetForm }) => (
           <Form className={classes['profile-form']}>
-            <div className={classes['form-control']}>
-              <label htmlFor="passwordCurrent" className={classes.label}>
-                Mật khẩu hiện tại
-              </label>
-              <Field
-                name="passwordCurrent"
-                type="password"
-                className={`${classes.input} ${
-                  errors.passwordCurrent && touched.passwordCurrent
-                    ? classes['input-error']
-                    : ''
-                }`}
-              />
-            </div>
-            {errors.passwordCurrent && touched.passwordCurrent ? (
-              <div className={classes.error}>{errors.passwordCurrent}</div>
-            ) : null}
-            <div className={classes['form-control']}>
-              <label htmlFor="password" className={classes.label}>
-                Mật khẩu mới
-              </label>
-              <Field
-                name="password"
-                type="password"
-                className={`${classes.input} ${
-                  errors.password && touched.password
-                    ? classes['input-error']
-                    : ''
-                }`}
-              />
-            </div>
-            {errors.password && touched.password ? (
-              <div className={classes.error}>{errors.password}</div>
-            ) : null}
-            <div className={classes['form-control']}>
-              <label htmlFor="email" className={classes.label}>
-                Nhập lại mật khẩu mới
-              </label>
-              <Field
-                name="passwordConfirm"
-                type="password"
-                className={`${classes.input} ${
-                  errors.passwordConfirm && touched.passwordConfirm
-                    ? classes['input-error']
-                    : ''
-                }`}
-              />
-            </div>
-            {errors.passwordConfirm && touched.passwordConfirm ? (
-              <div className={classes.error}>{errors.passwordConfirm}</div>
-            ) : null}
+            <FormControl
+              type="password"
+              name="passwordCurrent"
+              errors={errors}
+              touched={touched}
+            >
+              Mật khẩu hiện tại
+            </FormControl>
+            <FormControl
+              type="password"
+              name="password"
+              errors={errors}
+              touched={touched}
+            >
+              Mật khẩu mới
+            </FormControl>
+            <FormControl
+              type="password"
+              name="passwordConfirm"
+              errors={errors}
+              touched={touched}
+            >
+              Nhập lại mật khẩu mới
+            </FormControl>
             <div className={classes['form-actions'] + ' mt-20'}>
               <Button
                 mode="secondary"

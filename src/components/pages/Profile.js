@@ -78,7 +78,6 @@ const Profile = ({ manager = false }) => {
               className={`${classes['menu-item']} ${
                 activeTab === 'stats-manage' ? classes.active : ''
               }`}
-              n
               onClick={() => setActiveTab('stats-manage')}
             >
               Thống kê
