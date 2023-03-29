@@ -1,9 +1,10 @@
+import { AdvancedImage } from '@cloudinary/react';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import environment from '../../../environment';
+import createUrl from '../../../common/utils/cloudinary-utils';
 import useHttp from '../../../hooks/use-http';
 import { authAction } from '../../../store/auth-context';
 
@@ -25,8 +26,8 @@ const ProfileButton = () => {
   return (
     <div className={classes.thumb}>
       <div className={classes.avatar}>
-        <img
-          src={`${environment.DOMAIN}/img/users/${user.photo}`}
+        <AdvancedImage
+          cldImg={createUrl(user.photo, 150, 150)}
           alt={user.name}
         />
       </div>
@@ -35,11 +36,11 @@ const ProfileButton = () => {
           className={classes['info-section']}
           onClick={() => navigate('user/profile')}
         >
-          <img
-            src={environment.DOMAIN + '/img/users/' + user.photo}
+          <AdvancedImage
+            cldImg={createUrl(user.photo, 150, 150)}
             alt={user.name}
             className={classes.photo}
-          ></img>
+          />
           <div className={classes.info}>
             <p className={classes.name}>{user.name}</p>
             <p className={classes.email}>{user.email}</p>

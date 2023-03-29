@@ -147,8 +147,7 @@ const EditBook = ({ id, onClick }) => {
             <Form>
               <ImageEdit
                 alt={book.name}
-                path={environment.DOMAIN + '/img/books/'}
-                image={book.imageCover}
+                filename={book.imageCover}
                 for="imageCover"
                 onChange={event => {
                   setFieldValue('imageCover', event.currentTarget.files[0]);
@@ -157,8 +156,7 @@ const EditBook = ({ id, onClick }) => {
               <div className={classes.images}>
                 <ImageEdit
                   alt={book.name}
-                  path={environment.DOMAIN + '/img/books/'}
-                  image={book.images[0]}
+                  filename={book.images[0]}
                   for="image1"
                   onChange={event => {
                     event.currentTarget.files[0].order = 1;

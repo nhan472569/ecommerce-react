@@ -1,18 +1,21 @@
+import { AdvancedImage } from '@cloudinary/react';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useState } from 'react';
+import createUrl from '../../common/utils/cloudinary-utils';
 import classes from './ImageEdit.module.css';
 
 const ImageEdit = forwardRef(
-  ({ image, alt, id, path, onChange, size, style }, ref) => {
+  ({ alt, id, filename, onChange, size, style, width, height }, ref) => {
     const [imagePreviewUrl, setImagePreviewUrl] = useState('');
+    const [selected, setSelected] = useState(false);
 
-    useEffect(() => {
-      setImagePreviewUrl(path + image);
-      return () => {
-        setImagePreviewUrl('');
-      };
-    }, [path, image]);
+    // useEffect(() => {
+    //   setImagePreviewUrl(filename);
+    //   return () => {
+    //     setImagePreviewUrl('');
+    //   };
+    // }, [filename]);
 
     const readImage = e => {
       e.preventDefault();
@@ -22,6 +25,7 @@ const ImageEdit = forwardRef(
 
       reader.onloadend = () => {
         setImagePreviewUrl(reader.result);
+        setSelected(true);
       };
 
       reader.readAsDataURL(file);
@@ -33,12 +37,19 @@ const ImageEdit = forwardRef(
         htmlFor={id}
         style={style}
       >
-        <img src={imagePreviewUrl} alt={alt} />
+        {selected ? (
+          <img src={imagePreviewUrl} alt={alt} />
+        ) : (
+          <AdvancedImage
+            cldImg={createUrl(filename, width, height)}
+            alt={alt}
+          />
+        )}
         <input
           id={id}
           name={id}
           type="file"
-          accept="image"
+          accept="image/*"
           onChange={e => {
             onChange(e);
             readImage(e);

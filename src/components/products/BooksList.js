@@ -12,7 +12,6 @@ import NotificationModel from '../../models/NotificationModel';
 
 const BooksList = () => {
   const [page, setPage] = useState(1);
-  const [count, setCount] = useState(0);
   const itemsPerPage = useSelector(state => state.product.itemsPerPage);
   const books = useSelector(state => state.product.books);
   const countStore = useSelector(state => state.product.count);
@@ -29,7 +28,6 @@ const BooksList = () => {
   const updateProductCount = useCallback(
     data => {
       const count = data.data.data;
-      setCount(count);
       dispatch(productAction.setCount(count));
     },
     [dispatch]
@@ -69,11 +67,11 @@ const BooksList = () => {
   const getMoreBooks = useCallback(() => {
     setPage(page => {
       const nextPage = page + 1;
-      if (page >= Math.ceil(count / itemsPerPage)) return page;
+      if (page >= Math.ceil(countStore / itemsPerPage)) return page;
       getBooks({ url: `books?page=${nextPage}` });
       return nextPage;
     });
-  }, [getBooks, count, itemsPerPage]);
+  }, [getBooks, countStore, itemsPerPage]);
 
   useEffect(() => {
     document.title = environment.HEAD_TITLE;

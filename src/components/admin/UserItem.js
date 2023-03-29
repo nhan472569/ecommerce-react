@@ -1,4 +1,5 @@
-import environment from '../../environment';
+import { AdvancedImage } from '@cloudinary/react';
+import createUrl from '../../common/utils/cloudinary-utils';
 import SkeletonLoading from '../UI/loading/SkeletonLoading';
 import classes from './UserItem.module.css';
 
@@ -11,10 +12,7 @@ const UserItem = ({ user }) => {
   return (
     <div className={classes.item}>
       <div className={classes.avatar}>
-        <img
-          src={environment.DOMAIN + '/img/users/' + user.photo}
-          alt="avatar"
-        />
+        <AdvancedImage cldImg={createUrl(user.photo, 150, 150)} alt="avatar" />
       </div>
       <div className={classes.ContentBox}>
         <div className={classes.username}>

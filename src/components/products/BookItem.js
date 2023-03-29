@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import classes from './BookItem.module.css';
-import environment from '../../environment';
 
 import { useDispatch } from 'react-redux';
 import { cartAction } from '../../store/cart-context';
@@ -8,6 +7,8 @@ import RatingStars from '../UI/RatingStars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import SkeletonLoading from '../UI/loading/SkeletonLoading';
+import { AdvancedImage } from '@cloudinary/react';
+import createUrl from '../../common/utils/cloudinary-utils';
 
 const BookItem = ({ book, isManaged, onClick }) => {
   const {
@@ -31,10 +32,10 @@ const BookItem = ({ book, isManaged, onClick }) => {
       <div className={classes.item}>
         <div className={classes.image}>
           <Link to={`/books/${slug}`} title={name}>
-            <img
-              src={environment.DOMAIN + '/img/books/' + imageCover}
+            <AdvancedImage
+              cldImg={createUrl(imageCover, 300, 450)}
               alt={name}
-            ></img>
+            />
           </Link>
           {!isManaged && (
             <div

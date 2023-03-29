@@ -11,6 +11,8 @@ import environment from '../../environment';
 import SkeletonLoading from '../UI/loading/SkeletonLoading';
 import { notificationAction } from '../../store/notification-context';
 import NotificationModel from '../../models/NotificationModel';
+import { AdvancedImage } from '@cloudinary/react';
+import createUrl from '../../common/utils/cloudinary-utils';
 
 const BookDetail = () => {
   const [quantity, setQuantity] = useState(1);
@@ -93,44 +95,42 @@ const BookDetail = () => {
   const detailContent = (
     <>
       <div className={classes.image}>
-        <img
-          src={
+        <AdvancedImage
+          cldImg={createUrl(
             loadedBookDetail.imageCover
-              ? environment.DOMAIN +
-                '/img/books/' +
-                (clickedImage && clickedImage !== 'cover'
-                  ? loadedBookDetail.images[clickedImage - 1]
-                  : loadedBookDetail.imageCover)
-              : ''
-          }
+              ? clickedImage && clickedImage !== 'cover'
+                ? loadedBookDetail.images[clickedImage - 1]
+                : loadedBookDetail.imageCover
+              : '',
+            400,
+            600
+          )}
           alt={loadedBookDetail.name}
-        ></img>
+        />
         <div className={classes.images}>
-          <img
-            src={
-              loadedBookDetail.imageCover
-                ? environment.DOMAIN +
-                  '/img/books/' +
-                  loadedBookDetail.imageCover
-                : ''
-            }
+          <AdvancedImage
+            cldImg={createUrl(
+              loadedBookDetail.imageCover ? loadedBookDetail.imageCover : '',
+              120,
+              180
+            )}
             alt={loadedBookDetail.name}
+            className={clickedImage === 'cover' ? classes['img-active'] : ''}
             onClick={() => {
               setClickedImage('cover');
             }}
-            className={clickedImage === 'cover' ? classes['img-active'] : ''}
-          ></img>
+          />
           {!!loadedBookDetail.images.length &&
             loadedBookDetail.images.map((image, i) => (
-              <img
+              <AdvancedImage
                 key={i}
-                src={environment.DOMAIN + '/img/books/' + image}
+                cldImg={createUrl(image, 40, 60)}
                 alt={loadedBookDetail.name}
+                className={i + 1 === clickedImage ? classes['img-active'] : ''}
                 onClick={() => {
                   setClickedImage(i + 1);
                 }}
-                className={i + 1 === clickedImage ? classes['img-active'] : ''}
-              ></img>
+              />
             ))}
         </div>
       </div>

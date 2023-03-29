@@ -7,18 +7,14 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/zoom';
 import 'swiper/css/autoplay';
 import 'swiper/css/lazy';
+import { AdvancedImage } from '@cloudinary/react';
+import createUrl from '../../../common/utils/cloudinary-utils';
 
 const Slider = () => {
   const images = [
-    {
-      img: 'https://res.cloudinary.com/nhan472569/image/upload/v1657522889/bookstore/banners/book_banner1_kaorxx.jpg',
-    },
-    {
-      img: 'https://res.cloudinary.com/nhan472569/image/upload/v1657522885/bookstore/banners/stacked-books-banner_pj2ubu.jpg',
-    },
-    {
-      img: 'https://res.cloudinary.com/nhan472569/image/upload/v1657522830/bookstore/banners/Home.Banner.BookSale_nrtpwz.jpg',
-    },
+    createUrl('Home.Banner.BookSale_bftebe', 1360, 530),
+    createUrl('banner2_jflr2l', 1360, 530),
+    createUrl('banner_ssca5zl', 1360, 530),
   ];
   return (
     <div className={classes.container}>
@@ -37,7 +33,7 @@ const Slider = () => {
         {images.map((img, i) => {
           return (
             <SwiperSlide key={i}>
-              <img src={img.img} key={i} alt="slide" />
+              <AdvancedImage cldImg={img} alt="slide" />
             </SwiperSlide>
           );
         })}

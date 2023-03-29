@@ -1,7 +1,6 @@
 import { Form, Formik } from 'formik';
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import environment from '../../environment';
 import * as Yup from 'yup';
 import useHttp from '../../hooks/use-http';
 import LoadingSpinner from '../UI/LoadingSpinner';
@@ -110,8 +109,9 @@ const UpdateDetailProfile = () => {
               />
               <ImageEdit
                 alt={user.name}
-                path={environment.DOMAIN + '/img/users/'}
-                image={user.photo}
+                filename={user.photo}
+                width={200}
+                height={200}
                 for="photo"
                 style={photoStyle}
                 onChange={event => {
