@@ -95,31 +95,31 @@ const BookDetail = () => {
   const detailContent = (
     <>
       <div className={classes.image}>
-        <AdvancedImage
-          cldImg={createUrl(
-            loadedBookDetail.imageCover
-              ? clickedImage && clickedImage !== 'cover'
-                ? loadedBookDetail.images[clickedImage - 1]
-                : loadedBookDetail.imageCover
-              : '',
-            400,
-            600
-          )}
-          alt={loadedBookDetail.name}
-        />
-        <div className={classes.images}>
+        {loadedBookDetail.imageCover && (
           <AdvancedImage
             cldImg={createUrl(
-              loadedBookDetail.imageCover ? loadedBookDetail.imageCover : '',
-              120,
-              180
+              clickedImage && clickedImage !== 'cover'
+                ? loadedBookDetail.images[clickedImage - 1]
+                : loadedBookDetail.imageCover,
+              400,
+              600
             )}
             alt={loadedBookDetail.name}
-            className={clickedImage === 'cover' ? classes['img-active'] : ''}
-            onClick={() => {
-              setClickedImage('cover');
-            }}
           />
+        )}
+
+        <div className={classes.images}>
+          {loadedBookDetail.imageCover && (
+            <AdvancedImage
+              cldImg={createUrl(loadedBookDetail.imageCover, 120, 180)}
+              alt={loadedBookDetail.name}
+              className={clickedImage === 'cover' ? classes['img-active'] : ''}
+              onClick={() => {
+                setClickedImage('cover');
+              }}
+            />
+          )}
+
           {!!loadedBookDetail.images.length &&
             loadedBookDetail.images.map((image, i) => (
               <AdvancedImage

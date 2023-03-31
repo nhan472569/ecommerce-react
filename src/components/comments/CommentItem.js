@@ -1,7 +1,6 @@
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback, useEffect, useState } from 'react';
-import environment from '../../environment';
 import useHttp from '../../hooks/use-http';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import RatingStars from '../UI/RatingStars';
@@ -9,6 +8,8 @@ import classes from './CommentItem.module.css';
 import { notificationAction } from '../../store/notification-context';
 import { useDispatch } from 'react-redux';
 import NotificationModel from '../../models/NotificationModel';
+import { AdvancedImage } from '@cloudinary/react';
+import createUrl from '../../common/utils/cloudinary-utils';
 
 const CommentItem = props => {
   const [isActiveActions, setIsActiveActions] = useState(false);
@@ -90,8 +91,8 @@ const CommentItem = props => {
     <>
       <div className={classes.item}>
         <div className={classes.avatar}>
-          <img
-            src={environment.DOMAIN + '/img/users/' + props.avatar}
+          <AdvancedImage
+            cldImg={createUrl(props.avatar, 100, 100)}
             alt="avatar"
           />
         </div>
