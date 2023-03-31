@@ -34,11 +34,13 @@ const BookManage = () => {
   );
 
   useEffect(() => {
-    if (!books.length) getBooks({ url: 'books' });
-  }, [getBooks, books]);
-  useEffect(() => {
-    if (!totalBooks) getTotals({ url: 'books/count' });
-  }, [getTotals, totalBooks]);
+    getBooks({ url: 'books' });
+    getTotals({ url: 'books/count' });
+    return () => {
+      setBooks([]);
+      setCurrentBookId('');
+    };
+  }, [getBooks, getTotals]);
 
   const search = event => {
     event.preventDefault();
