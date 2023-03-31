@@ -1,6 +1,6 @@
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import environment from '../../environment';
 import useHttp from '../../hooks/use-http';
@@ -11,7 +11,7 @@ import classes from './BooksList.module.css';
 import NotificationModel from '../../models/NotificationModel';
 
 const BooksList = () => {
-  const [page, setPage] = useState(1);
+  const currentPage = useSelector(state => state.product.currentPage);
   const itemsPerPage = useSelector(state => state.product.itemsPerPage);
   const books = useSelector(state => state.product.books);
   const countStore = useSelector(state => state.product.count);
@@ -65,13 +65,11 @@ const BooksList = () => {
   }, [getBooksError, getBookCountError, dispatch]);
 
   const getMoreBooks = useCallback(() => {
-    setPage(page => {
-      const nextPage = page + 1;
-      if (page >= Math.ceil(countStore / itemsPerPage)) return page;
-      getBooks({ url: `books?page=${nextPage}` });
-      return nextPage;
-    });
-  }, [getBooks, countStore, itemsPerPage]);
+    if (currentPage >= Math.ceil(countStore / itemsPerPage)) return;
+    const nextPage = currentPage + 1;
+    getBooks({ url: `books?page=${nextPage}` });
+    dispatch(productAction.setPage(nextPage));
+  }, [getBooks, countStore, itemsPerPage, currentPage, dispatch]);
 
   useEffect(() => {
     document.title = environment.HEAD_TITLE;
@@ -87,14 +85,14 @@ const BooksList = () => {
           })}
         {(isLoadingBooks || isGettingCount) &&
           Array(
-            page < Math.ceil(countStore / itemsPerPage)
+            currentPage < Math.ceil(countStore / itemsPerPage)
               ? itemsPerPage
               : countStore % itemsPerPage || itemsPerPage
           )
             .fill(0)
             .map((_, i) => <BookItem.Loading key={i}></BookItem.Loading>)}
       </div>
-      {page < Math.ceil(countStore / itemsPerPage) && (
+      {currentPage < Math.ceil(countStore / itemsPerPage) && (
         <button
           className={classes.load}
           disabled={isLoadingBooks || isGettingCount}

@@ -14,7 +14,7 @@ const Slider = () => {
   const images = [
     createUrl('Home.Banner.BookSale_bftebe', 1360, 530),
     createUrl('banner2_jflr2l', 1360, 530),
-    createUrl('banner_ssca5zl', 1360, 530),
+    createUrl('banner_ssca5z', 1360, 530),
   ];
   return (
     <div className={classes.container}>
