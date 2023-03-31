@@ -1,3 +1,8 @@
+.paging {
+  width: fit-content;
+  margin: auto;
+}
+
 .btn-paging {
   border: 1px solid #222831;
   font-size: 1.3rem;
@@ -7,4 +12,8 @@
   border-radius: 0.5rem;
   margin-right: 0.5rem;
   cursor: pointer;
+}
+
+.btn-paging:disabled {
+  cursor: not-allowed;
 }

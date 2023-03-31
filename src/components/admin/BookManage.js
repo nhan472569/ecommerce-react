@@ -91,6 +91,7 @@ const BookManage = () => {
         <Paginator
           totalItems={totalBooks}
           currentPage={currentPage}
+          itemPerPage={8}
           paginate={paginate}
         />
       </>

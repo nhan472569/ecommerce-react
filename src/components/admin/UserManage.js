@@ -66,6 +66,7 @@ function UserManage() {
       <Paginator
         totalItems={totalUsers}
         currentPage={currentPage}
+        itemPerPage={8}
         paginate={paginate}
       />
     </>
