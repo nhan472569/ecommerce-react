@@ -19,7 +19,10 @@ const Wishlist = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(notificationAction.push(new NotificationModel('error', error)));
+    if (error)
+      dispatch(
+        notificationAction.push(new NotificationModel('error', error).toJSON())
+      );
   }, [error, dispatch]);
 
   useEffect(() => {

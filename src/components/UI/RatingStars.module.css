@@ -3,7 +3,9 @@
 }
 
 .stars {
-  margin-top: 1rem;
+  width: fit-content;
+  display: flex;
+  align-items: center;
 }
 
 .rating-count {

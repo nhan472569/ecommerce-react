@@ -204,7 +204,11 @@ const BookDetail = () => {
       {isLoading ? (
         <CommentBox.Loading />
       ) : (
-        <CommentBox productId={loadedBookDetail._id} />
+        <CommentBox
+          productId={loadedBookDetail._id}
+          ratingAverage={loadedBookDetail.ratingsAverage}
+          ratingCount={loadedBookDetail.ratingsQuantity}
+        />
       )}
     </>
   );

@@ -41,6 +41,8 @@ const CommentBox = props => {
           deleteComment={deleteCommentHandler}
           comments={comments}
           isLoading={isLoading}
+          ratingAverage={props.ratingAverage}
+          ratingCount={props.ratingCount}
         />
       </>
     </div>
