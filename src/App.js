@@ -117,7 +117,7 @@ function App() {
           </Route>
           <Route element={<ProtectedRoute user={user} type="protect" />}>
             <Route path="user/profile" element={<Profile />} />
-            <Route path="user/wishlist" element={<Wishlist />} />
+            <Route path="wishlist" element={<Wishlist />} />
           </Route>
           <Route
             element={<ProtectedRoute user={user} type="protect" role="admin" />}

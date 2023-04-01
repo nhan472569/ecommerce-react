@@ -149,6 +149,8 @@ const EditBook = ({ id, onClick }) => {
                 alt={book.name}
                 filename={book.imageCover}
                 for="imageCover"
+                width={400}
+                height={600}
                 onChange={event => {
                   setFieldValue('imageCover', event.currentTarget.files[0]);
                 }}
@@ -158,6 +160,8 @@ const EditBook = ({ id, onClick }) => {
                   alt={book.name}
                   filename={book.images[0]}
                   for="image1"
+                  width={200}
+                  height={300}
                   onChange={event => {
                     event.currentTarget.files[0].order = 1;
                     setFieldValue('image1', event.currentTarget.files[0]);
@@ -169,6 +173,8 @@ const EditBook = ({ id, onClick }) => {
                   path={environment.DOMAIN + '/img/books/'}
                   image={book.images[1]}
                   for="image2"
+                  width={200}
+                  height={300}
                   onChange={event => {
                     event.currentTarget.files[0].order = 2;
                     setFieldValue('image2', event.currentTarget.files[0]);
@@ -180,6 +186,8 @@ const EditBook = ({ id, onClick }) => {
                   path={environment.DOMAIN + '/img/books/'}
                   image={book.images[2]}
                   for="image3"
+                  width={200}
+                  height={300}
                   onChange={event => {
                     event.currentTarget.files[0].order = 3;
                     setFieldValue('image3', event.currentTarget.files[0]);

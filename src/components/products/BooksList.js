@@ -98,7 +98,7 @@ const BooksList = () => {
           disabled={isLoadingBooks || isGettingCount}
           onClick={getMoreBooks}
         >
-          Tải thêm
+          Xem thêm
           <FontAwesomeIcon icon={solid('angles-down')}></FontAwesomeIcon>
         </button>
       )}
