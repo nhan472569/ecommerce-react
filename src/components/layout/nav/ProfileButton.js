@@ -56,7 +56,7 @@ const ProfileButton = () => {
               Quản lý
             </Link>
           ) : (
-            <Link to="/user/wishlist" className={classes['function-link']}>
+            <Link to="/wishlist" className={classes['function-link']}>
               <span className={classes.icon}>
                 <FontAwesomeIcon icon={solid('heart')}></FontAwesomeIcon>
               </span>

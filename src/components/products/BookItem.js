@@ -9,24 +9,61 @@ import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import SkeletonLoading from '../UI/loading/SkeletonLoading';
 import { AdvancedImage } from '@cloudinary/react';
 import createUrl from '../../common/utils/cloudinary-utils';
+import useHttp from '../../hooks/use-http';
+import { useCallback, useEffect } from 'react';
+import { notificationAction } from '../../store/notification-context';
+import NotificationModel from '../../models/NotificationModel';
 
-const BookItem = ({ book, isManaged, onClick }) => {
+const BookItem = ({ book, isManaged, onClick, isOnWishlist }) => {
   const {
+    _id,
     name,
     ratingsAverage,
     ratingsQuantity,
     price,
     imageCover,
-    authors,
+    authors = [],
     slug,
   } = book;
 
   const dispatch = useDispatch();
+  const setWishlistHandler = useCallback(() => {
+    dispatch(
+      notificationAction.push(
+        isOnWishlist
+          ? new NotificationModel(
+              'success',
+              'Xoá khỏi danh sách yêu thích thành công.'
+            ).toJSON()
+          : new NotificationModel(
+              'success',
+              'Thêm vào danh sách yêu thích thành công.'
+            ).toJSON()
+      )
+    );
+  }, [dispatch, isOnWishlist]);
+  const { sendRequest: addToWishlist, error: addError } =
+    useHttp(setWishlistHandler);
+  const { sendRequest: removeFromWishlist, error: removeError } =
+    useHttp(setWishlistHandler);
 
   const addToCart = e => {
     e.preventDefault();
     dispatch(cartAction.addItem({ ...book, quantity: 1 }));
   };
+
+  useEffect(() => {
+    const messages = [addError, removeError].filter(Boolean);
+    if (messages.length)
+      dispatch(
+        notificationAction.push(
+          messages.map(message =>
+            new NotificationModel('error', message).toJSON()
+          )
+        )
+      );
+  }, [addError, removeError, dispatch]);
+
   return (
     <>
       <div className={classes.item}>
@@ -39,8 +76,22 @@ const BookItem = ({ book, isManaged, onClick }) => {
           </Link>
           {!isManaged && (
             <div
-              className={classes['add-to-wishlist']}
+              className={`${classes['add-to-wishlist']} ${
+                isOnWishlist ? classes.active : ''
+              }`}
               title="Thêm vào danh sách yêu thích"
+              onClick={() => {
+                if (isOnWishlist) {
+                  return removeFromWishlist({
+                    url: `books/${_id}/favors/`,
+                    method: 'delete',
+                  });
+                }
+                return addToWishlist({
+                  url: `books/${_id}/favors/`,
+                  method: 'post',
+                });
+              }}
             >
               <FontAwesomeIcon
                 icon={regular('heart')}

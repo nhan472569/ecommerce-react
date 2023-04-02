@@ -71,6 +71,21 @@
   color: #fff;
 }
 
+.add-to-wishlist.active {
+  background-color: #393e46;
+}
+
+.add-to-wishlist.active .icon {
+  color: #fff;
+}
+.add-to-wishlist.active:hover {
+  background-color: #393e46d4;
+}
+
+.add-to-wishlist.active:hover .icon {
+  color: #fff;
+}
+
 .content {
   padding: 1rem 0;
 }
@@ -111,6 +126,7 @@
   color: #222831;
   font-size: 1.3rem;
   font-weight: 500;
+  margin-bottom: 0.5rem;
 }
 
 .add-to-cart {
