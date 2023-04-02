@@ -10,11 +10,18 @@ import SkeletonLoading from '../UI/loading/SkeletonLoading';
 import { AdvancedImage } from '@cloudinary/react';
 import createUrl from '../../common/utils/cloudinary-utils';
 import useHttp from '../../hooks/use-http';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { notificationAction } from '../../store/notification-context';
 import NotificationModel from '../../models/NotificationModel';
 
-const BookItem = ({ book, isManaged, onClick, isOnWishlist }) => {
+const BookItem = ({
+  book,
+  isManaged,
+  onClick,
+  isOnWishlist,
+  removeFromWishlist,
+}) => {
+  const [saved, setSaved] = useState(false);
   const {
     _id,
     name,
@@ -30,22 +37,14 @@ const BookItem = ({ book, isManaged, onClick, isOnWishlist }) => {
   const setWishlistHandler = useCallback(() => {
     dispatch(
       notificationAction.push(
-        isOnWishlist
-          ? new NotificationModel(
-              'success',
-              'Xoá khỏi danh sách yêu thích thành công.'
-            ).toJSON()
-          : new NotificationModel(
-              'success',
-              'Thêm vào danh sách yêu thích thành công.'
-            ).toJSON()
+        new NotificationModel(
+          'success',
+          'Thêm vào danh sách yêu thích thành công.'
+        ).toJSON()
       )
     );
-  }, [dispatch, isOnWishlist]);
-  const { sendRequest: addToWishlist, error: addError } =
-    useHttp(setWishlistHandler);
-  const { sendRequest: removeFromWishlist, error: removeError } =
-    useHttp(setWishlistHandler);
+  }, [dispatch]);
+  const { sendRequest: addToWishlist, error } = useHttp(setWishlistHandler);
 
   const addToCart = e => {
     e.preventDefault();
@@ -53,16 +52,11 @@ const BookItem = ({ book, isManaged, onClick, isOnWishlist }) => {
   };
 
   useEffect(() => {
-    const messages = [addError, removeError].filter(Boolean);
-    if (messages.length)
+    if (error)
       dispatch(
-        notificationAction.push(
-          messages.map(message =>
-            new NotificationModel('error', message).toJSON()
-          )
-        )
+        notificationAction.push(new NotificationModel('error', error).toJSON())
       );
-  }, [addError, removeError, dispatch]);
+  }, [error, dispatch]);
 
   return (
     <>
@@ -77,16 +71,14 @@ const BookItem = ({ book, isManaged, onClick, isOnWishlist }) => {
           {!isManaged && (
             <div
               className={`${classes['add-to-wishlist']} ${
-                isOnWishlist ? classes.active : ''
+                isOnWishlist || saved ? classes.active : ''
               }`}
               title="Thêm vào danh sách yêu thích"
               onClick={() => {
                 if (isOnWishlist) {
-                  return removeFromWishlist({
-                    url: `books/${_id}/favors/`,
-                    method: 'delete',
-                  });
+                  return removeFromWishlist();
                 }
+                setSaved(true);
                 return addToWishlist({
                   url: `books/${_id}/favors/`,
                   method: 'post',

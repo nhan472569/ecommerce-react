@@ -53,7 +53,7 @@ const BooksList = () => {
 
   useEffect(() => {
     const messages = [getBooksError, getBookCountError].filter(Boolean);
-    if (messages.length > 0) {
+    if (messages.length) {
       dispatch(
         notificationAction.push(
           messages.map(message =>
