@@ -16,16 +16,7 @@ const Wishlist = () => {
     setWishlist(data.data.data?.[0]?.books);
   }, []);
 
-  const removeWishlistHandler = useCallback(() => {
-    dispatch(
-      notificationAction.push(
-        new NotificationModel(
-          'success',
-          'Xoá khỏi danh sách yêu thích thành công.'
-        ).toJSON()
-      )
-    );
-  }, [dispatch]);
+  const removeWishlistHandler = useCallback(() => {}, []);
 
   const {
     isLoading,

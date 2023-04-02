@@ -15,7 +15,10 @@ const Paginator = ({ totalItems, itemPerPage, currentPage, paginate }) => {
           </span>
           <span
             className={classes.operator + ' ' + classes['btn-paging']}
-            onClick={() => paginate(currentPage - 1)}
+            onClick={() => {
+              if (currentPage === 1) return;
+              return paginate(currentPage - 1);
+            }}
           >
             <FontAwesomeIcon icon={solid('chevron-left')} />
           </span>
@@ -33,7 +36,10 @@ const Paginator = ({ totalItems, itemPerPage, currentPage, paginate }) => {
             ))}
           <span
             className={classes.operator + ' ' + classes['btn-paging']}
-            onClick={() => paginate(currentPage + 1)}
+            onClick={() => {
+              if (currentPage === Math.ceil(totalItems / itemPerPage)) return;
+              return paginate(currentPage + 1);
+            }}
           >
             <FontAwesomeIcon icon={solid('chevron-right')} />
           </span>

@@ -34,16 +34,7 @@ const BookItem = ({
   } = book;
 
   const dispatch = useDispatch();
-  const setWishlistHandler = useCallback(() => {
-    dispatch(
-      notificationAction.push(
-        new NotificationModel(
-          'success',
-          'Thêm vào danh sách yêu thích thành công.'
-        ).toJSON()
-      )
-    );
-  }, [dispatch]);
+  const setWishlistHandler = useCallback(() => {}, []);
   const { sendRequest: addToWishlist, error } = useHttp(setWishlistHandler);
 
   const addToCart = e => {
