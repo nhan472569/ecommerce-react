@@ -13,7 +13,7 @@ const Wishlist = () => {
   const dispatch = useDispatch();
 
   const setWishlistHandler = useCallback(data => {
-    setWishlist(data.data.data);
+    setWishlist(data.data.data?.[0]?.books);
   }, []);
 
   const removeWishlistHandler = useCallback(() => {
