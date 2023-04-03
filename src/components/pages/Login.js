@@ -121,7 +121,7 @@ const Login = () => {
                 <div className={classes.error}>{errors.password}</div>
               ) : null}
               <Link
-                to="forgotten"
+                to="/user/forgotten"
                 className={classes.forgotten}
                 title="Quên mật khẩu"
               >

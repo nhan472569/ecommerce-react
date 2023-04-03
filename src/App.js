@@ -17,6 +17,12 @@ import ScrollToTop from './components/UI/ScrollToTop';
 import Footer from './components/layout/footer/Footer';
 import Notification from './components/UI/Notification';
 
+const ForgotPassword = React.lazy(() =>
+  import('./components/pages/ForgotPassword')
+);
+const ResetPassword = React.lazy(() =>
+  import('./components/pages/ResetPassword')
+);
 const Author = React.lazy(() => import('./components/pages/Author'));
 const Slider = React.lazy(() => import('./components/layout/slider/Slider'));
 const Login = React.lazy(() => import('./components/pages/Login'));
@@ -111,6 +117,8 @@ function App() {
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="books/:slug" element={<BookDetail />} />
           <Route path="search" element={<SearchPage />} />
+          <Route path="user/forgotten" element={<ForgotPassword />} />
+          <Route path="user/forgotten/:token" element={<ResetPassword />} />
           <Route element={<ProtectedRoute user={user} />}>
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
