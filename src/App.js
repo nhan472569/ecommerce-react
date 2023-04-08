@@ -123,7 +123,9 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
           </Route>
-          <Route element={<ProtectedRoute user={user} type="protect" />}>
+          <Route
+            element={<ProtectedRoute user={user} type="protect" role="user" />}
+          >
             <Route path="user/profile" element={<Profile />} />
             <Route path="wishlist" element={<Wishlist />} />
           </Route>
@@ -161,7 +163,7 @@ const ProtectedRoute = ({
   if (
     (type !== 'protect' && Object.keys(user).length !== 0) ||
     (type === 'protect' && Object.keys(user).length === 0) ||
-    (role === 'admin' && Object.keys(user).length !== 0 && user.role !== role)
+    (user.role !== role && Object.keys(user).length !== 0)
   ) {
     return <Navigate to={redirectPath} replace />;
   }
