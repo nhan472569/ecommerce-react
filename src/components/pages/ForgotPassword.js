@@ -8,18 +8,15 @@ import { useCallback, useEffect } from 'react';
 import environment from '../../environment';
 import { notificationAction } from '../../store/notification-context';
 import NotificationModel from '../../models/NotificationModel';
-import { useNavigate } from 'react-router';
 
 const forgotPasswordSchema = Yup.object().shape({
   email: Yup.string()
     .email('Email không hợp lệ.')
     .required('Vui lòng nhập email.'),
-  token: Yup.string().required('Vui lòng nhập mã xác thực.'),
 });
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const {
     isLoading,
     error,
@@ -27,18 +24,13 @@ const ForgotPassword = () => {
   } = useHttp(
     useCallback(
       data => {
-        const token = data.data.token;
         dispatch(
           notificationAction.push(
-            new NotificationModel(
-              'success',
-              'Mã xác nhận đã được gửi vào email của bạn.'
-            ).toJSON()
+            new NotificationModel('success', data.data.data).toJSON()
           )
         );
-        navigate(`/user/forgotten/${token}`);
       },
-      [dispatch, navigate]
+      [dispatch]
     )
   );
   useEffect(() => {
@@ -67,7 +59,6 @@ const ForgotPassword = () => {
         <Formik
           initialValues={{
             email: '',
-            token: '',
           }}
           validationSchema={forgotPasswordSchema}
           onSubmit={onSubmitHandler}
@@ -90,37 +81,6 @@ const ForgotPassword = () => {
               {errors.email && touched.email ? (
                 <div className={classes.error}>{errors.email}</div>
               ) : null}
-              <div className={classes['form-field']}>
-                <Field
-                  name="token"
-                  type="text"
-                  placeholder=" "
-                  className={`${classes['form-input']} ${
-                    errors.token && touched.token ? classes['input-error'] : ''
-                  }`}
-                />
-                <label htmlFor="token" className={classes['form-label']}>
-                  Mã xác thực
-                </label>
-              </div>
-              {errors.token && touched.token ? (
-                <div className={classes.error}>{errors.token}</div>
-              ) : null}
-              <button
-                type="submit"
-                className={classes.submit}
-                disabled={
-                  dirty || touched.email || isLoading
-                    ? errors.email || isLoading
-                    : true
-                }
-              >
-                {isLoading ? (
-                  <LoadingSpinner color="#fff" borderSize="4px" size="30px" />
-                ) : (
-                  'Lấy mã xác thực'
-                )}
-              </button>
               <button
                 type="submit"
                 className={classes.submit}

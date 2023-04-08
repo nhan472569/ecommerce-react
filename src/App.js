@@ -118,7 +118,7 @@ function App() {
           <Route path="books/:slug" element={<BookDetail />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="user/forgotten" element={<ForgotPassword />} />
-          <Route path="user/forgotten/:token" element={<ResetPassword />} />
+          <Route path="user/resetPassword/:token" element={<ResetPassword />} />
           <Route element={<ProtectedRoute user={user} />}>
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />

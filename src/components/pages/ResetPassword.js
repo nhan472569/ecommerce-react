@@ -8,7 +8,8 @@ import { useCallback, useEffect } from 'react';
 import environment from '../../environment';
 import { notificationAction } from '../../store/notification-context';
 import NotificationModel from '../../models/NotificationModel';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import { authAction } from '../../store/auth-context';
 
 const newPasswordSchema = Yup.object().shape({
   password: Yup.string().required('Vui lòng nhập mật khẩu mới.'),
@@ -18,22 +19,29 @@ const newPasswordSchema = Yup.object().shape({
 const ForgotPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const params = useParams();
+  const { token } = params;
+
   const {
     isLoading,
     error,
     sendRequest: sendEmail,
   } = useHttp(
-    useCallback(() => {
-      dispatch(
-        notificationAction.push(
-          new NotificationModel(
-            'success',
-            'Thay đổi mật khẩu thành công. Mời bạn đăng nhập lại.'
-          ).toJSON()
-        )
-      );
-      navigate('/login');
-    }, [dispatch, navigate])
+    useCallback(
+      data => {
+        dispatch(
+          notificationAction.push(
+            new NotificationModel(
+              'success',
+              'Thay đổi mật khẩu thành công.'
+            ).toJSON()
+          )
+        );
+        dispatch(authAction.login(data.data.data));
+        navigate('/login');
+      },
+      [dispatch, navigate]
+    )
   );
   useEffect(() => {
     document.title = `Đặt lại mật khẩu | ${environment.HEAD_TITLE}`;
@@ -47,11 +55,11 @@ const ForgotPassword = () => {
   }, [error, dispatch]);
 
   const onSubmitHandler = async values => {
-    const { email } = values;
+    const { password, passwordConfirm } = values;
     await sendEmail({
-      url: 'users/forgotPassword',
+      url: `users/resetPassword/${token}`,
       method: 'post',
-      body: { email },
+      body: { password, passwordConfirm },
     });
   };
   return (
