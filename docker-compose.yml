@@ -1,0 +1,34 @@
+version: '3'
+services:
+  client: 
+    image: 'nhan472569/ecommerce-client'
+    mem_limit: 170m
+    hostname: client
+  server:
+    image: 'nhan472569/ecommerce-server'
+    mem_limit: 170m
+    hostname: api
+    environment:
+      - NODE_ENV=$NODE_ENV
+      - PORT=$PORT
+      - DATABASE=$DATABASE
+      - DATABASE_LOCAL=$DATABASE_LOCAL
+      - DATABASE_PASSWORD=$DATABASE_PASSWORD
+      - JWT_SECRET=$JWT_SECRET
+      - JWT_EXPIRES_IN=$JWT_EXPIRES_IN
+      - JWT_COOKIE_EXPIRES_IN=$JWT_COOKIE_EXPIRES_IN
+      - EMAIL_HOST=$EMAIL_HOST
+      - EMAIL_PORT=$EMAIL_PORT
+      - EMAIL_USERNAME=$EMAIL_USERNAME
+      - EMAIL_PASSWORD=$EMAIL_PASSWORD
+      - EMAIL_FROM=$EMAIL_FROM
+      - CLOUD_NAME=$CLOUD_NAME
+      - CLOUD_FOLDER=$CLOUD_FOLDER
+      - API_KEY=$API_KEY
+      - API_SECRET=$API_SECRET
+  nginx:
+    image: 'nhan472569/ecommerce-nginx'
+    mem_limit: 170m
+    hostname: nginx
+    ports:
+      - '80:80'

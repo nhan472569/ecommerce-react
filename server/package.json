@@ -1,0 +1,51 @@
+{
+  "name": "api-bookstore",
+  "version": "1.0.0",
+  "description": "Bookstore API",
+  "main": "app.js",
+  "prettier": {
+    "singleQuote": true,
+    "arrowParens": "avoid"
+  },
+  "scripts": {
+    "start": "nodemon server.js",
+    "start:prod": "NODE_ENV=production node server.js",
+    "debug": "sudo ndb server.js",
+    "debug:prod": "sudo NODE_ENV=production ndb server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhan472569/api-bookstore.git"
+  },
+  "author": "Nhan Thanh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nhan472569/api-bookstore/issues"
+  },
+  "homepage": "https://github.com/nhan472569/api-bookstore#readme",
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "bcryptjs": "^2.4.3",
+    "caniuse-lite": "^1.0.30001513",
+    "cloudinary": "^1.35.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^6.6.0",
+    "helmet": "^6.0.0",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.6.5",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.7.8",
+    "sharp": "^0.31.3",
+    "slugify": "^1.6.5",
+    "streamifier": "^0.1.1",
+    "validator": "^13.7.0",
+    "xss-clean": "^0.1.1"
+  }
+}

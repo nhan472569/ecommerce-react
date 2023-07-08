@@ -24,7 +24,7 @@ const Auth = () => {
   const authContent = !isLoggedIn ? (
     <>
       <button className={classes.login} onClick={loginHandler}>
-        Đăng nhập
+        Đăng Nhập
       </button>
       <button className={classes.signup} onClick={signupHandler}>
         Đăng ký
