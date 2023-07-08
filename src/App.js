@@ -124,13 +124,27 @@ function App() {
             <Route path="signup" element={<Signup />} />
           </Route>
           <Route
-            element={<ProtectedRoute user={user} type="protect" role="user" />}
+            element={
+              <ProtectedRoute
+                user={user}
+                type="protect"
+                role={['user', 'admin']}
+              />
+            }
           >
             <Route path="user/profile" element={<Profile />} />
+          </Route>
+          <Route
+            element={
+              <ProtectedRoute user={user} type="protect" role={['user']} />
+            }
+          >
             <Route path="wishlist" element={<Wishlist />} />
           </Route>
           <Route
-            element={<ProtectedRoute user={user} type="protect" role="admin" />}
+            element={
+              <ProtectedRoute user={user} type="protect" role={['admin']} />
+            }
           >
             <Route path="admin/manage" element={<Profile manager={true} />} />
           </Route>
@@ -163,7 +177,7 @@ const ProtectedRoute = ({
   if (
     (type !== 'protect' && Object.keys(user).length !== 0) ||
     (type === 'protect' && Object.keys(user).length === 0) ||
-    (user.role !== role && Object.keys(user).length !== 0)
+    (!role.includes(user.role) && Object.keys(user).length !== 0)
   ) {
     return <Navigate to={redirectPath} replace />;
   }
