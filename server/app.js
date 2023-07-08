@@ -20,7 +20,7 @@ const slugRouter = require('./routes/slug.route');
 const favorRouter = require('./routes/favor.route');
 
 const app = express();
-app.use(cors());
+// app.use(cors());
 // cors({
 //   origin: process.env.CORS_DOMAIN,
 //   credentials: true,
