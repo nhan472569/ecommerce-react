@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "nodemon server.js",
-    "start:prod": "NODE_ENV=production node server.js",
+    "start:prod": "node server.js",
     "debug": "sudo ndb server.js",
     "debug:prod": "sudo NODE_ENV=production ndb server.js",
     "test": "echo \"Error: no test specified\" && exit 1"

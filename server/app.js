@@ -20,12 +20,11 @@ const slugRouter = require('./routes/slug.route');
 const favorRouter = require('./routes/favor.route');
 
 const app = express();
-// app.use(
-//   cors({
-//     origin: process.env.CORS_DOMAIN,
-//     credentials: true,
-//   })
-// );
+app.use(cors());
+// cors({
+//   origin: process.env.CORS_DOMAIN,
+//   credentials: true,
+// })
 
 // Add some security headers
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
