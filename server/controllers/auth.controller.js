@@ -20,10 +20,9 @@ const createSendToken = (newUser, statusCode, res) => {
     ),
     httpOnly: true,
   };
-  if (process.env.NODE_ENV === 'production') {
-    cookieOptions.sameSite = 'none';
-    cookieOptions.secure = true;
-  }
+  // if (process.env.NODE_ENV === 'production') {
+  //   cookieOptions.secure = true;
+  // }
   newUser.password = undefined;
   res.cookie('jwt', token, cookieOptions);
   res.status(statusCode).json({
