@@ -201,7 +201,11 @@ const Signup = () => {
                 disabled={isSubmitButtonDisabled(touched, errors)}
               >
                 {isLoading ? (
-                  <LoadingSpinner color="#fff" borderSize="4px" size="30px" />
+                  <LoadingSpinner
+                    color="var(--color-white)"
+                    borderSize="4px"
+                    size="30px"
+                  />
                 ) : (
                   'Đăng ký'
                 )}

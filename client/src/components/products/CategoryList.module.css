@@ -15,10 +15,10 @@
   margin: 1rem;
   border: 1px solid #f3f3f3;
   cursor: pointer;
-  transition: all 0.2s ease-out;
+  transition: var(--transition)-out;
 }
 .active,
 .category .category-item:hover {
-  color: #fff;
+  color: var(--color-white);
   background-color: #7971ea;
 }

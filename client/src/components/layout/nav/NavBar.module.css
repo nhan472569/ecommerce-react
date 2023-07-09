@@ -22,7 +22,7 @@
   line-height: 8rem;
   font-weight: bold;
   text-decoration: none;
-  color: #393e46;
+  color: var(--color-dark);
 }
 
 .logo,

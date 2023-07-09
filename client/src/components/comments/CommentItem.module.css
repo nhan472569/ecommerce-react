@@ -4,7 +4,7 @@
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 2rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-lightgray);
 }
 
 .avatar {
@@ -20,7 +20,7 @@
 
 .ContentBox {
   width: calc(100% - 8.2rem);
-  background-color: #fff;
+  background-color: var(--color-white);
   display: inline-block;
   border-radius: 1rem;
   padding: 0 1.5rem 2rem;
@@ -68,7 +68,7 @@
   right: 0rem;
   width: fit-content;
   border-radius: 1rem;
-  background-color: #fff;
+  background-color: var(--color-white);
 }
 .actions li {
   font-size: 1.4rem;
@@ -82,5 +82,5 @@
   cursor: pointer;
 }
 .actions li:hover {
-  background-color: #eee;
+  background-color: var(--color-lightgray);
 }

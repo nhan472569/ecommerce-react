@@ -25,10 +25,10 @@
 }
 
 .signup {
-  background-color: #222831;
-  color: #fff;
+  background-color: var(--color-darkest);
+  color: var(--color-white);
 }
 
 .signup:hover {
-  background-color: #393e46;
+  background-color: var(--color-dark);
 }

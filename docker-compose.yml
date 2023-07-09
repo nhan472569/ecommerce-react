@@ -2,11 +2,11 @@ version: '3'
 services:
   client: 
     image: 'nhan472569/ecommerce-client'
-    mem_limit: 170m
+    mem_limit: 333m
     hostname: client
   server:
     image: 'nhan472569/ecommerce-server'
-    mem_limit: 170m
+    mem_limit: 333m
     hostname: api
     environment:
       - NODE_ENV=$NODE_ENV
@@ -28,7 +28,7 @@ services:
       - API_SECRET=$API_SECRET
   nginx:
     image: 'nhan472569/ecommerce-nginx'
-    mem_limit: 170m
+    mem_limit: 333m
     hostname: nginx
     ports:
       - '80:80'

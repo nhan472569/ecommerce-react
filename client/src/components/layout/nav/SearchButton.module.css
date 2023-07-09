@@ -16,13 +16,13 @@
   margin-right: 1rem;
   font-size: 1.3rem;
   border-radius: 100rem;
-  border: 1px solid #eee;
+  border: 1px solid var(--color-lightgray);
   transition: width 0.25s ease;
 }
 
 .search input:focus-visible {
   width: 40rem;
-  outline-color: #222831;
+  outline-color: var(--color-darkest);
 }
 
 @media screen and (max-width: 1279.98px) {

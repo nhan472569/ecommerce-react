@@ -68,7 +68,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  transition: all 0.2s ease;
+  transition: var(--transition);
   animation: progress-bar 6s ease forwards;
 }
 

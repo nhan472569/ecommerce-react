@@ -15,21 +15,21 @@
 }
 
 .cart:hover .icon {
-  color: #222831;
+  color: var(--color-darkest);
   transition: all linear 0.1s;
   cursor: pointer;
 }
 .cart .icon {
   font-size: 2rem;
-  color: #393e46;
+  color: var(--color-dark);
 }
 
 .quantity {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
-  background-color: #eee;
-  color: #222831;
+  background-color: var(--color-lightgray);
+  color: var(--color-darkest);
   top: 2rem;
   left: 0;
   position: absolute;

@@ -237,7 +237,11 @@ const EditBook = ({ id, onClick }) => {
                   disabled={!dirty || isLoading}
                 >
                   {isLoading ? (
-                    <LoadingSpinner color="#fff" borderSize="3px" size="20px" />
+                    <LoadingSpinner
+                      color="var(--color-white)"
+                      borderSize="3px"
+                      size="20px"
+                    />
                   ) : (
                     'Lưu'
                   )}

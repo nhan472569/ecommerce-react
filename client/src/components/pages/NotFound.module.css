@@ -24,8 +24,8 @@
 
 .back {
   font-size: 1.6rem;
-  color: #fff;
-  background-color: #222831;
+  color: var(--color-white);
+  background-color: var(--color-darkest);
   display: block;
   padding: 1rem;
   width: 20rem;

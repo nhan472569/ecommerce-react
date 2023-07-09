@@ -1,7 +1,7 @@
 .container {
   padding: 5rem 4rem;
   background-color: #282828;
-  color: #fff;
+  color: var(--color-white);
 }
 
 .col-3 {
@@ -36,14 +36,14 @@
   font-size: 1.4rem;
   color: #c4c4c4;
   margin-bottom: 1rem;
-  transition: all 0.2s ease-out;
+  transition: var(--transition)-out;
   display: block;
   width: 100%;
   text-transform: capitalize;
 }
 
 .menu-item:hover a {
-  color: #fff;
+  color: var(--color-white);
 }
 
 .content-container {
@@ -73,7 +73,7 @@
 }
 
 .socials a:hover {
-  color: #fff;
+  color: var(--color-white);
 }
 
 /* news */
@@ -92,11 +92,11 @@
   border: 1px solid #999;
   width: 100%;
   padding: 0.8rem 1.6rem;
-  color: #ddd;
+  color: var(--color-gray);
 }
 
 .subcription-form .email:focus-visible {
-  border: 1px solid #fff;
+  border: 1px solid var(--color-white);
 }
 
 .subcription-form button {
@@ -107,7 +107,7 @@
   transform: translateY(-50%);
   right: 0;
   cursor: pointer;
-  transition: all 0.2s ease-out;
+  transition: var(--transition)-out;
   height: 100%;
   padding: 0 1.5rem;
 }

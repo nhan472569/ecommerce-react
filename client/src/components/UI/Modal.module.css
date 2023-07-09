@@ -11,7 +11,7 @@
 .modal {
   width: 50rem;
   height: 70vh;
-  background-color: #fff;
+  background-color: var(--color-white);
   border-radius: 1rem;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   position: fixed;
@@ -34,8 +34,8 @@
   text-align: center;
   line-height: 2rem;
   cursor: pointer;
-  outline: 5px solid #fff;
-  color: #fff;
+  outline: 5px solid var(--color-white);
+  color: var(--color-white);
   font-size: 2.5rem;
   font-weight: 600;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);

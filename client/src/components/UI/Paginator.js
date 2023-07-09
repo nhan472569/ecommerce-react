@@ -7,48 +7,51 @@ const Paginator = ({ totalItems, itemPerPage, currentPage, paginate }) => {
     <>
       {!!totalItems ? (
         <section className={classes.paging}>
-          <span
-            className={classes.operator + ' ' + classes['btn-paging']}
+          <button
+            className={classes.operator}
+            disabled={currentPage === 1}
             onClick={() => paginate(1)}
           >
             <FontAwesomeIcon icon={solid('angles-left')} />
-          </span>
-          <span
-            className={classes.operator + ' ' + classes['btn-paging']}
-            onClick={() => {
-              if (currentPage === 1) return;
-              return paginate(currentPage - 1);
-            }}
+          </button>
+          <button
+            className={classes.operator}
+            disabled={currentPage === 1}
+            onClick={() => paginate(currentPage - 1)}
+            style={{ 'margin-right': '2rem' }}
           >
             <FontAwesomeIcon icon={solid('chevron-left')} />
-          </span>
+          </button>
           {Array(Math.ceil(totalItems / itemPerPage))
             .fill(0)
-            .map((_, i) => (
+            .map((_, i, arr) => (
               <button
                 key={i}
-                className={classes['btn-paging']}
+                className={`${classes['btn-paging']}
+                ${i + 1 === currentPage ? classes.active : ''}`}
                 onClick={() => paginate(i + 1)}
                 disabled={i + 1 === currentPage}
+                style={{
+                  'margin-right': i === arr.length - 1 ? '2rem' : '',
+                }}
               >
                 {i + 1}
               </button>
             ))}
-          <span
-            className={classes.operator + ' ' + classes['btn-paging']}
-            onClick={() => {
-              if (currentPage === Math.ceil(totalItems / itemPerPage)) return;
-              return paginate(currentPage + 1);
-            }}
+          <button
+            className={classes.operator}
+            disabled={currentPage === Math.ceil(totalItems / itemPerPage)}
+            onClick={() => paginate(currentPage + 1)}
           >
             <FontAwesomeIcon icon={solid('chevron-right')} />
-          </span>
-          <span
-            className={classes.operator + ' ' + classes['btn-paging']}
+          </button>
+          <button
+            className={classes.operator}
+            disabled={currentPage === Math.ceil(totalItems / itemPerPage)}
             onClick={() => paginate(Math.ceil(totalItems / itemPerPage))}
           >
             <FontAwesomeIcon icon={solid('angles-right')} />
-          </span>
+          </button>
         </section>
       ) : null}
     </>

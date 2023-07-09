@@ -29,7 +29,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #fff;
+  background-color: var(--color-white);
 }
 
 .feature {
@@ -55,27 +55,27 @@
 }
 
 .feature .function:hover {
-  background-color: #eee;
+  background-color: var(--color-lightgray);
 }
 
 .feature .function .function-link {
   display: inline-block;
   width: 100%;
   height: 100%;
-  color: #393e46;
+  color: var(--color-dark);
   padding: 1rem;
 }
 
 .function-link .icon {
   margin-right: 1rem;
-  color: #393e46;
+  color: var(--color-dark);
 }
 
 .logout {
   width: 100%;
   height: 3.5rem;
-  background-color: #222831;
-  color: #fff;
+  background-color: var(--color-darkest);
+  color: var(--color-white);
   font-size: 1.5rem;
   cursor: pointer;
   border: none;
@@ -83,7 +83,7 @@
 }
 
 .logout:hover {
-  background-color: #393e46;
+  background-color: var(--color-dark);
 }
 
 .info {
@@ -100,7 +100,7 @@
 }
 
 .info-section:hover {
-  background-color: #eee;
+  background-color: var(--color-lightgray);
 }
 
 .info-section .photo {

@@ -29,7 +29,7 @@
 
 .delivery-select {
   display: inline-block;
-  background-color: #eee;
+  background-color: var(--color-lightgray);
   height: auto;
   padding: calc(1rem + 2px) 2px;
   border-radius: 0.7rem;
@@ -44,7 +44,7 @@
   transition: 0.25s ease;
 }
 .delivery-select span.active {
-  background-color: #fff;
+  background-color: var(--color-white);
   font-size: 1.3rem;
   color: #000;
   padding: 1rem;
@@ -54,7 +54,7 @@
 
 .bill hr {
   margin: 1.5rem 0;
-  border: 1px dashed #eee;
+  border: 1px dashed var(--color-lightgray);
 }
 
 .discount-form {
@@ -66,7 +66,7 @@
   width: 100%;
   font-size: 1.3rem;
   padding: 1rem;
-  border: 1px solid #eee;
+  border: 1px solid var(--color-lightgray);
   border-radius: 0.5rem;
 }
 .discount-form input:focus-visible {
@@ -79,11 +79,11 @@
   bottom: 1px;
   border-radius: 0.5rem;
   border: none;
-  background-color: #fff;
+  background-color: var(--color-white);
   padding: 1rem;
   color: #000;
   cursor: pointer;
-  border: 1px solid #eee;
+  border: 1px solid var(--color-lightgray);
 }
 
 .coupon {
@@ -114,21 +114,21 @@
 
 .checkout {
   border: none;
-  color: #fff;
-  background-color: #222831;
+  color: var(--color-white);
+  background-color: var(--color-darkest);
 }
 
 .continue {
   display: block;
-  background-color: #fff;
+  background-color: var(--color-white);
   color: #000;
-  border: 1px solid #222831;
+  border: 1px solid var(--color-darkest);
 }
 
 .checkout:hover {
-  background-color: #393e46;
+  background-color: var(--color-dark);
 }
 
 .continue:hover {
-  background-color: #eee;
+  background-color: var(--color-lightgray);
 }

@@ -91,7 +91,11 @@ const ForgotPassword = () => {
                 }
               >
                 {isLoading ? (
-                  <LoadingSpinner color="#fff" borderSize="4px" size="30px" />
+                  <LoadingSpinner
+                    color="var(--color-white)"
+                    borderSize="4px"
+                    size="30px"
+                  />
                 ) : (
                   'Xác nhận'
                 )}

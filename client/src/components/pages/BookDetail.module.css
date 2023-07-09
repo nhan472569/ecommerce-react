@@ -31,7 +31,7 @@
   width: 20%;
   border-radius: 0;
   position: relative;
-  transition: all 0.2s ease;
+  transition: var(--transition);
   aspect-ratio: 2/3;
 }
 .images img:hover {
@@ -58,7 +58,7 @@
   text-transform: uppercase;
   letter-spacing: 0.35rem;
   color: #999;
-  transition: all 0.2s ease-out;
+  transition: var(--transition)-out;
 }
 
 .author a:hover {
@@ -94,7 +94,7 @@
 
 .content hr {
   margin-bottom: 3rem;
-  border: 1px solid #eee;
+  border: 1px solid var(--color-lightgray);
 }
 
 .add-to-cart input {
@@ -118,7 +118,7 @@
   border: none;
   outline: none;
   cursor: pointer;
-  background-color: #fff;
+  background-color: var(--color-white);
   font-size: 1.7rem;
   font-weight: 400;
   transition: color 0.2s ease-out;
@@ -158,23 +158,23 @@
   font-size: 1.4rem;
 }
 .btn-buy {
-  color: #fff;
-  background-color: #222831;
+  color: var(--color-white);
+  background-color: var(--color-darkest);
   margin-right: 1.5rem;
 }
 .btn-add {
-  color: #222831;
-  background-color: #fff;
-  border: 1px solid #222831;
+  color: var(--color-darkest);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-darkest);
 }
 
 .btn-buy:hover {
-  background-color: #393e46;
-  color: #fff;
+  background-color: var(--color-dark);
+  color: var(--color-white);
 }
 
 .btn-add:hover {
-  background-color: #eee;
+  background-color: var(--color-lightgray);
   color: #000;
 }
 
@@ -202,6 +202,6 @@
 .input {
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  border: 1px solid #eee;
+  border: 1px solid var(--color-lightgray);
   width: 100%;
 }

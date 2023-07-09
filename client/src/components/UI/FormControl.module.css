@@ -8,7 +8,7 @@
 }
 .input {
   width: 75%;
-  border: 1px solid #eee;
+  border: 1px solid var(--color-lightgray);
   padding: 1rem;
   border-radius: 0.5rem;
   margin-left: 3rem;
@@ -18,7 +18,7 @@ textarea.input {
   resize: vertical;
 }
 .input:focus-visible {
-  outline-color: #ddd;
+  outline-color: var(--color-gray);
 }
 .label {
   font-weight: 500;

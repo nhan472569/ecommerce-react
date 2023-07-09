@@ -24,7 +24,7 @@ const photoStyle = {
   width: '10rem',
   height: '10rem',
   borderRadius: '100rem',
-  outline: '4px solid #fff',
+  outline: '4px solid var(--color-white)',
   boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
   marginBottom: '4rem',
   left: '5rem',
@@ -150,7 +150,11 @@ const UpdateDetailProfile = () => {
                 disabled={!dirty || isLoading}
               >
                 {isLoading ? (
-                  <LoadingSpinner color="#fff" borderSize="3px" size="20px" />
+                  <LoadingSpinner
+                    color="var(--color-white)"
+                    borderSize="3px"
+                    size="20px"
+                  />
                 ) : (
                   'Lưu'
                 )}

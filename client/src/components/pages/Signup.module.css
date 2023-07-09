@@ -40,20 +40,20 @@
   font-size: 1.4rem;
   border-radius: 8px;
   padding: 0.5rem 1.5rem;
-  border: 1px solid #eee;
+  border: 1px solid var(--color-lightgray);
   height: 4rem;
   transition: 0.25 ease;
   color: #777;
 }
 
 .form-input:focus-visible {
-  outline-color: #393e46;
+  outline-color: var(--color-dark);
 }
 
 .form-input:not(:placeholder-shown) + .form-label,
 .form-input:focus-visible + .form-label {
   top: 0;
-  background-color: #fff;
+  background-color: var(--color-white);
   padding: 0 0.5rem;
   color: #000;
   font-weight: 500;
@@ -81,9 +81,9 @@
 .submit {
   cursor: pointer;
   border: none;
-  color: #fff;
+  color: var(--color-white);
   font-weight: 600;
-  background-color: #222831;
+  background-color: var(--color-darkest);
   font-size: 1.5rem;
   margin-top: 2.5rem;
   text-align: center;
@@ -96,7 +96,7 @@
 }
 
 .submit:hover {
-  background-color: #393e46;
+  background-color: var(--color-dark);
   background-position: right center;
 }
 
@@ -113,7 +113,7 @@
   font-size: 1.2rem;
 }
 .ps a {
-  color: #222831;
+  color: var(--color-darkest);
   font-weight: 600;
   text-decoration: underline;
 }
