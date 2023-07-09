@@ -46,6 +46,6 @@
 }
 
 .btn-primary:disabled {
-  background-color: #435c62;
+  background-color: var(--color-dark);
   cursor: not-allowed;
 }

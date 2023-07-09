@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { cartAction } from '../../store/cart-context';
 import CommentBox from '../comments/CommentBox';
@@ -28,6 +28,7 @@ const BookDetail = () => {
     category: [],
     authors: [],
   });
+  const { role } = useSelector(state => state.auth.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -159,38 +160,45 @@ const BookDetail = () => {
             </p>
           ))}
         </div>
-        <hr />
-        <form className={classes['add-to-cart']} onSubmit={addToCartHandler}>
-          <div className={classes.quantity}>
-            <span
-              className={`${classes.btn} ${classes['btn-quantity-left']}`}
-              type="button"
-              onClick={decreaseHandler}
-              disabled={isInvalid}
-            ></span>
-            <input
-              type="text"
-              name="quantity"
-              id="quantity"
-              value={quantity}
-              readOnly
-            />
-            <span
-              className={`${classes.btn} ${classes['btn-quantity-right']}`}
-              type="button"
-              onClick={increaseHandler}
-            ></span>
-          </div>
-          <button
-            className={`${classes.btn} ${classes['btn-buy']}`}
-            type="button"
-          >
-            Mua ngay
-          </button>
-          <button className={`${classes.btn} ${classes['btn-add']}`}>
-            Thêm vào giỏ
-          </button>
-        </form>
+        {role !== 'admin' && (
+          <>
+            <hr />
+            <form
+              className={classes['add-to-cart']}
+              onSubmit={addToCartHandler}
+            >
+              <div className={classes.quantity}>
+                <span
+                  className={`${classes.btn} ${classes['btn-quantity-left']}`}
+                  type="button"
+                  onClick={decreaseHandler}
+                  disabled={isInvalid}
+                ></span>
+                <input
+                  type="text"
+                  name="quantity"
+                  id="quantity"
+                  value={quantity}
+                  readOnly
+                />
+                <span
+                  className={`${classes.btn} ${classes['btn-quantity-right']}`}
+                  type="button"
+                  onClick={increaseHandler}
+                ></span>
+              </div>
+              <button
+                className={`${classes.btn} ${classes['btn-buy']}`}
+                type="button"
+              >
+                Mua ngay
+              </button>
+              <button className={`${classes.btn} ${classes['btn-add']}`}>
+                Thêm vào giỏ
+              </button>
+            </form>
+          </>
+        )}
       </div>
     </>
   );

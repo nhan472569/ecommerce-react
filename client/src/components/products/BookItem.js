@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import classes from './BookItem.module.css';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { cartAction } from '../../store/cart-context';
 import RatingStars from '../UI/RatingStars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -32,6 +32,7 @@ const BookItem = ({
     authors = [],
     slug,
   } = book;
+  const { role } = useSelector(state => state.auth.user);
 
   const dispatch = useDispatch();
   const setWishlistHandler = useCallback(() => {}, []);
@@ -59,7 +60,7 @@ const BookItem = ({
               alt={name}
             />
           </Link>
-          {!isManaged && (
+          {!isManaged && role !== 'admin' && (
             <div
               className={`${classes['add-to-wishlist']} ${
                 isOnWishlist || saved ? classes.active : ''
@@ -103,7 +104,7 @@ const BookItem = ({
             ratingAverage={ratingsAverage}
             ratingCount={ratingsQuantity}
           />
-          {!isManaged && (
+          {!isManaged && role !== 'admin' && (
             <button className={classes['add-to-cart']} onClick={addToCart}>
               Thêm vào giỏ
             </button>

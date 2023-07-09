@@ -3,6 +3,31 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import classes from './Paginator.module.css';
 
 const Paginator = ({ totalItems, itemPerPage, currentPage, paginate }) => {
+  const last = Math.ceil(totalItems / itemPerPage);
+  const delta = 2;
+  const left = currentPage - delta;
+  const right = currentPage + delta + 1;
+  const range = [];
+  const rangeWithDots = [];
+  let l;
+
+  for (let i = 1; i <= last; i++) {
+    if (i === 1 || i === last || (i >= left && i < right)) {
+      range.push(i);
+    }
+  }
+
+  for (let i of range) {
+    if (l) {
+      if (i - l === 2) {
+        rangeWithDots.push(l + 1);
+      } else if (i - l !== 1) {
+        rangeWithDots.push('...');
+      }
+    }
+    rangeWithDots.push(i);
+    l = i;
+  }
   return (
     <>
       {!!totalItems ? (
@@ -18,37 +43,41 @@ const Paginator = ({ totalItems, itemPerPage, currentPage, paginate }) => {
             className={classes.operator}
             disabled={currentPage === 1}
             onClick={() => paginate(currentPage - 1)}
-            style={{ 'margin-right': '2rem' }}
+            style={{ marginRight: '2rem' }}
           >
             <FontAwesomeIcon icon={solid('chevron-left')} />
           </button>
-          {Array(Math.ceil(totalItems / itemPerPage))
-            .fill(0)
-            .map((_, i, arr) => (
+          {rangeWithDots.map((item, i, arr) =>
+            typeof item === 'number' ? (
               <button
-                key={i}
+                key={item}
                 className={`${classes['btn-paging']}
-                ${i + 1 === currentPage ? classes.active : ''}`}
-                onClick={() => paginate(i + 1)}
-                disabled={i + 1 === currentPage}
+                ${item === currentPage ? classes.active : ''}`}
+                onClick={() => paginate(item)}
+                disabled={item === currentPage}
                 style={{
-                  'margin-right': i === arr.length - 1 ? '2rem' : '',
+                  marginRight: i === arr.length - 1 ? '2rem' : '',
                 }}
               >
-                {i + 1}
+                {item}
               </button>
-            ))}
+            ) : (
+              <span key={item + i} className={classes.ellipsis}>
+                {item}
+              </span>
+            )
+          )}
           <button
             className={classes.operator}
-            disabled={currentPage === Math.ceil(totalItems / itemPerPage)}
+            disabled={currentPage === last}
             onClick={() => paginate(currentPage + 1)}
           >
             <FontAwesomeIcon icon={solid('chevron-right')} />
           </button>
           <button
             className={classes.operator}
-            disabled={currentPage === Math.ceil(totalItems / itemPerPage)}
-            onClick={() => paginate(Math.ceil(totalItems / itemPerPage))}
+            disabled={currentPage === last}
+            onClick={() => paginate(last)}
           >
             <FontAwesomeIcon icon={solid('angles-right')} />
           </button>

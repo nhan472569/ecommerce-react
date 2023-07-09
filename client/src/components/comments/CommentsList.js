@@ -6,7 +6,7 @@ import classes from './CommentsList.module.css';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { useCallback, useEffect, useState } from 'react';
 import useHttp from '../../hooks/use-http';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { notificationAction } from '../../store/notification-context';
 import NotificationModel from '../../models/NotificationModel';
 
@@ -19,6 +19,8 @@ const CommentsList = ({
   ratingCount,
 }) => {
   const [reviewStats, setReviewStats] = useState([]);
+
+  const { role } = useSelector(state => state.auth.user);
   const dispatch = useDispatch();
   const handleStats = useCallback(data => {
     setReviewStats(data.data.data);
@@ -46,7 +48,7 @@ const CommentsList = ({
   }, [dispatch, error]);
 
   return (
-    <div className={classes.box}>
+    <div className={`${classes.box} ${role === 'admin' && 'w-full'}`}>
       <h2 className={classes.title}>Đánh giá từ khách hàng</h2>
       {isLoadingStats || isLoading ? null : (
         <div className={classes.stats}>

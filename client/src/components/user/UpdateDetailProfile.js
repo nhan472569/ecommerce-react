@@ -104,7 +104,11 @@ const UpdateDetailProfile = () => {
             <div className={classes.images}>
               <img
                 className={classes.cover}
-                src={`${process.env.PUBLIC_URL}/images/user-cover.jpg`}
+                srcSet={`
+                  ${process.env.PUBLIC_URL}/images/user-cover-small.jpg 1x,
+                  ${process.env.PUBLIC_URL}/images/user-cover-large.jpg 2x
+                 `}
+                src={`${process.env.PUBLIC_URL}/images/user-cover-large.jpg`}
                 alt="user cover"
               />
               <ImageEdit

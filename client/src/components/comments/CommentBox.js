@@ -35,7 +35,12 @@ const CommentBox = props => {
   return (
     <div className={classes.box}>
       <>
-        <CommentForm onAddComment={onAddCommentHandler} productId={productId} />
+        {user.role !== 'admin' && (
+          <CommentForm
+            onAddComment={onAddCommentHandler}
+            productId={productId}
+          />
+        )}
         <CommentsList
           bookId={productId}
           deleteComment={deleteCommentHandler}

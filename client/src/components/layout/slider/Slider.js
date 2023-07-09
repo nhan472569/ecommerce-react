@@ -12,9 +12,9 @@ import createUrl from '../../../common/utils/cloudinary-utils';
 
 const Slider = () => {
   const images = [
-    createUrl('Home.Banner.BookSale_bftebe', 1360, 530),
-    createUrl('banner2_jflr2l', 1360, 530),
-    createUrl('banner_ssca5z', 1360, 530),
+    createUrl('Home.Banner.BookSale_bftebe', 1360, 500),
+    createUrl('banner2_jflr2l', 1360, 500),
+    createUrl('banner_ssca5z', 1360, 500),
   ];
   return (
     <div className={classes.container}>
