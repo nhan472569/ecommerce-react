@@ -6,7 +6,7 @@ import ProfileButton from '../nav/ProfileButton';
 
 import classes from './Auth.module.css';
 
-const Auth = ({ onClickAction }) => {
+const Auth = ({ onClickAction = () => {} }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);

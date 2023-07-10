@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import classes from './SearchButton.module.css';
 
-const SearchButton = ({ onSearch }) => {
+const SearchButton = ({ onSearch = () => {} }) => {
   const searchInputRef = useRef();
   const navigate = useNavigate();
 

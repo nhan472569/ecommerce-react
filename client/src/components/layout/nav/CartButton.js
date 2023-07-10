@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classes from './CartButton.module.css';
 
-const CartButton = ({ onClick }) => {
+const CartButton = ({ onClick = () => {} }) => {
   const cart = useSelector(state => state.cart);
   const quantity = cart.items.reduce((acc, item) => acc + item.quantity, 0);
 
