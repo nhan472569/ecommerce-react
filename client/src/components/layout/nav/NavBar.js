@@ -86,7 +86,11 @@ const NavBar = () => {
           className={classes['burger-button']}
           onClick={() => setShowMenu(prev => !prev)}
         >
-          <FontAwesomeIcon icon={solid('bars')}></FontAwesomeIcon>
+          {showMenu ? (
+            <FontAwesomeIcon icon={solid('xmark')}></FontAwesomeIcon>
+          ) : (
+            <FontAwesomeIcon icon={solid('bars')}></FontAwesomeIcon>
+          )}
         </span>
       </header>
       <ul
