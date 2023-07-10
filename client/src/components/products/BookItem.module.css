@@ -13,19 +13,25 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 767.98px) {
+@media screen and (max-width: 56.25em) {
   .item {
     width: calc(50% - 6rem);
     margin: 3rem 3rem;
   }
 }
+@media screen and (max-width: 37.5em) {
+  .item {
+    width: calc(80% - 6rem);
+    margin: 3rem 3rem;
+  }
+}
 
-@media screen and (max-width: 374.98px) {
+/* @media screen and (max-width: 374.98px) {
   .item {
     width: calc(100% - 6rem);
     margin: 3rem 3rem;
   }
-}
+}  */
 
 .image {
   width: 100%;

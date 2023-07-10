@@ -41,7 +41,7 @@ const Cart = () => {
       {cart.items.length === 0 ? (
         emptyCart
       ) : (
-        <div className="container flex-between">
+        <div className={`container flex-between ${classes.container}`}>
           <div className={classes.cart}>
             <h2 className={classes.title}>Giỏ hàng</h2>
             {cart.items.map(item => (

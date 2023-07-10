@@ -28,6 +28,7 @@ const Paginator = ({ totalItems, itemPerPage, currentPage, paginate }) => {
     rangeWithDots.push(i);
     l = i;
   }
+
   return (
     <>
       {!!totalItems ? (

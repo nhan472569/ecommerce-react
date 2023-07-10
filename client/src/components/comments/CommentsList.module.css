@@ -1,10 +1,10 @@
 .box {
   width: 60%;
-  max-height: 50rem;
   overflow-y: auto;
   overflow-x: hidden;
   margin: 1rem 0 1rem 5rem;
   position: relative;
+  min-height: 30rem;
 }
 
 .title {
@@ -47,4 +47,11 @@
 }
 .icon-star {
   color: #1aa41b;
+}
+
+@media screen and (max-width: 37.5em) {
+  .box {
+    width: 100%;
+    margin-left: 0;
+  }
 }

@@ -6,18 +6,21 @@ import ProfileButton from '../nav/ProfileButton';
 
 import classes from './Auth.module.css';
 
-const Auth = () => {
+const Auth = ({ onClickAction }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
   const loginHandler = () => {
+    onClickAction();
     navigate('/login');
   };
   const signupHandler = () => {
+    onClickAction();
     navigate('/signup');
   };
   const logoutHandler = () => {
+    onClickAction();
     dispatch(authAction.logout());
   };
 

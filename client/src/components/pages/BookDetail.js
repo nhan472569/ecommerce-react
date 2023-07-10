@@ -96,18 +96,20 @@ const BookDetail = () => {
   const detailContent = (
     <>
       <div className={classes.image}>
-        {loadedBookDetail.imageCover && (
-          <AdvancedImage
-            cldImg={createUrl(
-              clickedImage && clickedImage !== 'cover'
-                ? loadedBookDetail.images[clickedImage - 1]
-                : loadedBookDetail.imageCover,
-              400,
-              600
-            )}
-            alt={loadedBookDetail.name}
-          />
-        )}
+        <div className={classes.cover}>
+          {loadedBookDetail.imageCover && (
+            <AdvancedImage
+              cldImg={createUrl(
+                clickedImage && clickedImage !== 'cover'
+                  ? loadedBookDetail.images[clickedImage - 1]
+                  : loadedBookDetail.imageCover,
+                400,
+                600
+              )}
+              alt={loadedBookDetail.name}
+            />
+          )}
+        </div>
 
         <div className={classes.images}>
           {loadedBookDetail.imageCover && (

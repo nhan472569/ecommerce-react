@@ -16,6 +16,7 @@ const Slider = () => {
     createUrl('banner2_jflr2l', 1360, 500),
     createUrl('banner_ssca5z', 1360, 500),
   ];
+
   return (
     <div className={classes.container}>
       <Swiper

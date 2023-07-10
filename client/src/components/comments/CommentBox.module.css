@@ -6,8 +6,13 @@
   position: relative;
   min-height: 20rem;
   display: flex;
+  height: fit-content;
 }
 
-.CommentForm {
-  width: 40%;
+@media screen and (max-width: 37.5em) {
+  .box {
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+  }
 }

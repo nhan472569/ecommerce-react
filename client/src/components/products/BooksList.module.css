@@ -6,12 +6,6 @@
   padding: 0 15rem;
 }
 
-@media screen and (max-width: 1023.98px) {
-  .container {
-    padding: 0 5rem;
-  }
-}
-
 .section {
   width: 100%;
   display: flex;
@@ -42,4 +36,20 @@
 
 .load svg {
   margin-left: 0.5rem;
+}
+
+@media screen and (max-width: 75em) {
+  .container {
+    padding: 0 5rem;
+  }
+
+  .section {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 37.5em) {
+  .container {
+    padding: 0 1rem;
+  }
 }

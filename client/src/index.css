@@ -6,6 +6,11 @@
   --color-white: #fff;
 
   --transition: all 0.2s ease;
+
+  --screen-phone: 37.5em; /* 600px */
+  --screen-tablet-port: 56.25em; /* 900px */
+  --screen-tablet-land: 75em; /* 1200px */
+  --screen-big-desktop: 112.5em; /* 1800px */
 }
 
 * {
@@ -26,6 +31,7 @@ a {
 html {
   font-size: 62.5%;
   height: 100%;
+  overflow-x: hidden;
 }
 
 body {

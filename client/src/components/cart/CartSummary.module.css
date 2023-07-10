@@ -132,3 +132,9 @@
 .continue:hover {
   background-color: var(--color-lightgray);
 }
+
+@media screen and (max-width: 56.25em) {
+  .bill {
+    width: 100%;
+  }
+}

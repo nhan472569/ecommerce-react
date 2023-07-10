@@ -1,7 +1,7 @@
 .container {
   padding: 0 4rem;
   margin: 15rem 0 0;
-  height: 50rem;
+  height: 35vw;
 }
 
 .swiper {
@@ -15,4 +15,10 @@
   background-size: contain;
   background-position: center;
   object-fit: cover;
+}
+
+@media screen and (max-width: 37.5em) {
+  .container {
+    padding: 0 2rem;
+  }
 }

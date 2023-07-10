@@ -144,3 +144,22 @@
 .input-error:focus-visible {
   outline-color: #fc6969;
 }
+
+@media screen and (max-width: 75em) {
+  .signup-card {
+    padding: 8rem 5rem;
+  }
+}
+
+@media screen and (max-width: 56.25em) {
+  .title {
+    font-size: 2.5rem;
+  }
+  .signup-card {
+    width: 100%;
+    padding: 5rem 3rem;
+  }
+  .thumbnail {
+    display: none;
+  }
+}

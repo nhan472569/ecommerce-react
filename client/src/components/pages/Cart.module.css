@@ -14,6 +14,7 @@
 
 /* Empty Cart */
 .title-empty {
+  display: block;
   text-align: center;
   font-size: 2.5rem;
   font-weight: 600;
@@ -36,7 +37,7 @@
   display: inline-block;
   width: 20rem;
   padding: 1rem;
-  border-radius: 10px;
+  border-radius: 100rem;
   transition: 0.25s ease;
 }
 
@@ -56,4 +57,38 @@
 }
 .btn.home:hover {
   background-color: var(--color-dark);
+}
+
+@media screen and (max-width: 56.25em) {
+  .container {
+    flex-direction: column;
+  }
+
+  .cart {
+    width: 100%;
+    margin-bottom: 2rem;
+    padding: 2rem;
+  }
+}
+@media screen and (max-width: 37.5em) {
+  .title-empty {
+    font-size: 2rem;
+  }
+  .empty-img img {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  .btn {
+    display: block;
+    width: 100%;
+  }
+
+  .btn.wishlist {
+    margin-bottom: 1rem;
+  }
+
+  .btn.home {
+    margin: 0;
+  }
 }

@@ -1,5 +1,5 @@
 .title {
-  color: #1c1d1f;
+  color: var(--color-darkest);
   font-size: 3rem;
   font-weight: 600;
   margin-bottom: 3rem;
@@ -152,4 +152,23 @@
 
 .input-error:focus-visible {
   outline-color: #fc6969;
+}
+
+@media screen and (max-width: 75em) {
+  .login-card {
+    padding: 8rem 5rem;
+  }
+}
+
+@media screen and (max-width: 56.25em) {
+  .title {
+    font-size: 2.5rem;
+  }
+  .login-card {
+    width: 100%;
+    padding: 5rem 3rem;
+  }
+  .thumbnail {
+    display: none;
+  }
 }
