@@ -98,19 +98,23 @@ const NavBar = () => {
           showMenu ? classes.active : undefined
         }`}
       >
-        <li>
-          {role !== 'admin' && (
-            <SearchButton onSearch={() => setShowMenu(false)} />
-          )}
-        </li>
-        <li>
-          <Auth onClickAction={() => setShowMenu(false)} />
-        </li>
-        <li>
-          {role !== 'admin' && (
-            <CartButton onClick={() => setShowMenu(false)} />
-          )}
-        </li>
+        {role === 'admin' ? (
+          <li>
+            <Auth onClickAction={() => setShowMenu(false)} />
+          </li>
+        ) : (
+          <>
+            <li>
+              <SearchButton onSearch={() => setShowMenu(false)} />
+            </li>
+            <li>
+              <Auth onClickAction={() => setShowMenu(false)} />
+            </li>
+            <li>
+              <CartButton onClick={() => setShowMenu(false)} />
+            </li>
+          </>
+        )}
       </ul>
     </>
   );

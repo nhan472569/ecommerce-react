@@ -136,24 +136,17 @@
 .actions.active {
   display: block;
 }
-.actions li {
+.actions > li {
   width: 80%;
   height: 8rem;
   border-bottom: 1px solid var(--color-lightgray);
   margin: auto;
-}
-.actions li:first-child {
-  margin-top: 10rem;
-}
-.actions li {
   position: relative;
 }
-.actions li::after {
-  content: '';
-  display: table;
-  clear: both;
+.actions > li:first-child {
+  margin-top: 10rem;
 }
-.actions li > * {
+.actions > li > *:not(div[class*='Auth']) {
   float: left !important;
 }
 

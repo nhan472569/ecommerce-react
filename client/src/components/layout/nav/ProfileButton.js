@@ -10,7 +10,7 @@ import { authAction } from '../../../store/auth-context';
 
 import classes from './ProfileButton.module.css';
 
-const ProfileButton = () => {
+const ProfileButton = ({ onClickAction }) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth.user);
   const navigate = useNavigate();
@@ -21,6 +21,7 @@ const ProfileButton = () => {
     }, [dispatch])
   );
   const logoutHandler = () => {
+    onClickAction();
     logout({ url: 'users/logout', method: 'get' });
   };
   return (
@@ -31,7 +32,7 @@ const ProfileButton = () => {
           alt={user.name}
         />
       </div>
-      <ul className={classes.feature}>
+      <ul className={classes.feature} onClick={onClickAction}>
         <div
           className={classes['info-section']}
           onClick={() => navigate('user/profile')}
@@ -49,14 +50,22 @@ const ProfileButton = () => {
         <hr className="seperator"></hr>
         <li className={classes.function}>
           {user.role === 'admin' ? (
-            <Link to="/admin/manage" className={classes['function-link']}>
+            <Link
+              to="/admin/manage"
+              className={classes['function-link']}
+              onClick={onClickAction}
+            >
               <span className={classes.icon}>
                 <FontAwesomeIcon icon={solid('chart-line')}></FontAwesomeIcon>
               </span>
               Quản lý
             </Link>
           ) : (
-            <Link to="/wishlist" className={classes['function-link']}>
+            <Link
+              to="/wishlist"
+              className={classes['function-link']}
+              onClick={onClickAction}
+            >
               <span className={classes.icon}>
                 <FontAwesomeIcon icon={solid('heart')}></FontAwesomeIcon>
               </span>

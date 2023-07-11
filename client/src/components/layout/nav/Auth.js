@@ -34,7 +34,7 @@ const Auth = ({ onClickAction = () => {} }) => {
       </button>
     </>
   ) : (
-    <ProfileButton onLogout={logoutHandler} />
+    <ProfileButton onLogout={logoutHandler} onClickAction={onClickAction} />
   );
   return <div className={classes.auth}>{authContent}</div>;
 };
