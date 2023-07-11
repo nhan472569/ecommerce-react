@@ -47,7 +47,7 @@ const SearchPage = () => {
   );
   const result =
     books.length > 0 ? (
-      <div className="d-flex flex-wrap">
+      <div className={classes.container}>
         {books.map(book => (
           <BookItem key={book._id} book={book} />
         ))}

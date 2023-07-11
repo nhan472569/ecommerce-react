@@ -7,3 +7,12 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+@media screen and (max-width: 37.5em) {
+  .title {
+    font-size: 2rem;
+  }
+  .wishlist {
+    justify-content: center;
+  }
+}

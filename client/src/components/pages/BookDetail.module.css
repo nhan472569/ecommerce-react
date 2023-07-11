@@ -228,6 +228,12 @@
   }
 }
 @media screen and (max-width: 37.5em) {
+  .title {
+    font-size: 2rem;
+  }
+  .price {
+    font-size: 1.6rem;
+  }
   .container {
     flex-direction: column;
     align-items: center;
@@ -241,5 +247,6 @@
   .content {
     width: 100%;
     margin-left: 0rem;
+    font-size: 1.6rem;
   }
 }

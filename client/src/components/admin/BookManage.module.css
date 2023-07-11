@@ -2,3 +2,9 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+@media screen and (max-width: 37.5em) {
+  .book-list {
+    justify-content: center;
+  }
+}

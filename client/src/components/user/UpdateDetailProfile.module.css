@@ -93,3 +93,28 @@
 .input-error:focus-visible {
   outline-color: #fc6969;
 }
+
+@media screen and (max-width: 56.25em) {
+  .cover {
+    height: 20rem;
+  }
+}
+@media screen and (max-width: 37.5em) {
+  .cover {
+    height: 15rem;
+  }
+
+  .cover ~ label {
+    width: 8rem !important;
+    height: 8rem !important;
+    left: 3rem !important;
+    bottom: -3rem !important;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+  .form-actions button:first-child {
+    margin-bottom: 1rem;
+  }
+}

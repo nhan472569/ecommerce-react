@@ -20,8 +20,9 @@
   border-radius: 1rem;
   cursor: pointer;
 }
-.active {
+.menu-item.active {
   background-color: rgba(238, 238, 238, 0.5);
+  font-weight: 500;
 }
 .menu-item:hover {
   background-color: var(--color-lightgray);
@@ -30,4 +31,39 @@
   width: 75%;
   padding: 0 4rem;
   border-left: 1px solid var(--color-lightgray);
+}
+
+@media screen and (max-width: 75em) {
+  .profile {
+    padding: 4rem 2rem;
+  }
+
+  .profile {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .right-menu,
+  .main-section {
+    width: 100%;
+    padding: 0;
+  }
+
+  .menu-item {
+    margin: 0;
+    border-bottom: 1px solid var(--color-lightgray);
+    border-radius: 0;
+  }
+
+  .menu-item:first-child {
+    border-radius: 1rem 1rem 0 0;
+  }
+  .menu-item:last-child {
+    border-radius: 0 0 1rem 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .main-section {
+    border-left: initial;
+  }
 }

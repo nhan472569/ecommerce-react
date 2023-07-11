@@ -17,3 +17,16 @@
   width: 50%;
   margin: 0 auto;
 }
+
+@media screen and (max-width: 37.5em) {
+  div[class*='FormControl'] {
+    flex-direction: column;
+    align-items: baseline;
+  }
+
+  div[class*='FormControl'] input,
+  div[class*='FormControl'] textarea {
+    width: 100%;
+    margin: 0.5rem 0 0;
+  }
+}
