@@ -42,4 +42,12 @@
     bottom: 2rem;
     right: 3rem;
   }
+
+  .btn:hover {
+    bottom: 3rem;
+  }
+
+  .btn:active {
+    bottom: 2.5rem;
+  }
 }
