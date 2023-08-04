@@ -6,6 +6,8 @@ import Paginator from '../UI/Paginator';
 import SearchFrom from '../UI/SearchForm';
 import EditBook from './EditBook';
 import Button from '../UI/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const BookManage = () => {
   const [books, setBooks] = useState([]);
@@ -107,15 +109,18 @@ const BookManage = () => {
     <>
       <div className="d-flex flex-between">
         <SearchFrom ref={searchInputRef} search={search} />
-        <Button
-          mode="secondary"
-          onClick={() => {
-            setIsEdit(true);
-            setAddNew(true);
-          }}
-        >
-          Thêm sách
-        </Button>
+        {!isEdit && (
+          <Button
+            mode="secondary"
+            onClick={() => {
+              setIsEdit(true);
+              setAddNew(true);
+            }}
+          >
+            Thêm sách
+            <FontAwesomeIcon icon={solid('plus')} className={classes.icon} />
+          </Button>
+        )}
       </div>
       {content}
     </>
