@@ -1,6 +1,7 @@
 const APIFeatures = require('./../utils/apiFeatures');
 const AppError = require('./../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
+const cloud = require('../utils/cloudinary');
 
 module.exports.getAll = Model =>
   catchAsync(async (req, res, next) => {
@@ -72,13 +73,19 @@ module.exports.updateOne = Model =>
     });
   });
 
-module.exports.deleteOne = Model =>
+module.exports.deleteOne = (Model, hasImage = false) =>
   catchAsync(async (req, res, next) => {
     const { id } = req.params;
     const doc = await Model.findByIdAndDelete(id);
 
     if (!doc) return next(new AppError('No document found with that ID', 404));
-
+    if (hasImage) {
+      try {
+        await cloud.deleteImage(doc.imageCover);
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
     res.status(204).json({
       status: 'success',
       data: null,

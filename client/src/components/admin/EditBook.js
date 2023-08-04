@@ -21,7 +21,7 @@ const UpdateInfoSchema = Yup.object().shape({
 
 const imageKeys = ['image1', 'image2', 'image3'];
 
-const EditBook = ({ id, onClick }) => {
+const EditBook = ({ id, addNew, onClose }) => {
   const [book, setBook] = useState({
     _id: '',
     name: '',
@@ -53,17 +53,52 @@ const EditBook = ({ id, onClick }) => {
     },
     [dispatch]
   );
+  const handleCreateBookRequest = useCallback(
+    data => {
+      dispatch(
+        notificationAction.push(
+          new NotificationModel('success', 'Thêm sách mới thành công').toJSON()
+        )
+      );
+      onClose();
+    },
+    [dispatch, onClose]
+  );
+  const handleDeleteBookRequest = useCallback(
+    data => {
+      dispatch(
+        notificationAction.push(
+          new NotificationModel('success', 'Xoá sách thành công').toJSON()
+        )
+      );
+      onClose();
+    },
+    [dispatch, onClose]
+  );
 
   const {
     isLoading: isGettingBook,
     sendRequest: getBook,
     error: getBookError,
   } = useHttp(setBookDetail);
+
   const {
     isLoading,
     sendRequest: updateBook,
     error: updateBookError,
   } = useHttp(updateBookDetail);
+
+  const {
+    isLoading: isCreating,
+    sendRequest: createBook,
+    error: createBookError,
+  } = useHttp(handleCreateBookRequest);
+
+  const {
+    isLoading: isDeleting,
+    sendRequest: deleteBook,
+    error: deleteBookError,
+  } = useHttp(handleDeleteBookRequest);
 
   useEffect(() => {
     getBook({ url: `books/${id}` });
@@ -99,6 +134,14 @@ const EditBook = ({ id, onClick }) => {
     }
     //* End images process
 
+    if (addNew) {
+      await createBook({
+        url: 'books',
+        method: 'post',
+        body: formData,
+      });
+      return;
+    }
     await updateBook({
       url: 'books/' + book._id,
       method: 'patch',
@@ -107,7 +150,13 @@ const EditBook = ({ id, onClick }) => {
   };
 
   useEffect(() => {
-    const messages = [getBookError, updateBookError].filter(Boolean);
+    const messages = [
+      getBookError,
+      updateBookError,
+      createBookError,
+      deleteBookError,
+    ].filter(Boolean);
+
     if (messages.length > 0) {
       dispatch(
         notificationAction.push(
@@ -117,7 +166,24 @@ const EditBook = ({ id, onClick }) => {
         )
       );
     }
-  }, [getBookError, updateBookError, dispatch]);
+  }, [
+    getBookError,
+    updateBookError,
+    createBookError,
+    deleteBookError,
+    dispatch,
+  ]);
+
+  const deleteBookHandler = () => {
+    const wannaDeleteBook = window.confirm(
+      'Are you sure you want to delete this book?'
+    );
+    wannaDeleteBook &&
+      deleteBook({
+        url: 'books/' + book._id,
+        method: 'delete',
+      });
+  };
 
   return (
     <div className={classes.containter}>
@@ -187,15 +253,24 @@ const EditBook = ({ id, onClick }) => {
                 Mô tả
               </FormControl>
               <div className={classes.actions}>
-                <Button mode="secondary" type="button" onClick={onClick}>
+                {!addNew && (
+                  <Button
+                    mode="secondary"
+                    type="button"
+                    onClick={deleteBookHandler}
+                  >
+                    Xoá sách
+                  </Button>
+                )}
+                <Button mode="secondary" type="button" onClick={onClose}>
                   Quay về
                 </Button>
                 <Button
                   mode="primary"
                   type="submit"
-                  disabled={!dirty || isLoading}
+                  disabled={!dirty || isLoading || isCreating || isDeleting}
                 >
-                  {isLoading ? (
+                  {isLoading || isCreating || isDeleting ? (
                     <LoadingSpinner
                       color="var(--color-white)"
                       borderSize="3px"

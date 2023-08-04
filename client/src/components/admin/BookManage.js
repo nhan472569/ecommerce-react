@@ -5,6 +5,7 @@ import BookItem from '../products/BookItem';
 import Paginator from '../UI/Paginator';
 import SearchFrom from '../UI/SearchForm';
 import EditBook from './EditBook';
+import Button from '../UI/Button';
 
 const BookManage = () => {
   const [books, setBooks] = useState([]);
@@ -12,6 +13,7 @@ const BookManage = () => {
   const [totalBooks, setTotalBooks] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [isEdit, setIsEdit] = useState(false);
+  const [addNew, setAddNew] = useState(false);
   const searchInputRef = useRef();
 
   let content = null;
@@ -58,15 +60,18 @@ const BookManage = () => {
     getBooks({ url: `books/?page=${page}` });
   };
 
+  const resetBookStates = () => {
+    setIsEdit(false);
+    setCurrentBookId('');
+    setCurrentPage(1);
+    setAddNew(false);
+    getBooks({ url: 'books' });
+    getTotals({ url: 'books/count' });
+  };
+
   if (isEdit) {
     content = (
-      <EditBook
-        id={currentBookId}
-        onClick={() => {
-          setIsEdit(false);
-          setCurrentBookId('');
-        }}
-      />
+      <EditBook id={currentBookId} onClose={resetBookStates} addNew={addNew} />
     );
   } else {
     content = (
@@ -100,7 +105,18 @@ const BookManage = () => {
 
   return (
     <>
-      <SearchFrom ref={searchInputRef} search={search} />
+      <div className="d-flex flex-between">
+        <SearchFrom ref={searchInputRef} search={search} />
+        <Button
+          mode="secondary"
+          onClick={() => {
+            setIsEdit(true);
+            setAddNew(true);
+          }}
+        >
+          Thêm sách
+        </Button>
+      </div>
       {content}
     </>
   );

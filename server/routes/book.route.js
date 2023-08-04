@@ -15,6 +15,8 @@ router
   .post(
     authController.protect,
     authController.restrictTo('admin'),
+    bookController.uploadImages,
+    bookController.updateCloudImages,
     bookController.createBook
   );
 

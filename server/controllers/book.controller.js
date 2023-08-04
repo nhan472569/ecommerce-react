@@ -36,7 +36,11 @@ exports.updateCloudImages = catchAsync(async (req, res, next) => {
 
   const book = await Book.findById(req.params.id);
   if (req.files.imageCover) {
-    await cloud.deleteImage(book.imageCover);
+    try {
+      await cloud.deleteImage(book.imageCover);
+    } catch (err) {
+      console.log(err.message);
+    }
     req.body.imageCover = `book-${req.params.id}-${Date.now()}-cover`;
     await cloud.upload(req.files.imageCover[0].buffer, req.body.imageCover);
     // await sharp(req.files.imageCover[0].buffer)
@@ -71,7 +75,7 @@ exports.getTotals = factory.getTotals(Book);
 exports.getBook = factory.getOne(Book);
 exports.createBook = factory.createOne(Book);
 exports.updateBook = factory.updateOne(Book);
-exports.deleteBook = factory.deleteOne(Book);
+exports.deleteBook = factory.deleteOne(Book, true);
 exports.getBookBySlug = catchAsync(async (req, res, next) => {
   const { slug } = req.params;
   const book = await Book.findOne({ slug });

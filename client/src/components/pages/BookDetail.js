@@ -17,7 +17,6 @@ import createUrl from '../../common/utils/cloudinary-utils';
 const BookDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [isInvalid, setIsInvalid] = useState(false);
-  const [clickedImage, setClickedImage] = useState(null);
   const [loadedBookDetail, setLoadedBookDetail] = useState({
     _id: '',
     imageCover: '',
@@ -99,13 +98,7 @@ const BookDetail = () => {
         <div className={classes.cover}>
           {loadedBookDetail.imageCover && (
             <AdvancedImage
-              cldImg={createUrl(
-                clickedImage && clickedImage !== 'cover'
-                  ? loadedBookDetail.images[clickedImage - 1]
-                  : loadedBookDetail.imageCover,
-                400,
-                600
-              )}
+              cldImg={createUrl(loadedBookDetail.imageCover, 400, 600)}
               alt={loadedBookDetail.name}
             />
           )}
