@@ -6,7 +6,6 @@ import LoadingSpinner from '../UI/LoadingSpinner';
 import useHttp from '../../hooks/use-http';
 import FormControl from '../UI/FormControl';
 import Button from '../UI/Button';
-import environment from '../../environment';
 import ImageEdit from '../UI/ImageEdit';
 import SkeletonLoading from '../UI/loading/SkeletonLoading';
 import { notificationAction } from '../../store/notification-context';
@@ -155,46 +154,6 @@ const EditBook = ({ id, onClick }) => {
                   setFieldValue('imageCover', event.currentTarget.files[0]);
                 }}
               />
-              <div className={classes.images}>
-                <ImageEdit
-                  alt={book.name}
-                  filename={book.images[0]}
-                  for="image1"
-                  width={200}
-                  height={300}
-                  onChange={event => {
-                    event.currentTarget.files[0].order = 1;
-                    setFieldValue('image1', event.currentTarget.files[0]);
-                  }}
-                  size="small"
-                />
-                <ImageEdit
-                  alt={book.name}
-                  path={environment.DOMAIN + '/img/books/'}
-                  image={book.images[1]}
-                  for="image2"
-                  width={200}
-                  height={300}
-                  onChange={event => {
-                    event.currentTarget.files[0].order = 2;
-                    setFieldValue('image2', event.currentTarget.files[0]);
-                  }}
-                  size="small"
-                />
-                <ImageEdit
-                  alt={book.name}
-                  path={environment.DOMAIN + '/img/books/'}
-                  image={book.images[2]}
-                  for="image3"
-                  width={200}
-                  height={300}
-                  onChange={event => {
-                    event.currentTarget.files[0].order = 3;
-                    setFieldValue('image3', event.currentTarget.files[0]);
-                  }}
-                  size="small"
-                />
-              </div>
               <FormControl
                 type="text"
                 name="name"

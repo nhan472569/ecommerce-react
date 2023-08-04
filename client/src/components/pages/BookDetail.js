@@ -110,32 +110,6 @@ const BookDetail = () => {
             />
           )}
         </div>
-
-        <div className={classes.images}>
-          {loadedBookDetail.imageCover && (
-            <AdvancedImage
-              cldImg={createUrl(loadedBookDetail.imageCover, 120, 180)}
-              alt={loadedBookDetail.name}
-              className={clickedImage === 'cover' ? classes['img-active'] : ''}
-              onClick={() => {
-                setClickedImage('cover');
-              }}
-            />
-          )}
-
-          {!!loadedBookDetail.images.length &&
-            loadedBookDetail.images.map((image, i) => (
-              <AdvancedImage
-                key={i}
-                cldImg={createUrl(image, 40, 60)}
-                alt={loadedBookDetail.name}
-                className={i + 1 === clickedImage ? classes['img-active'] : ''}
-                onClick={() => {
-                  setClickedImage(i + 1);
-                }}
-              />
-            ))}
-        </div>
       </div>
       <div className={classes.content}>
         {/* <div className={classes.author}>
