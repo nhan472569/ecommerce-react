@@ -2,8 +2,27 @@ import { useState, useCallback } from 'react';
 import axios from 'axios';
 import environment from '../environment';
 
+function getCookie(cname) {
+  let name = cname + '=';
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) === 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return '';
+}
+
 const axiosInstance = axios.create({
   withCredentials: true,
+  headers: {
+    Authorization: 'Bearer ' + getCookie('jwt'),
+  }
 });
 
 const useHttp = applyData => {
@@ -18,7 +37,7 @@ const useHttp = applyData => {
         const response = await axiosInstance[
           `${requestConfig.method || 'get'}`
         ](
-          `/api/${environment.VERSION}/${requestConfig.url}`,
+          `${environment.SERVICE_URL}${environment.VERSION}/${requestConfig.url}`,
           requestConfig?.body
         );
         if (

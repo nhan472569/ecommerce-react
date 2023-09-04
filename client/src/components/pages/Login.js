@@ -31,6 +31,12 @@ const Login = () => {
     useCallback(
       data => {
         dispatch(authAction.login(data.data.data));
+
+        // Set authorization header
+        let d = new Date();
+        d.setTime(d.getTime() + 90 * 24 * 60 * 60 * 1000); // 90 days
+        let expires = 'expires=' + d.toUTCString();
+        document.cookie = `jwt=${data.token};secure;${expires};path=/`;
       },
       [dispatch]
     )

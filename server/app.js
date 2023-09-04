@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/error.controller');
@@ -19,11 +20,10 @@ const slugRouter = require('./routes/slug.route');
 const favorRouter = require('./routes/favor.route');
 
 const app = express();
-// app.use(cors());
-// cors({
-//   origin: process.env.CORS_DOMAIN,
-//   credentials: true,
-// })
+app.use(cors({
+  origin: process.env.CORS_DOMAIN,
+  credentials: true,
+}));
 
 // Add some security headers
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
