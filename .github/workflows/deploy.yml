@@ -6,9 +6,9 @@ on:
 
 jobs:
   push-and-deploy:
-    # runs-on: ubuntu-latest
-    # steps:
-    #   - uses: actions/checkout@v3
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
     #   - name: Login to docker hub
     #     run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
     #   - name: Build client image

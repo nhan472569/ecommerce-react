@@ -4,7 +4,7 @@ const environment = {
   CLOUD_FOLDER: 'bookstore',
   CLOUD_NAME: 'nhan472569',
   // SERVICE_URL: 'http://localhost:4000/api/'
-  SERVICE_URL: 'https://bookstore-node-api.vercel.app/'
+  SERVICE_URL: 'https://bookstore-node-api.vercel.app/api/'
 };
 
 export default environment;
