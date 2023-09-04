@@ -37,7 +37,7 @@ const useHttp = applyData => {
         const response = await axiosInstance[
           `${requestConfig.method || 'get'}`
         ](
-          `${environment.SERVICE_URL }${environment.VERSION}/${requestConfig.url}`,
+          `${process.env.REACT_APP_SERVICE_URL || environment.SERVICE_URL}${environment.VERSION}/${requestConfig.url}`,
           requestConfig?.body
         );
         if (
