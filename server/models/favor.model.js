@@ -33,5 +33,5 @@ favorSchema.pre(/^find/, function (next) {
   next();
 });
 
-const favor = mongoose.model('Favor', favorSchema);
-module.exports = favor;
+const Favor = mongoose.model('Favor', favorSchema);
+module.exports = Favor;

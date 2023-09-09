@@ -9,8 +9,6 @@
 }
 
 .modal {
-  width: 50rem;
-  height: 70vh;
   background-color: var(--color-white);
   border-radius: 1rem;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;

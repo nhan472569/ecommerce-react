@@ -53,6 +53,12 @@ function UserManage() {
     getUsers({ url: `users/?page=${page}` });
   };
 
+  const filterUser = () => {
+    getUsers({ url: 'users' });
+    getTotals({ url: 'users/count' });
+    setCurrentPage(1);
+  };
+
   return (
     <>
       <SearchFrom search={search} ref={searchInputRef} />
@@ -61,7 +67,13 @@ function UserManage() {
           ? Array(4)
               .fill(0)
               .map((_, i) => <UserItem.Loading key={i} />)
-          : users.map(user => <UserItem key={user._id} user={user} />)}
+          : users.map(user => (
+              <UserItem
+                key={user._id}
+                user={user}
+                onDoUserAction={filterUser}
+              />
+            ))}
       </section>
       <Paginator
         totalItems={totalUsers}

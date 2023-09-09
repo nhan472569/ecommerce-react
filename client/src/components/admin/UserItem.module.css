@@ -5,9 +5,9 @@
   flex-wrap: wrap;
   padding: 2rem 1rem;
   border-bottom: 1px solid var(--color-lightgray);
-  cursor: pointer;
   border-radius: 1rem;
   transition: var(--transition);
+  position: relative;
 }
 
 .item:hover {
@@ -38,6 +38,37 @@
   font-weight: 500;
 }
 
-.role {
+.content {
   font-size: 1.2rem;
+}
+
+.content:not(:last-child) {
+  margin-bottom: 0.3rem;
+}
+
+.actions {
+  font-size: 1.4rem;
+  color: var(--color-dark);
+  position: absolute;
+  right: 1.5rem;
+  top: 2rem;
+}
+
+.actions > span {
+  cursor: pointer;
+}
+
+.actions > span:not(:last-child) {
+  margin-right: 1.5rem;
+}
+
+.modifyForm {
+  width: 50rem;
+}
+
+.modifyForm button {
+  margin: 2rem;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }

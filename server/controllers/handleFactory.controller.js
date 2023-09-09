@@ -2,6 +2,8 @@ const APIFeatures = require('./../utils/apiFeatures');
 const AppError = require('./../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
 const cloud = require('../utils/cloudinary');
+const Review = require('../models/review.model');
+const Favor = require('../models/favor.model');
 
 module.exports.getAll = Model =>
   catchAsync(async (req, res, next) => {
@@ -73,18 +75,22 @@ module.exports.updateOne = Model =>
     });
   });
 
-module.exports.deleteOne = (Model, hasImage = false) =>
+module.exports.deleteOne = Model =>
   catchAsync(async (req, res, next) => {
     const { id } = req.params;
     const doc = await Model.findByIdAndDelete(id);
 
     if (!doc) return next(new AppError('No document found with that ID', 404));
-    if (hasImage) {
+    if ((doc.photo && doc.photo !== 'avt-default.jpeg') || doc.imageCover) {
       try {
-        await cloud.deleteImage(doc.imageCover);
+        await cloud.deleteImage(doc.photo || doc.imageCover);
       } catch (err) {
         console.log(err.message);
       }
+    }
+    if (Model.prototype.collection.modelName === 'User') {
+      await Review.deleteMany({ user: doc.id });
+      await Favor.deleteMany({ user: doc.id });
     }
     res.status(204).json({
       status: 'success',

@@ -1,7 +1,15 @@
 import classes from './FormControl.module.css';
 import { Field } from 'formik';
 
-const FormControl = ({ type, name, errors, touched, children, as }) => {
+const FormControl = ({
+  type,
+  name,
+  errors,
+  touched,
+  children,
+  as,
+  fieldChildren,
+}) => {
   return (
     <>
       <div className={classes['form-control']}>
@@ -16,7 +24,9 @@ const FormControl = ({ type, name, errors, touched, children, as }) => {
           className={`${classes.input} ${
             errors[name] && touched[name] ? classes['input-error'] : ''
           }`}
-        />
+        >
+          {fieldChildren}
+        </Field>
       </div>
       {errors[name] && touched[name] ? (
         <div className={classes.error}>{errors[name]}</div>

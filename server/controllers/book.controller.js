@@ -75,7 +75,7 @@ exports.getTotals = factory.getTotals(Book);
 exports.getBook = factory.getOne(Book);
 exports.createBook = factory.createOne(Book);
 exports.updateBook = factory.updateOne(Book);
-exports.deleteBook = factory.deleteOne(Book, true);
+exports.deleteBook = factory.deleteOne(Book);
 exports.getBookBySlug = catchAsync(async (req, res, next) => {
   const { slug } = req.params;
   const book = await Book.findOne({ slug });

@@ -21,6 +21,7 @@ textarea.input {
   outline-color: var(--color-gray);
 }
 .label {
+  width: 25%;
   font-weight: 500;
 }
 .error {
