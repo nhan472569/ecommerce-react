@@ -10,7 +10,7 @@ const Cart = () => {
   const cart = useSelector(state => state.cart);
 
   const subtotal = cart.items.reduce(
-    (acc, item) => acc + item.price * item.quantity,
+    (acc, item) => acc + item.book.price * item.quantity,
     0
   );
   useEffect(
@@ -47,12 +47,13 @@ const Cart = () => {
             {cart.items.map(item => (
               <CartItem
                 key={item._id}
-                productId={item._id}
-                name={item.name}
-                price={item.price}
+                cartItemId={item._id}
+                productId={item.book._id}
+                name={item.book.name}
+                price={item.book.price}
                 quantity={item.quantity}
-                imageCover={item.imageCover}
-                slug={item.slug}
+                imageCover={item.book.imageCover}
+                slug={item.book.slug}
               />
             ))}
           </div>

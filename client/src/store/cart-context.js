@@ -7,52 +7,28 @@ const cartSlice = createSlice({
     total: 0,
   },
   reducers: {
-    addItem(state, action) {
-      const { _id, name, price, quantity, imageCover, slug } = action.payload;
-      const item = state.items.find(item => item._id === _id);
-      if (item) {
-        item.quantity += quantity;
-      } else {
-        state.items.push({
-          _id,
-          name,
-          price,
-          imageCover,
-          quantity,
-          slug,
-        });
-      }
-      state.total += price * quantity;
+    putItems(state, { payload: cartData }) {
+      state.items = cartData.data;
+      state.total = cartData.totalAmount;
     },
-    decreaseQuantity(state, action) {
-      const { _id } = action.payload;
-      const item = state.items.find(item => item._id === _id);
-      if (item) {
-        item.quantity -= 1;
-        if (item.quantity <= 0) {
-          state.items = state.items.filter(item => item._id !== _id);
-        }
-        state.total -= item.price;
+    addItem(state, { payload: cartItem }) {
+      state.items.push(cartItem);
+      state.total += cartItem.book.price * cartItem.quantity;
+    },
+    updateQuantity(state, { payload: cartItem }) {
+      const index = state.items.findIndex(item => item._id === cartItem._id);
+      if (index >= 0) {
+        state.items[index] = cartItem;
+        state.total = state.items.reduce((total, current) => {
+          return total + current.book.price * current.quantity;
+        }, 0);
       }
     },
-    increaseQuantity(state, action) {
-      const { _id } = action.payload;
-      const item = state.items.find(item => item._id === _id);
-      if (item) {
-        item.quantity += 1;
-        if (item.quantity <= 0) {
-          state.items = state.items.filter(item => item._id !== _id);
-        }
-        state.total += item.price;
-      }
-    },
-    deleteItem(state, action) {
-      const { _id } = action.payload;
-      state.items = state.items.filter(item => item._id !== _id);
-      state.total = state.items.reduce(
-        (acc, item) => acc + item.price * item.quantity,
-        0
-      );
+    deleteItem(state, { payload: cartItemId }) {
+      state.items = state.items.filter(item => item._id !== cartItemId);
+      state.total = state.items.reduce((total, current) => {
+        return total + current.book.price * current.quantity;
+      }, 0);
     },
   },
 });

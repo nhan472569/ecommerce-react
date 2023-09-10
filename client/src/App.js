@@ -16,6 +16,7 @@ import NavBar from './components/layout/nav/NavBar';
 import ScrollToTop from './components/UI/ScrollToTop';
 import Footer from './components/layout/footer/Footer';
 import Notification from './components/UI/Notification';
+import useCart from './hooks/use-cart';
 
 const ForgotPassword = React.lazy(() =>
   import('./components/pages/ForgotPassword')
@@ -49,10 +50,12 @@ function App() {
   );
   //* API calls
   const { sendRequest: getUserInfo } = useHttp(handleUserInfo);
+  const { getCartItems } = useCart();
 
   useEffect(() => {
-    getUserInfo({ url: 'users/me', method: 'get' });
-  }, [getUserInfo]);
+    getUserInfo({ url: 'users/me' });
+    getCartItems();
+  }, [getUserInfo, getCartItems]);
 
   useEffect(() => {
     window.addEventListener('scroll', e => {

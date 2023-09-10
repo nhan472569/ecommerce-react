@@ -59,6 +59,13 @@ module.exports.createOne = Model =>
 
 module.exports.updateOne = Model =>
   catchAsync(async (req, res, next) => {
+    if (
+      Model.prototype.collection.modelName === 'CartItem' &&
+      req.body?.quantity === null
+    ) {
+      return next(new AppError('Invalid quantity', 400));
+    }
+
     const { id } = req.params;
     const doc = await Model.findByIdAndUpdate(id, req.body, {
       runValidators: true,

@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import classes from './BookItem.module.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { cartAction } from '../../store/cart-context';
 import RatingStars from '../UI/RatingStars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
@@ -10,9 +9,10 @@ import SkeletonLoading from '../UI/loading/SkeletonLoading';
 import { AdvancedImage } from '@cloudinary/react';
 import createUrl from '../../common/utils/cloudinary-utils';
 import useHttp from '../../hooks/use-http';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { notificationAction } from '../../store/notification-context';
 import NotificationModel from '../../models/NotificationModel';
+import useCart from '../../hooks/use-cart';
 
 const BookItem = ({
   book,
@@ -23,7 +23,7 @@ const BookItem = ({
 }) => {
   const [saved, setSaved] = useState(false);
   const {
-    _id,
+    _id: bookId,
     name,
     ratingsAverage,
     ratingsQuantity,
@@ -35,13 +35,8 @@ const BookItem = ({
   const { role } = useSelector(state => state.auth.user);
 
   const dispatch = useDispatch();
-  const setWishlistHandler = useCallback(() => {}, []);
-  const { sendRequest: addToWishlist, error } = useHttp(setWishlistHandler);
-
-  const addToCart = e => {
-    e.preventDefault();
-    dispatch(cartAction.addItem({ ...book, quantity: 1 }));
-  };
+  const { sendRequest: addToWishlist, error } = useHttp();
+  const { createCartItem } = useCart();
 
   useEffect(() => {
     if (error)
@@ -72,7 +67,7 @@ const BookItem = ({
                 }
                 setSaved(true);
                 return addToWishlist({
-                  url: `books/${_id}/favors/`,
+                  url: `books/${bookId}/favors/`,
                   method: 'post',
                 });
               }}
@@ -105,7 +100,10 @@ const BookItem = ({
             ratingCount={ratingsQuantity}
           />
           {!isManaged && role !== 'admin' && (
-            <button className={classes['add-to-cart']} onClick={addToCart}>
+            <button
+              className={classes['add-to-cart']}
+              onClick={() => createCartItem(bookId)}
+            >
               Thêm vào giỏ
             </button>
           )}

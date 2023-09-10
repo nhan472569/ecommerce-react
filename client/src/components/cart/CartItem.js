@@ -1,23 +1,23 @@
-import { useDispatch } from 'react-redux';
-import { cartAction } from '../../store/cart-context';
-
 import classes from './CartItem.module.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { AdvancedImage } from '@cloudinary/react';
 import createUrl from '../../common/utils/cloudinary-utils';
+import useCart from '../../hooks/use-cart';
 
-const CartItem = props => {
-  const { productId, name, price, quantity, imageCover, slug } = props;
-
-  const dispatch = useDispatch();
+const CartItem = ({
+  cartItemId,
+  productId,
+  name,
+  price,
+  quantity,
+  imageCover,
+  slug,
+}) => {
+  const { updateCartItem, deleleCartItem } = useCart();
   const deleteItem = () => {
-    if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
-      dispatch(cartAction.deleteItem({ _id: productId }));
-    } else {
-      return;
-    }
+    deleleCartItem(cartItemId);
   };
 
   const decreaseQuantity = () => {
@@ -25,11 +25,11 @@ const CartItem = props => {
       deleteItem();
       return;
     }
-    dispatch(cartAction.decreaseQuantity({ _id: productId }));
+    updateCartItem(cartItemId, quantity - 1);
   };
 
   const increaseQuantity = () => {
-    dispatch(cartAction.increaseQuantity({ _id: productId }));
+    updateCartItem(cartItemId, quantity + 1);
   };
 
   return (

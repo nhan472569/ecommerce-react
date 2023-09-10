@@ -18,12 +18,15 @@ const authorRouter = require('./routes/author.route');
 const reviewRouter = require('./routes/review.route');
 const slugRouter = require('./routes/slug.route');
 const favorRouter = require('./routes/favor.route');
+const cartRouter = require('./routes/cart.route');
 
 const app = express();
-app.use(cors({
-  origin: process.env.CORS_DOMAIN,
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: process.env.CORS_DOMAIN,
+    credentials: true,
+  })
+);
 
 // Add some security headers
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
@@ -61,6 +64,7 @@ app.use('/api/v1/authors', authorRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/slug', slugRouter);
 app.use('/api/v1/favors', favorRouter);
+app.use('/api/v1/cart', cartRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can not find ${req.originalUrl} on this server.`, 404));

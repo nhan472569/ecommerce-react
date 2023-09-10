@@ -1,46 +1,36 @@
 const mongoose = require('mongoose');
 const Book = require('./book.model');
 
-const reviewSchema = new mongoose.Schema(
-  {
-    review: {
-      type: String,
-      required: [true, 'Review can not be empty!'],
-    },
-    rating: {
-      type: Number,
-      min: 1,
-      max: 5,
-      required: [true, 'Review must have a star rating'],
-    },
-    createAt: {
-      type: Date,
-      default: Date.now,
-    },
-    book: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Book',
-      required: [true, 'Review must belong to a book.'],
-    },
-    user: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'User',
-      required: [true, 'Review must belong to a user.'],
-    },
+const reviewSchema = new mongoose.Schema({
+  review: {
+    type: String,
+    required: [true, 'Review can not be empty!'],
   },
-  {
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
-  }
-);
+  rating: {
+    type: Number,
+    min: 1,
+    max: 5,
+    required: [true, 'Review must have a star rating'],
+  },
+  createAt: {
+    type: Date,
+    default: Date.now,
+  },
+  book: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Book',
+    required: [true, 'Review must belong to a book.'],
+  },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: [true, 'Review must belong to a user.'],
+  },
+});
 reviewSchema.index({ book: 1, user: 1 }, { unique: true });
 
 //MIDDLEWARE
 reviewSchema.pre(/^find/, function (next) {
-  // this.populate({ path: 'book', select: 'name' }).populate({
-  //   path: 'user',
-  //   select: 'name photo'
-  // });
   this.populate({
     path: 'user',
     select: 'name photo',

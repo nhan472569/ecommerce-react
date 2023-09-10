@@ -22,7 +22,7 @@ const axiosInstance = axios.create({
   withCredentials: true,
   headers: {
     Authorization: 'Bearer ' + getCookie('jwt'),
-  }
+  },
 });
 
 const useHttp = applyData => {
@@ -37,7 +37,9 @@ const useHttp = applyData => {
         const response = await axiosInstance[
           `${requestConfig.method || 'get'}`
         ](
-          `${process.env.REACT_APP_SERVICE_URL || environment.SERVICE_URL}${environment.VERSION}/${requestConfig.url}`,
+          `${process.env.REACT_APP_SERVICE_URL || environment.SERVICE_URL}${
+            environment.VERSION
+          }/${requestConfig.url}`,
           requestConfig?.body
         );
         if (
@@ -46,7 +48,7 @@ const useHttp = applyData => {
         ) {
           const data = response.data;
           // console.log(data);
-          applyData(data);
+          applyData(data, response.status);
         } else {
           setError(response?.data?.message || 'Fail to send request!');
         }

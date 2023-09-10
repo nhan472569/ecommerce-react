@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { cartAction } from '../../store/cart-context';
 import CommentBox from '../comments/CommentBox';
 import classes from './BookDetail.module.css';
 import useHttp from '../../hooks/use-http';
@@ -13,6 +12,7 @@ import { notificationAction } from '../../store/notification-context';
 import NotificationModel from '../../models/NotificationModel';
 import { AdvancedImage } from '@cloudinary/react';
 import createUrl from '../../common/utils/cloudinary-utils';
+import useCart from '../../hooks/use-cart';
 
 const BookDetail = () => {
   const [quantity, setQuantity] = useState(1);
@@ -44,6 +44,8 @@ const BookDetail = () => {
     sendRequest: getBookDetail,
     error,
   } = useHttp(handleBookDetail);
+
+  const { createCartItem } = useCart();
 
   useEffect(() => {
     document.title = `${loadedBookDetail.name} | ${environment.HEAD_TITLE}`;
@@ -85,7 +87,7 @@ const BookDetail = () => {
 
   const addToCartHandler = e => {
     e.preventDefault();
-    dispatch(cartAction.addItem({ ...loadedBookDetail, quantity }));
+    createCartItem(loadedBookDetail._id, quantity);
   };
 
   const splitParagragh = description => {
