@@ -22,7 +22,6 @@ router.patch(
   userController.updateMe
 );
 router.delete('/deleteMe', userController.deleteMe);
-router.post(userController.updateUser);
 
 // Admin section
 router.use(authController.restrictTo('admin'));
