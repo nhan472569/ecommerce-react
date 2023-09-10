@@ -28,9 +28,7 @@ process.on('unhandledRejection', err => {
   console.log(err.name, err.message);
   console.log('UNHANDLED REJECTION. Shutting down...');
 
-  server.close(() => {
-    process.exit(1);
-  });
+  server.closeAllConnections();
 });
 
 module.exports = server;
