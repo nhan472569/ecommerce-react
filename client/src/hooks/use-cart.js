@@ -45,14 +45,16 @@ const useCart = () => {
   }, [get]);
   const createCartItem = useCallback(
     (bookId, quantity = null) => {
+      const body = {
+        book: bookId,
+        userId,
+      };
+      if (quantity && quantity > 0) body.quantity = quantity;
+
       create({
         url: 'cart',
         method: 'post',
-        body: {
-          book: bookId,
-          userId,
-          quantity,
-        },
+        body,
       });
     },
     [create, userId]
