@@ -4,7 +4,7 @@ import classes from './BookItem.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import RatingStars from '../UI/RatingStars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import SkeletonLoading from '../UI/loading/SkeletonLoading';
 import { AdvancedImage } from '@cloudinary/react';
 import createUrl from '../../common/utils/cloudinary-utils';
@@ -72,10 +72,17 @@ const BookItem = ({
                 });
               }}
             >
-              <FontAwesomeIcon
-                icon={regular('heart')}
-                className={classes.icon}
-              ></FontAwesomeIcon>
+              {isOnWishlist || saved ? (
+                <FontAwesomeIcon
+                  icon={solid('heart')}
+                  className={classes.icon}
+                ></FontAwesomeIcon>
+              ) : (
+                <FontAwesomeIcon
+                  icon={regular('heart')}
+                  className={classes.icon}
+                ></FontAwesomeIcon>
+              )}
             </div>
           )}
         </div>
