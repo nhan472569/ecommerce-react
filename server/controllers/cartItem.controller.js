@@ -4,19 +4,19 @@ const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const factory = require('./handleFactory.controller');
 
-exports.getByUserId = catchAsync(async (req, res) => {
+exports.getByUserId = catchAsync(async (req, res, next) => {
   const { _id: userId } = req.user;
   const cartItems = await CartItem.find({ userId });
-  // const totalAmount = cartItems.reduce(
-  //   (total, item) => total + item.book.price * item.quantity,
-  //   0
-  // );
+  const totalAmount = cartItems.reduce(
+    (total, item) => total + item.book.price * item.quantity,
+    0
+  );
 
   return res.status(200).json({
     status: 'success',
     data: {
       data: cartItems,
-      // totalAmount,
+      totalAmount,
     },
   });
 });
