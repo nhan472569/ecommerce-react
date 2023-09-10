@@ -48,7 +48,7 @@ const useHttp = applyData => {
         ) {
           const data = response.data;
           // console.log(data);
-          applyData(data, response.status);
+          applyData?.(data, response.status);
         } else {
           setError(response?.data?.message || 'Fail to send request!');
         }
