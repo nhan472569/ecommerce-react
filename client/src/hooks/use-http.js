@@ -18,19 +18,19 @@ function getCookie(cname) {
   return '';
 }
 
-const axiosInstance = axios.create({
-  withCredentials: true,
-  headers: {
-    Authorization: 'Bearer ' + getCookie('jwt'),
-  },
-});
-
 const useHttp = applyData => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const sendRequest = useCallback(
     async requestConfig => {
+      const axiosInstance = axios.create({
+        withCredentials: true,
+        headers: {
+          Authorization: 'Bearer ' + getCookie('jwt'),
+        },
+      });
+
       setIsLoading(true);
       setError(null);
       try {

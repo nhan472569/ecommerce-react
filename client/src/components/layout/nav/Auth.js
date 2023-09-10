@@ -1,27 +1,21 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { authAction } from '../../../store/auth-context';
 import ProfileButton from '../nav/ProfileButton';
 
 import classes from './Auth.module.css';
 
-const Auth = ({ onClickAction = () => {} }) => {
-  const dispatch = useDispatch();
+const Auth = ({ onClickAction }) => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
   const loginHandler = () => {
-    onClickAction();
+    onClickAction?.();
     navigate('/login');
   };
   const signupHandler = () => {
-    onClickAction();
+    onClickAction?.();
     navigate('/signup');
-  };
-  const logoutHandler = () => {
-    onClickAction();
-    dispatch(authAction.logout());
   };
 
   const authContent = !isLoggedIn ? (
@@ -34,7 +28,7 @@ const Auth = ({ onClickAction = () => {} }) => {
       </button>
     </>
   ) : (
-    <ProfileButton onLogout={logoutHandler} onClickAction={onClickAction} />
+    <ProfileButton onClickAction={onClickAction} />
   );
   return <div className={classes.auth}>{authContent}</div>;
 };

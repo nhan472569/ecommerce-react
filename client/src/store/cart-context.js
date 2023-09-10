@@ -30,6 +30,10 @@ const cartSlice = createSlice({
         return total + current.book.price * current.quantity;
       }, 0);
     },
+    resetStates(state) {
+      state.items = [];
+      state.total = 0;
+    },
   },
 });
 

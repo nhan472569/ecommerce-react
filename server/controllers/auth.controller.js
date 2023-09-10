@@ -61,7 +61,9 @@ module.exports.login = catchAsync(async (req, res, next) => {
   if (!email || !password) {
     return next(new AppError('Please provide email and password!'), 400);
   }
-  const user = await User.findOne({ email, active: { $ne: false } }).select('+password');
+  const user = await User.findOne({ email, active: { $ne: false } }).select(
+    '+password'
+  );
   if (!user || !(await user.comparePassword(password, user.password))) {
     return next(
       new AppError('Incorrect email or password. Please try again.', 401)
@@ -78,7 +80,7 @@ module.exports.login = catchAsync(async (req, res, next) => {
 
 module.exports.logout = (req, res) => {
   res.cookie('jwt', 'loggedout', {
-    expires: new Date(Date.now() + 10 * 1000),
+    expires: new Date(Date.now() + 100),
     httpOnly: true,
   });
   res.status(200).json({ status: 'success' });

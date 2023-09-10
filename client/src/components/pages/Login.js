@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import NotificationModel from '../../models/NotificationModel';
+import useCart from '../../hooks/use-cart';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -23,6 +24,7 @@ const LoginSchema = Yup.object().shape({
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const dispatch = useDispatch();
+  const { getCartItems } = useCart();
   const {
     isLoading,
     error,
@@ -37,8 +39,9 @@ const Login = () => {
         d.setTime(d.getTime() + 90 * 24 * 60 * 60 * 1000); // 90 days
         let expires = 'expires=' + d.toUTCString();
         document.cookie = `jwt=${data.token};secure;${expires};path=/`;
+        getCartItems();
       },
-      [dispatch]
+      [dispatch, getCartItems]
     )
   );
   useEffect(() => {

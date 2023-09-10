@@ -9,6 +9,7 @@ import useHttp from '../../../hooks/use-http';
 import { authAction } from '../../../store/auth-context';
 
 import classes from './ProfileButton.module.css';
+import { cartAction } from '../../../store/cart-context';
 
 const ProfileButton = ({ onClickAction }) => {
   const dispatch = useDispatch();
@@ -18,10 +19,11 @@ const ProfileButton = ({ onClickAction }) => {
   const { sendRequest: logout } = useHttp(
     useCallback(() => {
       dispatch(authAction.logout());
+      dispatch(cartAction.resetStates());
     }, [dispatch])
   );
   const logoutHandler = () => {
-    onClickAction();
+    onClickAction?.();
     logout({ url: 'users/logout', method: 'get' });
   };
   return (
@@ -32,7 +34,7 @@ const ProfileButton = ({ onClickAction }) => {
           alt={user.name}
         />
       </div>
-      <ul className={classes.feature} onClick={onClickAction}>
+      <ul className={classes.feature} onClick={() => onClickAction?.()}>
         <div
           className={classes['info-section']}
           onClick={() => navigate('user/profile')}
@@ -53,7 +55,7 @@ const ProfileButton = ({ onClickAction }) => {
             <Link
               to="/admin/manage"
               className={classes['function-link']}
-              onClick={onClickAction}
+              onClick={() => onClickAction?.()}
             >
               <span className={classes.icon}>
                 <FontAwesomeIcon icon={solid('chart-line')}></FontAwesomeIcon>
@@ -64,7 +66,7 @@ const ProfileButton = ({ onClickAction }) => {
             <Link
               to="/wishlist"
               className={classes['function-link']}
-              onClick={onClickAction}
+              onClick={() => onClickAction?.()}
             >
               <span className={classes.icon}>
                 <FontAwesomeIcon icon={solid('heart')}></FontAwesomeIcon>
