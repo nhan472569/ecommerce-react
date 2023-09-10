@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const CartItem = require('../models/cartItem.model');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
@@ -6,16 +7,16 @@ const factory = require('./handleFactory.controller');
 exports.getByUserId = catchAsync(async (req, res) => {
   const { _id: userId } = req.user;
   const cartItems = await CartItem.find({ userId });
-  const totalAmount = cartItems.reduce(
-    (total, item) => total + item.book.price * item.quantity,
-    0
-  );
+  // const totalAmount = cartItems.reduce(
+  //   (total, item) => total + item.book.price * item.quantity,
+  //   0
+  // );
 
   return res.status(200).json({
     status: 'success',
     data: {
       data: cartItems,
-      totalAmount,
+      // totalAmount,
     },
   });
 });
@@ -43,11 +44,20 @@ exports.createCartItem = catchAsync(async (req, res, next) => {
   }
   if (quantity === null) return next(new AppError('Invalid quantity', 400));
 
-  let newCartItem = await CartItem.create(req.body);
-  newCartItem = await newCartItem.populate({
-    path: 'book',
-    select: 'name imageCover price slug',
-  });
+  let newCartItem = await CartItem.findOneAndUpdate(
+    { _id: mongoose.Types.ObjectId() },
+    req.body,
+    {
+      new: true,
+      upsert: true,
+      runValidators: true,
+      setDefaultsOnInsert: true,
+      populate: {
+        path: 'book',
+        select: 'name imageCover price slug',
+      },
+    }
+  );
 
   return res.status(201).json({
     status: 'success',
