@@ -5,7 +5,7 @@ const catchAsync = require('../utils/catchAsync');
 const factory = require('./handleFactory.controller');
 
 exports.getByUserId = catchAsync(async (req, res, next) => {
-  const { _id: userId } = req.user;
+  const userId = req.user.id;
   const cartItems = await CartItem.find({ userId });
   const totalAmount = cartItems.reduce(
     (total, item) => total + item.book.price * item.quantity,
